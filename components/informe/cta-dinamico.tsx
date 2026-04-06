@@ -1,4 +1,5 @@
 import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 import type { Viability } from '@/lib/pricing/types';
 
 export function CtaDinamico({ viability }: { viability: Viability }) {
@@ -6,7 +7,7 @@ export function CtaDinamico({ viability }: { viability: Viability }) {
     <div className="text-center mt-12">
       <a
         href={viability.cta.href}
-        className={buttonVariants({ size: 'lg' }) + ' text-lg h-14 px-8'}
+        className={cn(buttonVariants({ size: 'lg' }), 'text-lg h-14 px-8')}
       >
         {viability.cta.label}
       </a>
