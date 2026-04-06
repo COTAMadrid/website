@@ -56,76 +56,180 @@ export function BlueprintBackground() {
       className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
     >
       {/* ╭──────────────────────────────────────────────────╮
-          │  PLAN A — top-left  — 1-dorm small piso          │
+          │  PLAN A — top-left  — Realistic 1-dorm piso      │
           │  Cycle starts at 0s                              │
           ╰──────────────────────────────────────────────────╯ */}
       <svg
-        viewBox="0 0 600 480"
+        viewBox="0 0 720 540"
         preserveAspectRatio="xMinYMin meet"
-        className="absolute left-[2%] top-[6%] h-[60vh] w-auto opacity-90"
+        className="absolute left-[2%] top-[6%] h-[68vh] w-auto opacity-95"
         fill="none"
         stroke={stroke}
-        strokeWidth="1.1"
+        strokeWidth="1"
         strokeLinecap="round"
         strokeLinejoin="round"
       >
-        {/* Stage 1 (0-3s): exterior walls */}
-        <motion.rect x="40" y="40" width="520" height="400" {...drawStage(0, 0, 3)} />
+        {/* ─────────── STAGE 1 (0-3s): exterior walls (double line for thickness) ─────────── */}
+        {/* Outer */}
+        <motion.rect x="60" y="60" width="600" height="420" {...drawStage(0, 0, 1.5)} />
+        {/* Inner (8px thickness) */}
+        <motion.rect x="68" y="68" width="584" height="404" {...drawStage(0, 1, 1.5)} />
 
-        {/* Stage 2 (3-6s): interior walls */}
-        <motion.line x1="280" y1="40" x2="280" y2="240" {...drawStage(0, 3, 1.5)} />
-        <motion.line x1="280" y1="240" x2="40" y2="240" {...drawStage(0, 4, 1.5)} />
-        <motion.line x1="280" y1="240" x2="280" y2="440" {...drawStage(0, 4.5, 1.5)} />
-        <motion.line x1="280" y1="320" x2="560" y2="320" {...drawStage(0, 5, 1)} />
+        {/* ─────────── STAGE 2 (3-6s): interior walls (single line) ─────────── */}
+        {/* Vertical wall separating salon-cocina from dorms-bath */}
+        <motion.line x1="380" y1="68" x2="380" y2="280" {...drawStage(0, 3, 1)} />
+        {/* Horizontal wall under cocina/bath */}
+        <motion.line x1="68" y1="200" x2="240" y2="200" {...drawStage(0, 3.5, 0.8)} />
+        <motion.line x1="240" y1="200" x2="240" y2="68" {...drawStage(0, 4, 0.6)} />
+        {/* Wall between dorm and bath */}
+        <motion.line x1="380" y1="280" x2="652" y2="280" {...drawStage(0, 4.4, 1)} />
+        {/* Bath internal wall */}
+        <motion.line x1="540" y1="68" x2="540" y2="280" {...drawStage(0, 4.8, 0.8)} />
+        {/* Pasillo wall */}
+        <motion.line x1="240" y1="280" x2="380" y2="280" {...drawStage(0, 5.2, 0.6)} />
 
-        {/* Stage 3 (6-8s): door arcs */}
-        <motion.path d="M 280 200 A 40 40 0 0 0 320 240" {...drawStage(0, 6, 0.6)} />
-        <motion.path d="M 280 360 A 40 40 0 0 1 320 320" {...drawStage(0, 6.5, 0.6)} />
-        <motion.path d="M 80 240 A 40 40 0 0 1 120 200" {...drawStage(0, 7, 0.6)} />
+        {/* ─────────── STAGE 3 (6-8s): doors with leaf + arc ─────────── */}
+        {/* Door entrada (bottom) */}
+        <motion.line x1="320" y1="472" x2="320" y2="436" {...drawStage(0, 6, 0.4)} />
+        <motion.path d="M 320 472 A 36 36 0 0 1 356 436" {...drawStage(0, 6, 0.5)} />
+        {/* Door cocina */}
+        <motion.line x1="200" y1="200" x2="200" y2="168" {...drawStage(0, 6.3, 0.4)} />
+        <motion.path d="M 200 200 A 32 32 0 0 1 232 168" {...drawStage(0, 6.3, 0.5)} />
+        {/* Door bath */}
+        <motion.line x1="540" y1="200" x2="572" y2="200" {...drawStage(0, 6.6, 0.4)} />
+        <motion.path d="M 540 200 A 32 32 0 0 0 572 168" {...drawStage(0, 6.6, 0.5)} />
+        {/* Door dorm 1 */}
+        <motion.line x1="450" y1="280" x2="450" y2="312" {...drawStage(0, 6.9, 0.4)} />
+        <motion.path d="M 450 280 A 32 32 0 0 0 482 312" {...drawStage(0, 6.9, 0.5)} />
 
-        {/* Stage 4 (8-10s): windows (double line) */}
-        <motion.line x1="100" y1="36" x2="180" y2="36" strokeWidth="3" {...drawStage(0, 8, 0.8)} />
-        <motion.line x1="100" y1="44" x2="180" y2="44" strokeWidth="3" {...drawStage(0, 8, 0.8)} />
-        <motion.line x1="380" y1="36" x2="480" y2="36" strokeWidth="3" {...drawStage(0, 8.4, 0.8)} />
-        <motion.line x1="380" y1="44" x2="480" y2="44" strokeWidth="3" {...drawStage(0, 8.4, 0.8)} />
-        <motion.line x1="556" y1="100" x2="556" y2="180" strokeWidth="3" {...drawStage(0, 8.8, 0.8)} />
-        <motion.line x1="564" y1="100" x2="564" y2="180" strokeWidth="3" {...drawStage(0, 8.8, 0.8)} />
+        {/* ─────────── STAGE 4 (8-10s): windows (4 parallel lines = wall break) ─────────── */}
+        {/* Window N - salon */}
+        <motion.line x1="120" y1="60" x2="220" y2="60" {...drawStage(0, 8, 0.5)} />
+        <motion.line x1="120" y1="68" x2="220" y2="68" {...drawStage(0, 8, 0.5)} />
+        <motion.line x1="170" y1="58" x2="170" y2="70" {...drawStage(0, 8, 0.5)} />
+        {/* Window N - cocina */}
+        <motion.line x1="290" y1="60" x2="350" y2="60" {...drawStage(0, 8.3, 0.5)} />
+        <motion.line x1="290" y1="68" x2="350" y2="68" {...drawStage(0, 8.3, 0.5)} />
+        {/* Window E - dorm */}
+        <motion.line x1="652" y1="320" x2="652" y2="430" {...drawStage(0, 8.6, 0.5)} />
+        <motion.line x1="660" y1="320" x2="660" y2="430" {...drawStage(0, 8.6, 0.5)} />
+        <motion.line x1="650" y1="375" x2="662" y2="375" {...drawStage(0, 8.6, 0.5)} />
+        {/* Window E - bath */}
+        <motion.line x1="652" y1="120" x2="652" y2="180" {...drawStage(0, 8.9, 0.5)} />
+        <motion.line x1="660" y1="120" x2="660" y2="180" {...drawStage(0, 8.9, 0.5)} />
 
-        {/* Stage 5 (10-12s): furniture sketches */}
-        {/* Sofa (salon) */}
-        <motion.rect x="80" y="300" width="160" height="60" rx="4" {...drawStage(0, 10, 0.8)} />
-        {/* Bed (dormitorio) */}
-        <motion.rect x="400" y="370" width="100" height="50" rx="4" {...drawStage(0, 10.4, 0.8)} />
-        {/* Kitchen counter */}
-        <motion.line x1="60" y1="80" x2="220" y2="80" strokeWidth="2" {...drawStage(0, 10.8, 0.6)} />
-        {/* Bath circle (lavabo) */}
-        <motion.circle cx="380" cy="280" r="14" {...drawStage(0, 11.2, 0.6)} />
+        {/* ─────────── STAGE 5 (10-12s): furniture + fixtures (REAL) ─────────── */}
+
+        {/* COCINA: counter L-shape + sink + stove + fridge */}
+        {/* counter */}
+        <motion.line x1="76" y1="100" x2="232" y2="100" {...drawStage(0, 10, 0.5)} />
+        <motion.line x1="76" y1="100" x2="76" y2="192" {...drawStage(0, 10, 0.5)} />
+        {/* sink (2 basins) */}
+        <motion.rect x="100" y="76" width="40" height="22" rx="2" {...drawStage(0, 10.1, 0.4)} />
+        <motion.line x1="120" y1="78" x2="120" y2="98" {...drawStage(0, 10.1, 0.3)} />
+        {/* stove with 4 burners */}
+        <motion.rect x="160" y="76" width="46" height="22" {...drawStage(0, 10.2, 0.4)} />
+        <motion.circle cx="170" cy="84" r="3" {...drawStage(0, 10.2, 0.3)} />
+        <motion.circle cx="184" cy="84" r="3" {...drawStage(0, 10.2, 0.3)} />
+        <motion.circle cx="170" cy="93" r="2.5" {...drawStage(0, 10.2, 0.3)} />
+        <motion.circle cx="184" cy="93" r="2.5" {...drawStage(0, 10.2, 0.3)} />
+        {/* fridge */}
+        <motion.rect x="80" y="120" width="36" height="40" {...drawStage(0, 10.3, 0.4)} />
+        <motion.line x1="80" y1="125" x2="116" y2="125" {...drawStage(0, 10.3, 0.3)} />
+
+        {/* BAÑO: WC + lavabo + bañera */}
+        {/* WC (oval + tank) */}
+        <motion.ellipse cx="570" cy="248" rx="12" ry="14" {...drawStage(0, 10.4, 0.4)} />
+        <motion.rect x="558" y="220" width="24" height="14" {...drawStage(0, 10.4, 0.4)} />
+        {/* lavabo */}
+        <motion.rect x="600" y="80" width="40" height="22" rx="2" {...drawStage(0, 10.5, 0.4)} />
+        <motion.ellipse cx="620" cy="91" rx="12" ry="6" {...drawStage(0, 10.5, 0.4)} />
+        {/* bañera */}
+        <motion.rect x="552" y="116" width="92" height="40" rx="6" {...drawStage(0, 10.6, 0.4)} />
+        <motion.rect x="560" y="124" width="76" height="24" rx="4" {...drawStage(0, 10.6, 0.4)} />
+        <motion.circle cx="630" cy="136" r="2" {...drawStage(0, 10.6, 0.3)} />
+
+        {/* SALON: sofa 3-seater + coffee table + tv */}
+        <motion.rect x="100" y="380" width="180" height="60" rx="4" {...drawStage(0, 10.7, 0.5)} />
+        {/* sofa cushion divisions */}
+        <motion.line x1="160" y1="395" x2="160" y2="440" {...drawStage(0, 10.7, 0.4)} />
+        <motion.line x1="220" y1="395" x2="220" y2="440" {...drawStage(0, 10.7, 0.4)} />
+        {/* sofa back rail */}
+        <motion.line x1="100" y1="392" x2="280" y2="392" {...drawStage(0, 10.7, 0.4)} />
+        {/* coffee table */}
+        <motion.rect x="140" y="320" width="100" height="36" rx="3" {...drawStage(0, 10.8, 0.4)} />
+        {/* TV (line on wall) */}
+        <motion.line x1="150" y1="304" x2="230" y2="304" strokeWidth="2.5" {...drawStage(0, 10.8, 0.4)} />
+
+        {/* DORM: cama matrimonio + 2 mesitas + armario */}
+        {/* bed */}
+        <motion.rect x="430" y="370" width="120" height="80" rx="3" {...drawStage(0, 10.9, 0.5)} />
+        {/* headboard */}
+        <motion.line x1="430" y1="376" x2="550" y2="376" strokeWidth="2" {...drawStage(0, 10.9, 0.4)} />
+        {/* 2 pillows */}
+        <motion.rect x="438" y="380" width="48" height="20" rx="2" {...drawStage(0, 10.9, 0.4)} />
+        <motion.rect x="494" y="380" width="48" height="20" rx="2" {...drawStage(0, 10.9, 0.4)} />
+        {/* nightstands */}
+        <motion.rect x="406" y="380" width="20" height="24" {...drawStage(0, 11, 0.4)} />
+        <motion.rect x="554" y="380" width="20" height="24" {...drawStage(0, 11, 0.4)} />
+        {/* armario (wardrobe) */}
+        <motion.rect x="400" y="296" width="240" height="32" {...drawStage(0, 11.1, 0.5)} />
+        {/* doors of wardrobe */}
+        <motion.line x1="460" y1="296" x2="460" y2="328" {...drawStage(0, 11.1, 0.3)} />
+        <motion.line x1="520" y1="296" x2="520" y2="328" {...drawStage(0, 11.1, 0.3)} />
+        <motion.line x1="580" y1="296" x2="580" y2="328" {...drawStage(0, 11.1, 0.3)} />
+
+        {/* ─────────── STAGE 6 (11.4-12.5s): labels + dimensions + north arrow ─────────── */}
 
         {/* Room labels */}
-        <motion.text x="160" y="160" fill={stroke} stroke="none" fontSize="9" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" letterSpacing="0.2em" {...drawStage(0, 11, 0.4)}>SALÓN</motion.text>
-        <motion.text x="135" y="120" fill={stroke} stroke="none" fontSize="8" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" letterSpacing="0.18em" {...drawStage(0, 11.1, 0.4)}>22.4 m²</motion.text>
-        <motion.text x="140" y="60" fill={stroke} stroke="none" fontSize="9" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" letterSpacing="0.2em" {...drawStage(0, 11.2, 0.4)}>COCINA</motion.text>
-        <motion.text x="430" y="170" fill={stroke} stroke="none" fontSize="9" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" letterSpacing="0.2em" {...drawStage(0, 11.3, 0.4)}>DORM</motion.text>
-        <motion.text x="430" y="280" fill={stroke} stroke="none" fontSize="9" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" letterSpacing="0.2em" {...drawStage(0, 11.4, 0.4)}>BAÑO</motion.text>
+        <motion.text x="180" y="430" textAnchor="middle" fill={stroke} stroke="none" fontSize="9" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" letterSpacing="0.22em" {...drawStage(0, 11.4, 0.4)}>SALÓN · 24 m²</motion.text>
+        <motion.text x="155" y="180" textAnchor="middle" fill={stroke} stroke="none" fontSize="8" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" letterSpacing="0.2em" {...drawStage(0, 11.4, 0.4)}>COCINA · 8 m²</motion.text>
+        <motion.text x="510" y="430" textAnchor="middle" fill={stroke} stroke="none" fontSize="9" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" letterSpacing="0.22em" {...drawStage(0, 11.5, 0.4)}>DORMITORIO · 14 m²</motion.text>
+        <motion.text x="595" y="265" textAnchor="middle" fill={stroke} stroke="none" fontSize="7" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" letterSpacing="0.18em" {...drawStage(0, 11.5, 0.4)}>BAÑO · 6 m²</motion.text>
+        <motion.text x="310" y="350" textAnchor="middle" fill={stroke} stroke="none" fontSize="6" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" letterSpacing="0.18em" {...drawStage(0, 11.5, 0.4)}>PASILLO</motion.text>
 
-        {/* Dimension line bottom */}
-        <motion.line x1="40" y1="465" x2="560" y2="465" strokeDasharray="2 3" {...drawStage(0, 11.6, 0.6)} />
-        <motion.line x1="40" y1="460" x2="40" y2="470" {...drawStage(0, 11.6, 0.4)} />
-        <motion.line x1="560" y1="460" x2="560" y2="470" {...drawStage(0, 11.6, 0.4)} />
-        <motion.text x="300" y="461" textAnchor="middle" fill={stroke} stroke="none" fontSize="9" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" letterSpacing="0.15em" {...drawStage(0, 11.7, 0.4)}>10.40 m</motion.text>
+        {/* Dimension lines (top, bottom, left) with extension marks */}
+        {/* Bottom */}
+        <motion.line x1="60" y1="510" x2="660" y2="510" strokeDasharray="1 3" {...drawStage(0, 11.6, 0.5)} />
+        <motion.line x1="60" y1="500" x2="60" y2="520" {...drawStage(0, 11.6, 0.3)} />
+        <motion.line x1="660" y1="500" x2="660" y2="520" {...drawStage(0, 11.6, 0.3)} />
+        <motion.text x="360" y="506" textAnchor="middle" fill={stroke} stroke="none" fontSize="9" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" letterSpacing="0.15em" {...drawStage(0, 11.7, 0.4)}>12.00 m</motion.text>
+        {/* Left vertical */}
+        <motion.line x1="30" y1="60" x2="30" y2="480" strokeDasharray="1 3" {...drawStage(0, 11.6, 0.5)} />
+        <motion.line x1="20" y1="60" x2="40" y2="60" {...drawStage(0, 11.6, 0.3)} />
+        <motion.line x1="20" y1="480" x2="40" y2="480" {...drawStage(0, 11.6, 0.3)} />
+        <motion.text x="22" y="276" textAnchor="middle" fill={stroke} stroke="none" fontSize="9" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" letterSpacing="0.15em" transform="rotate(-90 22 276)" {...drawStage(0, 11.7, 0.4)}>8.40 m</motion.text>
 
-        {/* Title */}
+        {/* North arrow (top-right corner) */}
+        <motion.circle cx="688" cy="32" r="14" {...drawStage(0, 11.8, 0.4)} />
+        <motion.line x1="688" y1="20" x2="688" y2="44" {...drawStage(0, 11.8, 0.4)} />
+        <motion.path d="M 688 18 L 684 26 L 692 26 Z" {...drawStage(0, 11.8, 0.4)} />
+        <motion.text x="688" y="55" textAnchor="middle" fill={stroke} stroke="none" fontSize="9" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" letterSpacing="0.2em" {...drawStage(0, 11.8, 0.4)}>N</motion.text>
+
+        {/* Title bar */}
         <motion.text
-          x="50"
-          y="22"
+          x="60"
+          y="48"
           fill={stroke}
           stroke="none"
           fontSize="9"
           fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
           letterSpacing="0.22em"
-          {...drawStage(0, 11.8, 0.5)}
+          {...drawStage(0, 11.9, 0.5)}
         >
           PLANTA · 01 · 65 m² · CHAMBERÍ
+        </motion.text>
+        <motion.text
+          x="60"
+          y="534"
+          fill={stroke}
+          stroke="none"
+          fontSize="7"
+          fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
+          letterSpacing="0.2em"
+          {...drawStage(0, 11.9, 0.5)}
+        >
+          ESC. 1:50 · COTA MADRID · DIAGNÓSTICO 001
         </motion.text>
       </svg>
 
