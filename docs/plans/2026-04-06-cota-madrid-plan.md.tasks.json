@@ -52,7 +52,7 @@
     {
       "id": 7,
       "subject": "Task 7: Informe page — report visualization",
-      "status": "pending",
+      "status": "completed",
       "blockedBy": [4, 6],
       "description": "**Goal:** Render diagnostic report from sessionStorage, submit lead to /api/leads once on mount.\n\n**Files:** app/informe/page.tsx, components/informe/*\n\n**Verify:** Manual: complete wizard → see informe → check Network tab\n\n```json:metadata\n{\"files\": [\"app/informe/page.tsx\", \"components/informe/informe.tsx\", \"components/informe/rango-precio.tsx\", \"components/informe/duracion.tsx\", \"components/informe/semaforo.tsx\", \"components/informe/riesgos.tsx\", \"components/informe/cta-dinamico.tsx\"], \"verifyCommand\": \"npm run dev\", \"acceptanceCriteria\": [\"Reads sessionStorage\", \"Renders all blocks\", \"POST /api/leads exactly once\", \"Redirects if no answers\", \"Print-friendly\"]}\n```"
     },
