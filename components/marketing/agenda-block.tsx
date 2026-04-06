@@ -14,7 +14,7 @@ export function AgendaBlock() {
     <section
       id="agenda"
       ref={ref}
-      className="relative overflow-hidden bg-background px-6 py-16 md:py-24"
+      className="relative overflow-hidden bg-background/92 px-6 py-16 md:py-24"
     >
       {/* Textural background image */}
       <div aria-hidden className="absolute inset-0 -z-10">

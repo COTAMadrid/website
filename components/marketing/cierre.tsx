@@ -15,7 +15,7 @@ export function Cierre() {
   return (
     <section
       ref={ref}
-      className="relative py-24 md:py-32 px-6 overflow-hidden bg-background"
+      className="relative py-24 md:py-32 px-6 overflow-hidden bg-background/92"
     >
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute left-1/2 top-1/2 h-[42rem] w-[42rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,oklch(0.78_0.12_80/0.18),transparent_70%)] blur-3xl" />

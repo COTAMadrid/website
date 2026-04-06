@@ -3,241 +3,233 @@
 import { motion, useReducedMotion } from 'framer-motion';
 
 /**
- * Global blueprint background — sits behind all page content with very low
- * opacity. Slow continuous architectural draw animations: dimension lines,
- * floor plan fragments, measurement marks. Gives the page a feeling of being
- * a "live architectural project in progress" without distracting from text.
+ * Global blueprint background — 3 floor plans drawing themselves progressively.
+ * Sits behind all home page content via z-0 fixed; sections above use semi-
+ * transparent backgrounds (95% opacity) so this stays visible through them.
  *
- * Uses fixed positioning so it stays as the page scrolls. Pure SVG.
+ * Each plan draws in stages: exterior walls → interior walls → doors → windows
+ * → furniture, then holds, fades, waits, and starts again. Three plans are
+ * staggered so something is always being drawn somewhere on the page.
  */
 export function BlueprintBackground() {
   const reduce = useReducedMotion();
 
-  // Loop animation for path drawing — slow, repeating
-  const loopDraw = (delay: number, duration = 6) =>
-    reduce
-      ? { initial: { pathLength: 1, opacity: 0.55 }, animate: { pathLength: 1, opacity: 0.55 } }
-      : {
-          initial: { pathLength: 0, opacity: 0 },
-          animate: { pathLength: [0, 1, 1, 0], opacity: [0, 0.55, 0.55, 0] },
-          transition: {
-            duration,
-            delay,
-            repeat: Infinity,
-            repeatDelay: 4,
-            ease: 'easeInOut' as const,
-            times: [0, 0.4, 0.85, 1],
-          },
-        };
+  // Cycle = 24s total per plan (12s draw, 6s hold, 2s fade, 4s wait)
+  // Each "stage" is a fraction of those first 12s.
 
-  const loopFade = (delay: number, duration = 6) =>
-    reduce
-      ? { initial: { opacity: 0.55 }, animate: { opacity: 0.55 } }
-      : {
-          initial: { opacity: 0 },
-          animate: { opacity: [0, 0.55, 0.55, 0] },
-          transition: {
-            duration,
-            delay,
-            repeat: Infinity,
-            repeatDelay: 4,
-            ease: 'easeInOut' as const,
-            times: [0, 0.4, 0.85, 1],
-          },
-        };
+  const drawStage = (
+    cycleStart: number,
+    stageStart: number,
+    stageDuration: number
+  ) => {
+    if (reduce) {
+      return {
+        initial: { pathLength: 1, opacity: 0.55 },
+        animate: { pathLength: 1, opacity: 0.55 },
+      };
+    }
+    const total = 24;
+    const t0 = (cycleStart + stageStart) / total;
+    const t1 = (cycleStart + stageStart + stageDuration) / total;
+    const tHoldEnd = (cycleStart + 18) / total;
+    const tFadeEnd = (cycleStart + 20) / total;
+    return {
+      initial: { pathLength: 0, opacity: 0 },
+      animate: {
+        pathLength: [0, 0, 1, 1, 1, 0],
+        opacity: [0, 0, 0.55, 0.55, 0.55, 0],
+      },
+      transition: {
+        duration: total,
+        repeat: Infinity,
+        ease: 'easeInOut' as const,
+        times: [0, t0, t1, tHoldEnd, tFadeEnd, 1],
+      },
+    };
+  };
 
-  // Plain warm gold (RGB hex so it's universally supported)
   const stroke = '#c9a66b';
 
   return (
     <div
       aria-hidden
-      className="pointer-events-none fixed inset-0 z-[15] overflow-hidden"
+      className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
     >
       {/* ╭──────────────────────────────────────────────────╮
-          │  GROUP A — Top-left floor plan fragment          │
+          │  PLAN A — top-left  — 1-dorm small piso          │
+          │  Cycle starts at 0s                              │
           ╰──────────────────────────────────────────────────╯ */}
       <svg
-        viewBox="0 0 800 600"
+        viewBox="0 0 600 480"
         preserveAspectRatio="xMinYMin meet"
-        className="absolute left-[3%] top-[5%] h-[55vh] w-auto"
+        className="absolute left-[2%] top-[6%] h-[60vh] w-auto opacity-90"
         fill="none"
         stroke={stroke}
-        strokeWidth="0.8"
+        strokeWidth="1.4"
         strokeLinecap="round"
+        strokeLinejoin="round"
       >
-        {/* Floor plan rectangle (room outline) */}
-        <motion.rect x="40" y="40" width="320" height="220" {...loopDraw(0, 7)} />
-        {/* Internal wall */}
-        <motion.line x1="200" y1="40" x2="200" y2="160" {...loopDraw(1.2, 5)} />
-        <motion.line x1="200" y1="160" x2="360" y2="160" {...loopDraw(2.4, 4)} />
-        {/* Door swing arc */}
-        <motion.path
-          d="M 200 160 A 40 40 0 0 1 240 200"
-          {...loopDraw(3.6, 3)}
-        />
-        {/* Window markers (top wall) */}
-        <motion.line x1="80" y1="36" x2="140" y2="36" strokeWidth="2" {...loopDraw(0.8, 5)} />
-        <motion.line x1="80" y1="44" x2="140" y2="44" strokeWidth="2" {...loopDraw(0.8, 5)} />
+        {/* Stage 1 (0-3s): exterior walls */}
+        <motion.rect x="40" y="40" width="520" height="400" {...drawStage(0, 0, 3)} />
 
-        {/* Dimension line below */}
-        <motion.line x1="40" y1="295" x2="360" y2="295" {...loopDraw(2, 5)} />
-        <motion.line x1="40" y1="285" x2="40" y2="305" {...loopDraw(2, 5)} />
-        <motion.line x1="360" y1="285" x2="360" y2="305" {...loopDraw(2, 5)} />
-        <motion.text
-          x="200"
-          y="320"
-          textAnchor="middle"
-          fill={stroke}
-          stroke="none"
-          fontSize="14"
-          fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
-          letterSpacing="0.1em"
-          {...loopFade(2.5, 5)}
-        >
-          12.40 m
-        </motion.text>
-      </svg>
+        {/* Stage 2 (3-6s): interior walls */}
+        <motion.line x1="280" y1="40" x2="280" y2="240" {...drawStage(0, 3, 1.5)} />
+        <motion.line x1="280" y1="240" x2="40" y2="240" {...drawStage(0, 4, 1.5)} />
+        <motion.line x1="280" y1="240" x2="280" y2="440" {...drawStage(0, 4.5, 1.5)} />
+        <motion.line x1="280" y1="320" x2="560" y2="320" {...drawStage(0, 5, 1)} />
 
-      {/* ╭──────────────────────────────────────────────────╮
-          │  GROUP B — Mid-right vertical dimension stack    │
-          ╰──────────────────────────────────────────────────╯ */}
-      <svg
-        viewBox="0 0 400 700"
-        preserveAspectRatio="xMaxYMid meet"
-        className="absolute right-[4%] top-[35%] h-[60vh] w-auto"
-        fill="none"
-        stroke={stroke}
-        strokeWidth="0.8"
-        strokeLinecap="round"
-      >
-        {/* Vertical cota stack */}
-        <motion.line x1="350" y1="60" x2="380" y2="60" {...loopDraw(8, 4)} />
-        <motion.line x1="350" y1="240" x2="380" y2="240" {...loopDraw(8, 4)} />
-        <motion.line x1="365" y1="60" x2="365" y2="135" {...loopDraw(8.5, 4)} />
-        <motion.line x1="365" y1="165" x2="365" y2="240" {...loopDraw(8.5, 4)} />
-        <motion.text
-          x="365"
-          y="155"
-          textAnchor="middle"
-          fill={stroke}
-          stroke="none"
-          fontSize="13"
-          fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
-          letterSpacing="0.1em"
-          {...loopFade(9, 4)}
-        >
-          2.80
-        </motion.text>
+        {/* Stage 3 (6-8s): door arcs */}
+        <motion.path d="M 280 200 A 40 40 0 0 0 320 240" {...drawStage(0, 6, 0.6)} />
+        <motion.path d="M 280 360 A 40 40 0 0 1 320 320" {...drawStage(0, 6.5, 0.6)} />
+        <motion.path d="M 80 240 A 40 40 0 0 1 120 200" {...drawStage(0, 7, 0.6)} />
 
-        <motion.line x1="350" y1="280" x2="380" y2="280" {...loopDraw(10, 4)} />
-        <motion.line x1="350" y1="500" x2="380" y2="500" {...loopDraw(10, 4)} />
-        <motion.line x1="365" y1="280" x2="365" y2="380" {...loopDraw(10.5, 4)} />
-        <motion.line x1="365" y1="410" x2="365" y2="500" {...loopDraw(10.5, 4)} />
-        <motion.text
-          x="365"
-          y="400"
-          textAnchor="middle"
-          fill={stroke}
-          stroke="none"
-          fontSize="13"
-          fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
-          letterSpacing="0.1em"
-          {...loopFade(11, 4)}
-        >
-          3.40
-        </motion.text>
+        {/* Stage 4 (8-10s): windows (double line) */}
+        <motion.line x1="100" y1="36" x2="180" y2="36" strokeWidth="3" {...drawStage(0, 8, 0.8)} />
+        <motion.line x1="100" y1="44" x2="180" y2="44" strokeWidth="3" {...drawStage(0, 8, 0.8)} />
+        <motion.line x1="380" y1="36" x2="480" y2="36" strokeWidth="3" {...drawStage(0, 8.4, 0.8)} />
+        <motion.line x1="380" y1="44" x2="480" y2="44" strokeWidth="3" {...drawStage(0, 8.4, 0.8)} />
+        <motion.line x1="556" y1="100" x2="556" y2="180" strokeWidth="3" {...drawStage(0, 8.8, 0.8)} />
+        <motion.line x1="564" y1="100" x2="564" y2="180" strokeWidth="3" {...drawStage(0, 8.8, 0.8)} />
 
-        {/* Detail circle with leader */}
-        <motion.circle
-          cx="220"
-          cy="600"
-          r="40"
-          strokeDasharray="3 5"
-          {...loopDraw(12, 5)}
-        />
-        <motion.line x1="260" y1="570" x2="340" y2="540" {...loopDraw(13, 3)} />
+        {/* Stage 5 (10-12s): furniture sketches */}
+        {/* Sofa (salon) */}
+        <motion.rect x="80" y="300" width="160" height="60" rx="4" {...drawStage(0, 10, 0.8)} />
+        {/* Bed (dormitorio) */}
+        <motion.rect x="400" y="370" width="100" height="50" rx="4" {...drawStage(0, 10.4, 0.8)} />
+        {/* Kitchen counter */}
+        <motion.line x1="60" y1="80" x2="220" y2="80" strokeWidth="2" {...drawStage(0, 10.8, 0.6)} />
+        {/* Bath circle (lavabo) */}
+        <motion.circle cx="380" cy="280" r="14" {...drawStage(0, 11.2, 0.6)} />
+
+        {/* Label */}
         <motion.text
-          x="300"
-          y="528"
+          x="50"
+          y="465"
           fill={stroke}
           stroke="none"
           fontSize="11"
           fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
           letterSpacing="0.18em"
-          {...loopFade(14, 3)}
+          {...drawStage(0, 11.5, 0.5)}
         >
-          DETALLE
+          PLANTA · 01 · 65 m²
         </motion.text>
       </svg>
 
       {/* ╭──────────────────────────────────────────────────╮
-          │  GROUP C — Bottom-left isometric grid sketch     │
+          │  PLAN B — mid-right — 2-dorm bigger piso         │
+          │  Cycle starts at 8s (offset)                     │
           ╰──────────────────────────────────────────────────╯ */}
       <svg
-        viewBox="0 0 600 500"
-        preserveAspectRatio="xMinYMax meet"
-        className="absolute left-[5%] bottom-[10%] h-[50vh] w-auto"
+        viewBox="0 0 700 500"
+        preserveAspectRatio="xMaxYMid meet"
+        className="absolute right-[2%] top-[35%] h-[55vh] w-auto opacity-90"
         fill="none"
         stroke={stroke}
-        strokeWidth="0.8"
+        strokeWidth="1.4"
         strokeLinecap="round"
+        strokeLinejoin="round"
       >
-        {/* Isometric box outline */}
-        <motion.path
-          d="M 100 250 L 250 180 L 400 250 L 400 380 L 250 450 L 100 380 Z"
-          {...loopDraw(16, 7)}
-        />
-        {/* Top edge separator */}
-        <motion.line x1="250" y1="180" x2="250" y2="320" {...loopDraw(17, 5)} />
-        <motion.line x1="100" y1="250" x2="250" y2="320" {...loopDraw(17.5, 5)} />
-        <motion.line x1="400" y1="250" x2="250" y2="320" {...loopDraw(18, 5)} />
+        {/* Stage 1 (0-3s): exterior walls */}
+        <motion.rect x="40" y="40" width="620" height="420" {...drawStage(8, 0, 3)} />
 
-        {/* Crosshair label */}
-        <motion.line x1="80" y1="120" x2="130" y2="120" {...loopDraw(20, 3)} />
-        <motion.line x1="105" y1="95" x2="105" y2="145" {...loopDraw(20, 3)} />
+        {/* Stage 2 (3-6s): interior walls — 2 dorms + bath + kitchen + salon */}
+        <motion.line x1="40" y1="240" x2="380" y2="240" {...drawStage(8, 3, 1.2)} />
+        <motion.line x1="380" y1="40" x2="380" y2="460" {...drawStage(8, 3.5, 1.2)} />
+        <motion.line x1="220" y1="240" x2="220" y2="460" {...drawStage(8, 4, 1)} />
+        <motion.line x1="500" y1="40" x2="500" y2="240" {...drawStage(8, 4.5, 1)} />
+
+        {/* Stage 3 (6-8s): door arcs */}
+        <motion.path d="M 380 100 A 40 40 0 0 1 340 140" {...drawStage(8, 6, 0.5)} />
+        <motion.path d="M 380 320 A 40 40 0 0 0 340 280" {...drawStage(8, 6.4, 0.5)} />
+        <motion.path d="M 220 320 A 40 40 0 0 1 180 280" {...drawStage(8, 6.8, 0.5)} />
+        <motion.path d="M 500 100 A 40 40 0 0 0 540 140" {...drawStage(8, 7.2, 0.5)} />
+
+        {/* Stage 4 (8-10s): windows */}
+        <motion.line x1="80" y1="36" x2="180" y2="36" strokeWidth="3" {...drawStage(8, 8, 0.7)} />
+        <motion.line x1="80" y1="44" x2="180" y2="44" strokeWidth="3" {...drawStage(8, 8, 0.7)} />
+        <motion.line x1="240" y1="36" x2="340" y2="36" strokeWidth="3" {...drawStage(8, 8.4, 0.7)} />
+        <motion.line x1="240" y1="44" x2="340" y2="44" strokeWidth="3" {...drawStage(8, 8.4, 0.7)} />
+        <motion.line x1="540" y1="36" x2="620" y2="36" strokeWidth="3" {...drawStage(8, 8.8, 0.7)} />
+        <motion.line x1="540" y1="44" x2="620" y2="44" strokeWidth="3" {...drawStage(8, 8.8, 0.7)} />
+        <motion.line x1="656" y1="280" x2="656" y2="380" strokeWidth="3" {...drawStage(8, 9.2, 0.7)} />
+        <motion.line x1="664" y1="280" x2="664" y2="380" strokeWidth="3" {...drawStage(8, 9.2, 0.7)} />
+
+        {/* Stage 5 (10-12s): furniture */}
+        {/* 2 beds */}
+        <motion.rect x="60" y="100" width="100" height="60" rx="4" {...drawStage(8, 10, 0.7)} />
+        <motion.rect x="240" y="100" width="100" height="60" rx="4" {...drawStage(8, 10.3, 0.7)} />
+        {/* Sofa salon */}
+        <motion.rect x="420" y="320" width="180" height="70" rx="4" {...drawStage(8, 10.6, 0.7)} />
+        {/* Kitchen counter */}
+        <motion.line x1="60" y1="280" x2="200" y2="280" strokeWidth="2" {...drawStage(8, 10.9, 0.5)} />
+        <motion.line x1="60" y1="280" x2="60" y2="320" strokeWidth="2" {...drawStage(8, 10.9, 0.5)} />
+        {/* Bath fixtures */}
+        <motion.circle cx="280" cy="380" r="14" {...drawStage(8, 11.2, 0.5)} />
+        <motion.rect x="320" y="370" width="40" height="20" rx="2" {...drawStage(8, 11.2, 0.5)} />
+
         <motion.text
-          x="145"
-          y="124"
+          x="50"
+          y="485"
           fill={stroke}
           stroke="none"
-          fontSize="12"
+          fontSize="11"
           fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
           letterSpacing="0.18em"
-          {...loopFade(20.8, 3)}
+          {...drawStage(8, 11.5, 0.5)}
         >
-          PLANO · 04
+          PLANTA · 02 · 92 m²
         </motion.text>
       </svg>
 
       {/* ╭──────────────────────────────────────────────────╮
-          │  GROUP D — Floating cota top-center               │
+          │  PLAN C — bottom-left — open loft                │
+          │  Cycle starts at 16s                             │
           ╰──────────────────────────────────────────────────╯ */}
       <svg
-        viewBox="0 0 600 100"
-        preserveAspectRatio="xMidYMin meet"
-        className="absolute left-[40%] top-[18%] h-[8vh] w-auto"
+        viewBox="0 0 500 400"
+        preserveAspectRatio="xMinYMax meet"
+        className="absolute left-[3%] bottom-[8%] h-[45vh] w-auto opacity-90"
         fill="none"
         stroke={stroke}
-        strokeWidth="0.8"
+        strokeWidth="1.4"
         strokeLinecap="round"
+        strokeLinejoin="round"
       >
-        <motion.line x1="20" y1="40" x2="20" y2="60" {...loopDraw(24, 3)} />
-        <motion.line x1="580" y1="40" x2="580" y2="60" {...loopDraw(24, 3)} />
-        <motion.line x1="20" y1="50" x2="270" y2="50" {...loopDraw(24.5, 5)} />
-        <motion.line x1="330" y1="50" x2="580" y2="50" {...loopDraw(24.5, 5)} />
+        {/* Stage 1: exterior */}
+        <motion.rect x="40" y="40" width="420" height="320" {...drawStage(16, 0, 3)} />
+
+        {/* Stage 2: minimal interior — open loft */}
+        <motion.line x1="280" y1="40" x2="280" y2="160" {...drawStage(16, 3, 1)} />
+        <motion.line x1="280" y1="160" x2="200" y2="160" {...drawStage(16, 3.5, 1)} />
+
+        {/* Stage 3: door */}
+        <motion.path d="M 280 120 A 40 40 0 0 0 320 160" {...drawStage(16, 6, 0.6)} />
+        <motion.path d="M 200 200 A 40 40 0 0 1 240 160" {...drawStage(16, 6.5, 0.6)} />
+
+        {/* Stage 4: large windows (loft) */}
+        <motion.line x1="80" y1="36" x2="240" y2="36" strokeWidth="3" {...drawStage(16, 8, 0.8)} />
+        <motion.line x1="80" y1="44" x2="240" y2="44" strokeWidth="3" {...drawStage(16, 8, 0.8)} />
+        <motion.line x1="456" y1="80" x2="456" y2="240" strokeWidth="3" {...drawStage(16, 8.5, 0.8)} />
+        <motion.line x1="464" y1="80" x2="464" y2="240" strokeWidth="3" {...drawStage(16, 8.5, 0.8)} />
+
+        {/* Stage 5: furniture */}
+        <motion.rect x="80" y="220" width="180" height="80" rx="4" {...drawStage(16, 10, 0.8)} />
+        <motion.rect x="320" y="60" width="100" height="60" rx="4" {...drawStage(16, 10.4, 0.7)} />
+        <motion.circle cx="380" cy="240" r="14" {...drawStage(16, 10.8, 0.5)} />
+        <motion.line x1="80" y1="100" x2="200" y2="100" strokeWidth="2" {...drawStage(16, 11, 0.5)} />
+
         <motion.text
-          x="300"
-          y="56"
-          textAnchor="middle"
+          x="50"
+          y="385"
           fill={stroke}
           stroke="none"
-          fontSize="14"
+          fontSize="11"
           fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
-          letterSpacing="0.1em"
-          {...loopFade(25, 5)}
+          letterSpacing="0.18em"
+          {...drawStage(16, 11.5, 0.5)}
         >
-          80 m²
+          PLANTA · 03 · 78 m²
         </motion.text>
       </svg>
     </div>
