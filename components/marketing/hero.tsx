@@ -8,7 +8,7 @@ import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { COPY } from '@/content/copy';
-// import { Hero3D } from './hero-3d'; // disabled pending new direction
+import { HeroAnnotations } from './hero-annotations';
 
 export function Hero() {
   const router = useRouter();
@@ -32,7 +32,7 @@ export function Hero() {
   return (
     <section
       ref={ref}
-      className="relative isolate min-h-[100vh] flex items-center px-6 overflow-hidden bg-black"
+      className="relative isolate min-h-[82vh] flex items-center px-6 overflow-hidden bg-black"
     >
       {/* LAYER 0: Background image with parallax */}
       <motion.div
@@ -60,8 +60,8 @@ export function Hero() {
         className="absolute inset-0 z-[1] bg-gradient-to-r from-black/70 via-black/20 to-black/50"
       />
 
-      {/* LAYER 2: 3D floating architecture — DISABLED pending new direction */}
-      {/* <Hero3D /> */}
+      {/* LAYER 5: Animated cota annotations (SVG, draws over the photo) */}
+      <HeroAnnotations />
 
       {/* LAYER 3: Gold glow */}
       <div aria-hidden className="pointer-events-none absolute inset-0 z-[3]">
@@ -75,7 +75,7 @@ export function Hero() {
       />
 
       {/* LAYER 10: Content (text + form) */}
-      <div className="relative z-10 mx-auto max-w-7xl w-full grid lg:grid-cols-12 gap-10 items-center py-20">
+      <div className="relative z-10 mx-auto max-w-7xl w-full grid lg:grid-cols-12 gap-10 items-center py-16">
         <div className="lg:col-span-8 lg:text-left text-center">
           <motion.div
             initial={{ opacity: 0, y: 8 }}
