@@ -38,7 +38,7 @@
     {
       "id": 5,
       "subject": "Task 5: Lead capture — types, repository, Resend, Google Sheets, API endpoint",
-      "status": "pending",
+      "status": "completed",
       "blockedBy": [0],
       "description": "**Goal:** Repository pattern lead capture: Resend email + Google Sheets append, fan-out resilient.\n\n**Files:** lib/leads/types.ts, lib/leads/repository.ts, lib/leads/resend.ts, lib/leads/google-sheets.ts, lib/leads/email-template.ts, app/api/leads/route.ts, tests/leads/repository.test.ts\n\n**Verify:** `npm test -- leads`\n\n```json:metadata\n{\"files\": [\"lib/leads/types.ts\", \"lib/leads/repository.ts\", \"lib/leads/resend.ts\", \"lib/leads/google-sheets.ts\", \"lib/leads/email-template.ts\", \"app/api/leads/route.ts\", \"tests/leads/repository.test.ts\"], \"verifyCommand\": \"npm test -- leads\", \"acceptanceCriteria\": [\"LeadRepository interface defined\", \"Fan-out: one fail does not block other\", \"Zod validation on POST /api/leads\", \"Email + Sheets impls present\"]}\n```"
     },
