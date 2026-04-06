@@ -3,6 +3,7 @@ import { Fraunces, Inter } from 'next/font/google';
 import './globals.css';
 import { Footer } from '@/components/marketing/footer';
 import { CookieBanner } from '@/components/cookie-banner';
+import { WhatsAppFloating } from '@/components/whatsapp-floating';
 
 const fraunces = Fraunces({
   subsets: ['latin'],
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="flex-1">{children}</div>
         <Footer />
         <CookieBanner />
+        <WhatsAppFloating />
       </body>
     </html>
   );

@@ -1,4 +1,5 @@
 import { COPY } from '@/content/copy';
+import { AgendaEmbed } from './agenda-embed';
 
 export function AgendaBlock() {
   return (
@@ -18,6 +19,7 @@ export function AgendaBlock() {
         <p className="mt-12 text-center text-sm text-muted-foreground">
           Solo trabajamos con un número limitado de proyectos al mes.
         </p>
+        <AgendaEmbed />
       </div>
     </section>
   );

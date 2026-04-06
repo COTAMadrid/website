@@ -59,7 +59,7 @@
     {
       "id": 8,
       "subject": "Task 8: Marketing landing — hero + all content sections",
-      "status": "pending",
+      "status": "completed",
       "blockedBy": [2],
       "description": "**Goal:** Public home with 8 sections from spec brief. All copy in content/copy.ts. Use frontend-design skill for visual polish.\n\n**Files:** components/marketing/*, content/copy.ts, app/page.tsx\n\n**Verify:** Manual at 375/768/1440 widths + Lighthouse\n\n```json:metadata\n{\"files\": [\"components/marketing/hero.tsx\", \"components/marketing/autoridad.tsx\", \"components/marketing/propuesta-valor.tsx\", \"components/marketing/escenarios.tsx\", \"components/marketing/como-funciona.tsx\", \"components/marketing/filtrado.tsx\", \"components/marketing/agenda-block.tsx\", \"components/marketing/cierre.tsx\", \"content/copy.ts\", \"app/page.tsx\"], \"verifyCommand\": \"npm run dev\", \"acceptanceCriteria\": [\"All 8 sections render in order\", \"Hero input redirects to wizard\", \"Copy in content/copy.ts\", \"Mobile perfect\", \"Lighthouse Performance >=85\"]}\n```"
     },
