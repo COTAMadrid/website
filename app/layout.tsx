@@ -18,6 +18,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://cotamadrid.com'),
   title: 'Cota — Reforma con criterio · Madrid',
   description:
     'Antes de empezar tu reforma, te decimos si es viable, cuánto cuesta y qué riesgos puede tener.',
