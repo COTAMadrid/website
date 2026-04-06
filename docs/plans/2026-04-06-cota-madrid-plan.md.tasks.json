@@ -24,14 +24,14 @@
     {
       "id": 3,
       "subject": "Task 3: Pricing config files (single source of truth from spec §5)",
-      "status": "pending",
+      "status": "completed",
       "blockedBy": [0],
       "description": "**Goal:** Translate spec §5 into typed config: pricing.ts, wizard.ts, risks.ts, viability.ts + lib/pricing/types.ts.\n\n**Files:** config/pricing.ts, config/wizard.ts, config/risks.ts, config/viability.ts, lib/pricing/types.ts\n\n**Verify:** `npm run build`\n\n```json:metadata\n{\"files\": [\"config/pricing.ts\", \"config/wizard.ts\", \"config/risks.ts\", \"config/viability.ts\", \"lib/pricing/types.ts\"], \"verifyCommand\": \"npm run build\", \"acceptanceCriteria\": [\"All 4 quality levels with €/m²\", \"All modifiers from spec\", \"10 wizard steps defined\", \"Risk + viability rules typed\"]}\n```"
     },
     {
       "id": 4,
       "subject": "Task 4: Pricing engine — calculate, viability, risks, duration + calibration test",
-      "status": "pending",
+      "status": "completed",
       "blockedBy": [3],
       "description": "**Goal:** Pure-function engine + critical calibration test (Salamanca 80m² 1920 → 96k-130k).\n\n**Files:** lib/pricing/calculate.ts, lib/pricing/duration.ts, lib/pricing/diagnose.ts, tests/pricing/*.test.ts\n\n**Verify:** `npm test`\n\n```json:metadata\n{\"files\": [\"lib/pricing/calculate.ts\", \"lib/pricing/duration.ts\", \"lib/pricing/diagnose.ts\", \"tests/pricing/calibration.test.ts\", \"tests/pricing/calculate.test.ts\", \"tests/pricing/viability.test.ts\", \"tests/pricing/risks.test.ts\"], \"verifyCommand\": \"npm test\", \"acceptanceCriteria\": [\"calibration test passes (96k-130k Salamanca)\", \"viability tests pass\", \"risk tests pass\", \"calculate tests pass\"]}\n```"
     },
