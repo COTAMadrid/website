@@ -50,14 +50,15 @@ export function Hero() {
         />
       </motion.div>
 
-      {/* LAYER 1: Cinematic gradient overlay (darkens image so text reads) */}
+      {/* LAYER 1: Cinematic gradient overlay
+          Left side dark (for text), right side reveals the hand image */}
       <div
         aria-hidden
-        className="absolute inset-0 z-[1] bg-gradient-to-b from-black/75 via-black/50 to-black/90"
+        className="absolute inset-0 z-[1] bg-gradient-to-r from-black/90 via-black/55 to-black/10"
       />
       <div
         aria-hidden
-        className="absolute inset-0 z-[1] bg-gradient-to-r from-black/70 via-black/20 to-black/50"
+        className="absolute inset-0 z-[1] bg-gradient-to-b from-black/30 via-transparent to-black/70"
       />
 
       {/* LAYER 5: Animated cota annotations (SVG, draws over the photo) */}
