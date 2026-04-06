@@ -1,0 +1,103 @@
+{
+  "planPath": "docs/plans/2026-04-06-cota-madrid-plan.md",
+  "tasks": [
+    {
+      "id": 0,
+      "subject": "Task 0: Project setup — Next.js, TS, Tailwind v4, Vitest, GitHub",
+      "status": "pending",
+      "description": "**Goal:** Working Next.js 15 + TS + Tailwind v4 + Vitest + first commit + Vercel deploy of \"Hello Cota\".\n\n**Files:** package.json, tsconfig.json, next.config.ts, vitest.config.ts, .gitignore, .env.local.example, app/layout.tsx, app/page.tsx, app/globals.css, README.md\n\n**Verify:** `npm run build && npm test`\n\n```json:metadata\n{\"files\": [\"package.json\", \"tsconfig.json\", \"next.config.ts\", \"vitest.config.ts\", \".env.local.example\", \"app/layout.tsx\", \"app/page.tsx\", \"app/globals.css\"], \"verifyCommand\": \"npm run build && npm test\", \"acceptanceCriteria\": [\"npm run dev shows Cota coming soon\", \"npm run build succeeds\", \"npm test passes\", \"git repo + GitHub + Vercel deployed\"]}\n```"
+    },
+    {
+      "id": 1,
+      "subject": "Task 1: Design system — tokens, fonts, shadcn init, base components",
+      "status": "pending",
+      "blockedBy": [0],
+      "description": "**Goal:** Visual foundation: editorial serif + sans, dark color tokens, shadcn primitives (button, input, card, label, select, radio-group, checkbox).\n\n**Files:** app/globals.css, app/layout.tsx, components/ui/*, lib/utils.ts, components.json\n\n**Verify:** `npm run build`\n\n```json:metadata\n{\"files\": [\"app/globals.css\", \"app/layout.tsx\", \"components/ui/button.tsx\", \"components/ui/input.tsx\", \"components/ui/card.tsx\", \"lib/utils.ts\"], \"verifyCommand\": \"npm run build\", \"acceptanceCriteria\": [\"Fraunces + Inter loaded\", \"Dark color tokens defined\", \"shadcn primitives copied\", \"Buttons render on home\"]}\n```"
+    },
+    {
+      "id": 2,
+      "subject": "Task 2: Layout shell + legal page stubs + cookie banner",
+      "status": "pending",
+      "blockedBy": [1],
+      "description": "**Goal:** Reusable layout (footer with legal links), 3 legal page stubs marked 'pendiente de revisión', minimal cookie banner.\n\n**Files:** components/marketing/footer.tsx, components/cookie-banner.tsx, app/politica-privacidad/page.tsx, app/aviso-legal/page.tsx, app/cookies/page.tsx, app/layout.tsx\n\n**Verify:** Manual: visit each page, dismiss cookie banner.\n\n```json:metadata\n{\"files\": [\"components/marketing/footer.tsx\", \"components/cookie-banner.tsx\", \"app/politica-privacidad/page.tsx\", \"app/aviso-legal/page.tsx\", \"app/cookies/page.tsx\"], \"verifyCommand\": \"npm run dev\", \"acceptanceCriteria\": [\"Footer on all pages\", \"3 legal pages exist\", \"Cookie banner persists dismissal\"]}\n```"
+    },
+    {
+      "id": 3,
+      "subject": "Task 3: Pricing config files (single source of truth from spec §5)",
+      "status": "pending",
+      "blockedBy": [0],
+      "description": "**Goal:** Translate spec §5 into typed config: pricing.ts, wizard.ts, risks.ts, viability.ts + lib/pricing/types.ts.\n\n**Files:** config/pricing.ts, config/wizard.ts, config/risks.ts, config/viability.ts, lib/pricing/types.ts\n\n**Verify:** `npm run build`\n\n```json:metadata\n{\"files\": [\"config/pricing.ts\", \"config/wizard.ts\", \"config/risks.ts\", \"config/viability.ts\", \"lib/pricing/types.ts\"], \"verifyCommand\": \"npm run build\", \"acceptanceCriteria\": [\"All 4 quality levels with €/m²\", \"All modifiers from spec\", \"10 wizard steps defined\", \"Risk + viability rules typed\"]}\n```"
+    },
+    {
+      "id": 4,
+      "subject": "Task 4: Pricing engine — calculate, viability, risks, duration + calibration test",
+      "status": "pending",
+      "blockedBy": [3],
+      "description": "**Goal:** Pure-function engine + critical calibration test (Salamanca 80m² 1920 → 96k-130k).\n\n**Files:** lib/pricing/calculate.ts, lib/pricing/duration.ts, lib/pricing/diagnose.ts, tests/pricing/*.test.ts\n\n**Verify:** `npm test`\n\n```json:metadata\n{\"files\": [\"lib/pricing/calculate.ts\", \"lib/pricing/duration.ts\", \"lib/pricing/diagnose.ts\", \"tests/pricing/calibration.test.ts\", \"tests/pricing/calculate.test.ts\", \"tests/pricing/viability.test.ts\", \"tests/pricing/risks.test.ts\"], \"verifyCommand\": \"npm test\", \"acceptanceCriteria\": [\"calibration test passes (96k-130k Salamanca)\", \"viability tests pass\", \"risk tests pass\", \"calculate tests pass\"]}\n```"
+    },
+    {
+      "id": 5,
+      "subject": "Task 5: Lead capture — types, repository, Resend, Google Sheets, API endpoint",
+      "status": "pending",
+      "blockedBy": [0],
+      "description": "**Goal:** Repository pattern lead capture: Resend email + Google Sheets append, fan-out resilient.\n\n**Files:** lib/leads/types.ts, lib/leads/repository.ts, lib/leads/resend.ts, lib/leads/google-sheets.ts, lib/leads/email-template.ts, app/api/leads/route.ts, tests/leads/repository.test.ts\n\n**Verify:** `npm test -- leads`\n\n```json:metadata\n{\"files\": [\"lib/leads/types.ts\", \"lib/leads/repository.ts\", \"lib/leads/resend.ts\", \"lib/leads/google-sheets.ts\", \"lib/leads/email-template.ts\", \"app/api/leads/route.ts\", \"tests/leads/repository.test.ts\"], \"verifyCommand\": \"npm test -- leads\", \"acceptanceCriteria\": [\"LeadRepository interface defined\", \"Fan-out: one fail does not block other\", \"Zod validation on POST /api/leads\", \"Email + Sheets impls present\"]}\n```"
+    },
+    {
+      "id": 6,
+      "subject": "Task 6: Wizard UI — 10-step state machine with animations",
+      "status": "pending",
+      "blockedBy": [2, 3],
+      "description": "**Goal:** 10-step diagnostic wizard with persistent state (sessionStorage), Framer Motion transitions, mobile-perfect.\n\n**Files:** app/diagnostico/page.tsx, components/wizard/*, lib/wizard-state.ts\n\n**Verify:** Manual end-to-end on /diagnostico\n\n```json:metadata\n{\"files\": [\"app/diagnostico/page.tsx\", \"components/wizard/wizard.tsx\", \"components/wizard/progress-bar.tsx\", \"components/wizard/step-tipo.tsx\", \"components/wizard/step-metros.tsx\", \"components/wizard/step-barrio.tsx\", \"components/wizard/step-antiguedad.tsx\", \"components/wizard/step-calidad.tsx\", \"components/wizard/step-estado.tsx\", \"components/wizard/step-plazo.tsx\", \"components/wizard/step-extras.tsx\", \"components/wizard/step-presupuesto.tsx\", \"components/wizard/step-contacto.tsx\", \"lib/wizard-state.ts\"], \"verifyCommand\": \"npm run dev\", \"acceptanceCriteria\": [\"10 steps with back/next\", \"Progress bar X of 10\", \"State persists in sessionStorage\", \"Animations between steps\", \"Mobile touch targets >=44px\"]}\n```"
+    },
+    {
+      "id": 7,
+      "subject": "Task 7: Informe page — report visualization",
+      "status": "pending",
+      "blockedBy": [4, 6],
+      "description": "**Goal:** Render diagnostic report from sessionStorage, submit lead to /api/leads once on mount.\n\n**Files:** app/informe/page.tsx, components/informe/*\n\n**Verify:** Manual: complete wizard → see informe → check Network tab\n\n```json:metadata\n{\"files\": [\"app/informe/page.tsx\", \"components/informe/informe.tsx\", \"components/informe/rango-precio.tsx\", \"components/informe/duracion.tsx\", \"components/informe/semaforo.tsx\", \"components/informe/riesgos.tsx\", \"components/informe/cta-dinamico.tsx\"], \"verifyCommand\": \"npm run dev\", \"acceptanceCriteria\": [\"Reads sessionStorage\", \"Renders all blocks\", \"POST /api/leads exactly once\", \"Redirects if no answers\", \"Print-friendly\"]}\n```"
+    },
+    {
+      "id": 8,
+      "subject": "Task 8: Marketing landing — hero + all content sections",
+      "status": "pending",
+      "blockedBy": [2],
+      "description": "**Goal:** Public home with 8 sections from spec brief. All copy in content/copy.ts. Use frontend-design skill for visual polish.\n\n**Files:** components/marketing/*, content/copy.ts, app/page.tsx\n\n**Verify:** Manual at 375/768/1440 widths + Lighthouse\n\n```json:metadata\n{\"files\": [\"components/marketing/hero.tsx\", \"components/marketing/autoridad.tsx\", \"components/marketing/propuesta-valor.tsx\", \"components/marketing/escenarios.tsx\", \"components/marketing/como-funciona.tsx\", \"components/marketing/filtrado.tsx\", \"components/marketing/agenda-block.tsx\", \"components/marketing/cierre.tsx\", \"content/copy.ts\", \"app/page.tsx\"], \"verifyCommand\": \"npm run dev\", \"acceptanceCriteria\": [\"All 8 sections render in order\", \"Hero input redirects to wizard\", \"Copy in content/copy.ts\", \"Mobile perfect\", \"Lighthouse Performance >=85\"]}\n```"
+    },
+    {
+      "id": 9,
+      "subject": "Task 9: Agenda (Cal.com) + WhatsApp floating button",
+      "status": "pending",
+      "blockedBy": [2],
+      "description": "**Goal:** Cal.com lazy embed in agenda block + global floating WhatsApp button.\n\n**Files:** components/whatsapp-floating.tsx, components/marketing/agenda-embed.tsx, app/layout.tsx\n\n**Verify:** Manual: scroll to #agenda, click WhatsApp button\n\n```json:metadata\n{\"files\": [\"components/whatsapp-floating.tsx\", \"components/marketing/agenda-embed.tsx\", \"components/marketing/agenda-block.tsx\", \"app/layout.tsx\"], \"verifyCommand\": \"npm run dev\", \"acceptanceCriteria\": [\"Cal.com embed lazy-loads\", \"WhatsApp button on all pages\", \"Aria-labels present\"]}\n```"
+    },
+    {
+      "id": 10,
+      "subject": "Task 10: SEO — metadata, OG image, sitemap, robots, JSON-LD",
+      "status": "pending",
+      "blockedBy": [8],
+      "description": "**Goal:** Sitemap, robots, dynamic OG image, per-page metadata, LocalBusiness JSON-LD. Lighthouse SEO >=95.\n\n**Files:** app/sitemap.ts, app/robots.ts, app/opengraph-image.tsx, lib/seo.ts, app/page.tsx, app/diagnostico/page.tsx, app/informe/page.tsx\n\n**Verify:** curl /sitemap.xml + /robots.txt; Lighthouse SEO\n\n```json:metadata\n{\"files\": [\"app/sitemap.ts\", \"app/robots.ts\", \"app/opengraph-image.tsx\", \"lib/seo.ts\"], \"verifyCommand\": \"npm run build\", \"acceptanceCriteria\": [\"sitemap.xml lists all pages\", \"robots.txt valid\", \"OG image generates\", \"JSON-LD on home\", \"Lighthouse SEO >=95\"]}\n```"
+    },
+    {
+      "id": 11,
+      "subject": "Task 11: End-to-end wiring + lead delivery test + Vercel Analytics",
+      "status": "pending",
+      "blockedBy": [5, 7, 9],
+      "description": "**Goal:** Real env vars configured, real test lead arrives at email + Sheet, Analytics active, README written.\n\n**Files:** README.md, .env.local (not committed), app/layout.tsx (Analytics)\n\n**Verify:** Manual: complete wizard with real test contact\n\n```json:metadata\n{\"files\": [\"README.md\", \"app/layout.tsx\"], \"verifyCommand\": \"npm run dev\", \"acceptanceCriteria\": [\"Resend test email arrives\", \"Sheets test row appears\", \"Vercel Analytics installed\", \"README documents env vars\"]}\n```"
+    },
+    {
+      "id": 12,
+      "subject": "Task 12: QA pass — Lighthouse, mobile, accessibility, performance",
+      "status": "pending",
+      "blockedBy": [8, 9, 10, 11],
+      "description": "**Goal:** Meet spec §11 criteria. Lighthouse mobile: Perf>=90, A11y>=95, BP>=95, SEO>=95.\n\n**Files:** Various small fixes\n\n**Verify:** Lighthouse on /, /diagnostico, /informe + real device test\n\n```json:metadata\n{\"files\": [], \"verifyCommand\": \"npm run build && npm start\", \"acceptanceCriteria\": [\"Lighthouse Perf>=90 mobile\", \"A11y>=95\", \"SEO>=95\", \"Real device tested\", \"Zero console errors\"]}\n```"
+    },
+    {
+      "id": 13,
+      "subject": "Task 13: Production deployment to cotamadrid.com",
+      "status": "pending",
+      "blockedBy": [12],
+      "description": "**Goal:** Connect domain, SSL, prod env vars, smoke test in production.\n\n**Files:** None (Vercel UI)\n\n**Verify:** Open https://cotamadrid.com incognito, complete wizard, lead arrives in prod\n\n```json:metadata\n{\"files\": [], \"verifyCommand\": \"\", \"acceptanceCriteria\": [\"cotamadrid.com resolves with SSL\", \".es redirects to .com\", \"Prod env vars set\", \"Real test lead works in prod\", \"v1.0.0 tagged\"]}\n```"
+    }
+  ],
+  "lastUpdated": "2026-04-06T00:00:00Z"
+}
