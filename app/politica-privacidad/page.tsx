@@ -6,7 +6,7 @@ export default function Page() {
       <h1 className="text-4xl mb-8">Política de privacidad</h1>
       <div className="prose prose-invert max-w-none text-muted-foreground">
         <p className="text-warning">
-          ⚠️ Pendiente de revisión legal antes de lanzamiento público.
+          ⚠️ Texto pendiente de revisión legal antes de lanzamiento público.
         </p>
         <h2>Responsable del tratamiento</h2>
         <p>PCH Obras [+ datos legales completos a añadir antes de producción]</p>
