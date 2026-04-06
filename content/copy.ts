@@ -8,9 +8,10 @@ export const COPY = {
     inputPlaceholder: 'Ej: piso de 80 m² en Chamberí para reforma integral',
     inputCta: 'Analizar mi reforma',
     microcopy: 'Análisis gratuito en menos de 1 minuto',
-    image: '/images/cota/hero-collage.png',
+    image:
+      'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=2400&q=80',
     imageAlt:
-      'Collage editorial de un piso de Madrid con anotaciones de diagnóstico arquitectónico',
+      'Interior minimalista reformado con luz natural en un piso de Madrid',
   },
   autoridad: {
     eyebrow: '01 · Diagnóstico',
