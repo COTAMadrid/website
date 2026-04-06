@@ -8,6 +8,7 @@ import { Filtrado } from '@/components/marketing/filtrado';
 import { AgendaBlock } from '@/components/marketing/agenda-block';
 import { Cierre } from '@/components/marketing/cierre';
 import { Divider } from '@/components/marketing/divider';
+import { BlueprintBackground } from '@/components/marketing/blueprint-background';
 import { pageMeta } from '@/lib/seo';
 
 export const metadata = pageMeta({
@@ -38,6 +39,7 @@ export default function Home() {
           }),
         }}
       />
+      <BlueprintBackground />
       <Hero />
       <Autoridad />
       <PropuestaValor />
