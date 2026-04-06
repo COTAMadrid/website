@@ -73,7 +73,7 @@
     {
       "id": 10,
       "subject": "Task 10: SEO — metadata, OG image, sitemap, robots, JSON-LD",
-      "status": "pending",
+      "status": "completed",
       "blockedBy": [8],
       "description": "**Goal:** Sitemap, robots, dynamic OG image, per-page metadata, LocalBusiness JSON-LD. Lighthouse SEO >=95.\n\n**Files:** app/sitemap.ts, app/robots.ts, app/opengraph-image.tsx, lib/seo.ts, app/page.tsx, app/diagnostico/page.tsx, app/informe/page.tsx\n\n**Verify:** curl /sitemap.xml + /robots.txt; Lighthouse SEO\n\n```json:metadata\n{\"files\": [\"app/sitemap.ts\", \"app/robots.ts\", \"app/opengraph-image.tsx\", \"lib/seo.ts\"], \"verifyCommand\": \"npm run build\", \"acceptanceCriteria\": [\"sitemap.xml lists all pages\", \"robots.txt valid\", \"OG image generates\", \"JSON-LD on home\", \"Lighthouse SEO >=95\"]}\n```"
     },

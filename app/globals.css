@@ -28,6 +28,10 @@
   --color-success: oklch(0.65 0.15 145);
   --color-warning: oklch(0.75 0.15 75);
   --color-danger: oklch(0.60 0.20 25);
+  --color-cream: oklch(0.96 0.01 85);
+  --color-cream-foreground: oklch(0.18 0 0);
+  --color-cream-muted: oklch(0.38 0.01 60);
+  --color-cream-border: oklch(0.86 0.01 80);
 
   --radius-sm: 0.25rem;
   --radius-md: 0.5rem;
