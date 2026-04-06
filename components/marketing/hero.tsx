@@ -8,7 +8,7 @@ import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { COPY } from '@/content/copy';
-import { Hero3D } from './hero-3d';
+// import { Hero3D } from './hero-3d'; // disabled pending new direction
 
 export function Hero() {
   const router = useRouter();
@@ -60,8 +60,8 @@ export function Hero() {
         className="absolute inset-0 z-[1] bg-gradient-to-r from-black/70 via-black/20 to-black/50"
       />
 
-      {/* LAYER 2: 3D floating architecture (desktop, no reduced-motion) */}
-      <Hero3D />
+      {/* LAYER 2: 3D floating architecture — DISABLED pending new direction */}
+      {/* <Hero3D /> */}
 
       {/* LAYER 3: Gold glow */}
       <div aria-hidden className="pointer-events-none absolute inset-0 z-[3]">
