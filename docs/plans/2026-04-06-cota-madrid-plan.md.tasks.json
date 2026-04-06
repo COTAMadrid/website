@@ -17,7 +17,7 @@
     {
       "id": 2,
       "subject": "Task 2: Layout shell + legal page stubs + cookie banner",
-      "status": "pending",
+      "status": "completed",
       "blockedBy": [1],
       "description": "**Goal:** Reusable layout (footer with legal links), 3 legal page stubs marked 'pendiente de revisión', minimal cookie banner.\n\n**Files:** components/marketing/footer.tsx, components/cookie-banner.tsx, app/politica-privacidad/page.tsx, app/aviso-legal/page.tsx, app/cookies/page.tsx, app/layout.tsx\n\n**Verify:** Manual: visit each page, dismiss cookie banner.\n\n```json:metadata\n{\"files\": [\"components/marketing/footer.tsx\", \"components/cookie-banner.tsx\", \"app/politica-privacidad/page.tsx\", \"app/aviso-legal/page.tsx\", \"app/cookies/page.tsx\"], \"verifyCommand\": \"npm run dev\", \"acceptanceCriteria\": [\"Footer on all pages\", \"3 legal pages exist\", \"Cookie banner persists dismissal\"]}\n```"
     },
