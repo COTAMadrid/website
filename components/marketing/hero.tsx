@@ -32,13 +32,13 @@ export function Hero() {
   return (
     <section
       ref={ref}
-      className="relative min-h-[100vh] flex items-center px-6 overflow-hidden bg-background"
+      className="relative isolate min-h-[100vh] flex items-center px-6 overflow-hidden bg-black"
     >
-      {/* Background image with parallax */}
+      {/* LAYER 0: Background image with parallax */}
       <motion.div
         aria-hidden
         style={{ y: yImg, scale: scaleImg }}
-        className="absolute inset-0 -z-20 will-change-transform"
+        className="absolute inset-0 z-0 will-change-transform"
       >
         <Image
           src={COPY.hero.image}
@@ -50,33 +50,31 @@ export function Hero() {
         />
       </motion.div>
 
-      {/* 3D floating architecture layer (desktop, no reduced-motion) */}
+      {/* LAYER 1: Cinematic gradient overlay (darkens image so text reads) */}
+      <div
+        aria-hidden
+        className="absolute inset-0 z-[1] bg-gradient-to-b from-black/75 via-black/50 to-black/90"
+      />
+      <div
+        aria-hidden
+        className="absolute inset-0 z-[1] bg-gradient-to-r from-black/70 via-black/20 to-black/50"
+      />
+
+      {/* LAYER 2: 3D floating architecture (desktop, no reduced-motion) */}
       <Hero3D />
 
-      {/* Cinematic gradient overlay (lighter so 3D breathes) */}
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 bg-gradient-to-b from-black/70 via-black/40 to-background"
-      />
-      <div
-        aria-hidden
-        className="absolute inset-0 -z-10 bg-gradient-to-r from-black/70 via-black/20 to-black/30"
-      />
-
-      {/* Subtle gold glow */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10"
-      >
-        <div className="absolute left-[15%] top-[55%] h-[38rem] w-[38rem] -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,oklch(0.78_0.12_80/0.14),transparent_70%)] blur-3xl" />
+      {/* LAYER 3: Gold glow */}
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-[3]">
+        <div className="absolute left-[15%] top-[55%] h-[38rem] w-[38rem] -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,oklch(0.78_0.12_80/0.18),transparent_70%)] blur-3xl" />
       </div>
 
-      {/* Subtle grain */}
+      {/* LAYER 4: Subtle grain */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.03] [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:72px_72px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_80%)]"
+        className="pointer-events-none absolute inset-0 z-[4] opacity-[0.03] [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:72px_72px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_80%)]"
       />
 
+      {/* LAYER 10: Content (text + form) */}
       <div className="relative z-10 mx-auto max-w-7xl w-full grid lg:grid-cols-12 gap-10 items-center py-20">
         <div className="lg:col-span-8 lg:text-left text-center">
           <motion.div

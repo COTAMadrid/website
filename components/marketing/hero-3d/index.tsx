@@ -30,7 +30,7 @@ export function Hero3D() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-0 z-[1] opacity-100 [mask-image:radial-gradient(ellipse_at_center,black_70%,transparent_100%)]"
+      className="pointer-events-none absolute inset-0 z-[2] opacity-100 mix-blend-screen [mask-image:radial-gradient(ellipse_at_center,black_65%,transparent_100%)]"
     >
       <Hero3DScene />
     </div>
