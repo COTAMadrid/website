@@ -43,8 +43,8 @@ export function BlueprintBackground() {
   const wipeAnimation = (cycleStart: number) => {
     if (reduce) {
       return {
-        initial: { clipPath: 'inset(0 0 0 0)', opacity: 0.7 },
-        animate: { clipPath: 'inset(0 0 0 0)', opacity: 0.7 },
+        initial: { clipPath: 'inset(0 0 0 0)', opacity: 0.32 },
+        animate: { clipPath: 'inset(0 0 0 0)', opacity: 0.32 },
       };
     }
     const total = 24;
@@ -59,7 +59,7 @@ export function BlueprintBackground() {
           'inset(0 0% 0 0)', // hold end
           'inset(0 100% 0 0)', // wipe back out
         ],
-        opacity: [0, 0, 0.7, 0.7, 0.7, 0],
+        opacity: [0, 0, 0.32, 0.32, 0.32, 0],
       },
       transition: {
         duration: total,
