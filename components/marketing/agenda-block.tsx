@@ -14,7 +14,7 @@ export function AgendaBlock() {
     <section
       id="agenda"
       ref={ref}
-      className="relative py-32 md:py-40 px-6 bg-background overflow-hidden"
+      className="relative overflow-hidden bg-background px-6 py-32 md:py-40"
     >
       {/* Textural background image */}
       <div aria-hidden className="absolute inset-0 -z-10">
@@ -23,58 +23,116 @@ export function AgendaBlock() {
           alt=""
           fill
           sizes="100vw"
-          className="object-cover opacity-[0.12]"
+          className="object-cover opacity-[0.10]"
         />
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/85 to-background" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background" />
       </div>
 
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-accent/40 to-transparent"
-      />
-
       <div className="relative mx-auto max-w-6xl">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="text-center mb-16"
+          className="mb-16 md:mb-20"
         >
-          <div className="text-xs uppercase tracking-[0.24em] text-accent mb-5">
-            {COPY.agenda.eyebrow}
+          <div className="mb-6 flex items-center gap-4">
+            <span className="h-px w-10 bg-border" />
+            <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-accent">
+              {COPY.agenda.eyebrow}
+            </span>
           </div>
-          <h2 className="font-serif text-4xl md:text-6xl leading-[1.05] tracking-[-0.02em] text-balance">
+          <h2 className="max-w-3xl font-serif text-4xl leading-[1.02] tracking-[-0.02em] md:text-6xl lg:text-7xl text-balance">
             {COPY.agenda.title}
           </h2>
-          <p className="mt-6 inline-flex items-center gap-2 text-sm text-muted-foreground">
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
-            Solo trabajamos con un número limitado de proyectos al mes
-          </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        {/* Tasting menu list */}
+        <div className="relative border-t border-border/60">
           {COPY.agenda.options.map((o, i) => (
-            <motion.article
+            <MenuRow
               key={o.title}
-              initial={{ opacity: 0, y: 30 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, delay: 0.15 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="group relative flex flex-col items-center text-center p-10 rounded-2xl border border-border bg-card/50 backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:border-accent/40 hover:shadow-[0_40px_80px_-30px_oklch(0.78_0.12_80/0.3)]"
-            >
-              <div className="text-4xl mb-5 transition-transform duration-500 group-hover:scale-110">
-                {o.icon}
-              </div>
-              <h3 className="font-serif text-2xl tracking-tight">{o.title}</h3>
-              <p className="mt-2 text-xs uppercase tracking-[0.2em] text-accent">
-                {o.duration}
-              </p>
-              <div className="my-5 h-px w-10 bg-border" />
-              <p className="text-muted-foreground leading-relaxed">{o.body}</p>
-            </motion.article>
+              num={String(i + 1).padStart(2, '0')}
+              title={o.title}
+              duration={o.duration}
+              body={o.body}
+              delay={0.1 + i * 0.1}
+              inView={inView}
+            />
           ))}
         </div>
-        <AgendaEmbed />
+
+        {/* Scarcity microcopy */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={inView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="mt-12 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground"
+        >
+          <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
+          Solo un número limitado de proyectos al mes
+        </motion.p>
+
+        {/* Embed below */}
+        <div className="mt-16 md:mt-20">
+          <AgendaEmbed />
+        </div>
       </div>
     </section>
+  );
+}
+
+function MenuRow({
+  num,
+  title,
+  duration,
+  body,
+  delay,
+  inView,
+}: {
+  num: string;
+  title: string;
+  duration: string;
+  body: string;
+  delay: number;
+  inView: boolean;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
+      className="group relative border-b border-border/60 transition-colors duration-500 hover:bg-card/40"
+    >
+      <div className="flex flex-col gap-3 px-2 py-10 md:grid md:grid-cols-[auto_1fr_auto_auto] md:items-baseline md:gap-6 md:px-4 md:py-12">
+        {/* Number */}
+        <span className="font-serif text-2xl text-accent/80 md:text-3xl">
+          {num}
+        </span>
+        {/* Title */}
+        <h3 className="font-serif text-3xl leading-tight tracking-tight md:text-4xl">
+          {title}
+        </h3>
+        {/* Dotted leader (desktop) */}
+        <span
+          aria-hidden
+          className="hidden flex-1 translate-y-[-6px] overflow-hidden text-border md:block"
+        >
+          <span className="block truncate tracking-[0.4em]">
+            ··················································································································
+          </span>
+        </span>
+        {/* Duration */}
+        <span className="font-mono text-xs uppercase tracking-[0.22em] text-muted-foreground md:text-right">
+          {duration}
+        </span>
+      </div>
+      <div className="px-2 pb-10 md:grid md:grid-cols-[auto_1fr_auto_auto] md:gap-6 md:px-4 md:pb-12">
+        <span className="hidden md:block" />
+        <p className="max-w-xl text-base leading-relaxed text-muted-foreground">
+          {body}
+        </p>
+      </div>
+    </motion.div>
   );
 }

@@ -7,6 +7,7 @@ import { ComoFunciona } from '@/components/marketing/como-funciona';
 import { Filtrado } from '@/components/marketing/filtrado';
 import { AgendaBlock } from '@/components/marketing/agenda-block';
 import { Cierre } from '@/components/marketing/cierre';
+import { Divider } from '@/components/marketing/divider';
 import { pageMeta } from '@/lib/seo';
 
 export const metadata = pageMeta({
@@ -40,9 +41,12 @@ export default function Home() {
       <Hero />
       <Autoridad />
       <PropuestaValor />
+      <Divider variant="measure" label="Casos · 03" />
       <Escenarios />
+      <Divider variant="crosses" />
       <ComoFunciona />
       <Filtrado />
+      <Divider variant="measure" label="Agenda · 06" />
       <AgendaBlock />
       <Cierre />
     </>

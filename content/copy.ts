@@ -31,6 +31,9 @@ export const COPY = {
       'Te decimos si tu idea es viable (aunque no nos contrates)',
       'Solo trabajamos en proyectos que encajan',
     ],
+    // Word in each bullet that gets the gold accent treatment.
+    // Must match exactly a word present in the corresponding bullet string.
+    accents: ['realista', 'antes', 'viable', 'encajan'],
   },
   escenarios: {
     eyebrow: '03 · Casos reales',
