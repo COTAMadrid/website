@@ -16,10 +16,10 @@ export function BlueprintBackground() {
   // Loop animation for path drawing — slow, repeating
   const loopDraw = (delay: number, duration = 6) =>
     reduce
-      ? { initial: { pathLength: 1, opacity: 0.4 }, animate: { pathLength: 1, opacity: 0.4 } }
+      ? { initial: { pathLength: 1, opacity: 0.55 }, animate: { pathLength: 1, opacity: 0.55 } }
       : {
           initial: { pathLength: 0, opacity: 0 },
-          animate: { pathLength: [0, 1, 1, 0], opacity: [0, 0.4, 0.4, 0] },
+          animate: { pathLength: [0, 1, 1, 0], opacity: [0, 0.55, 0.55, 0] },
           transition: {
             duration,
             delay,
@@ -32,10 +32,10 @@ export function BlueprintBackground() {
 
   const loopFade = (delay: number, duration = 6) =>
     reduce
-      ? { initial: { opacity: 0.4 }, animate: { opacity: 0.4 } }
+      ? { initial: { opacity: 0.55 }, animate: { opacity: 0.55 } }
       : {
           initial: { opacity: 0 },
-          animate: { opacity: [0, 0.4, 0.4, 0] },
+          animate: { opacity: [0, 0.55, 0.55, 0] },
           transition: {
             duration,
             delay,
@@ -46,13 +46,13 @@ export function BlueprintBackground() {
           },
         };
 
-  // Warm gold accent — visible on both dark and cream sections
-  const stroke = 'oklch(0.78 0.12 80)';
+  // Plain warm gold (RGB hex so it's universally supported)
+  const stroke = '#c9a66b';
 
   return (
     <div
       aria-hidden
-      className="pointer-events-none fixed inset-0 z-[15] overflow-hidden mix-blend-overlay"
+      className="pointer-events-none fixed inset-0 z-[15] overflow-hidden"
     >
       {/* ╭──────────────────────────────────────────────────╮
           │  GROUP A — Top-left floor plan fragment          │
