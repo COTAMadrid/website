@@ -8,6 +8,7 @@ import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { COPY } from '@/content/copy';
+import { Hero3D } from './hero-3d';
 
 export function Hero() {
   const router = useRouter();
@@ -48,6 +49,9 @@ export function Hero() {
           className="object-cover"
         />
       </motion.div>
+
+      {/* 3D floating architecture layer (desktop, no reduced-motion) */}
+      <Hero3D />
 
       {/* Cinematic gradient overlay */}
       <div
