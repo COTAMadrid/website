@@ -10,7 +10,7 @@
     {
       "id": 1,
       "subject": "Task 1: Design system — tokens, fonts, shadcn init, base components",
-      "status": "pending",
+      "status": "completed",
       "blockedBy": [0],
       "description": "**Goal:** Visual foundation: editorial serif + sans, dark color tokens, shadcn primitives (button, input, card, label, select, radio-group, checkbox).\n\n**Files:** app/globals.css, app/layout.tsx, components/ui/*, lib/utils.ts, components.json\n\n**Verify:** `npm run build`\n\n```json:metadata\n{\"files\": [\"app/globals.css\", \"app/layout.tsx\", \"components/ui/button.tsx\", \"components/ui/input.tsx\", \"components/ui/card.tsx\", \"lib/utils.ts\"], \"verifyCommand\": \"npm run build\", \"acceptanceCriteria\": [\"Fraunces + Inter loaded\", \"Dark color tokens defined\", \"shadcn primitives copied\", \"Buttons render on home\"]}\n```"
     },
