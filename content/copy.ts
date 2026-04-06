@@ -8,10 +8,9 @@ export const COPY = {
     inputPlaceholder: 'Ej: piso de 80 m² en Chamberí para reforma integral',
     inputCta: 'Analizar mi reforma',
     microcopy: 'Análisis gratuito en menos de 1 minuto',
-    image:
-      'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=2400&q=80',
+    image: '/images/cota/hero-collage.png',
     imageAlt:
-      'Interior minimalista reformado con luz natural en un piso de Madrid',
+      'Collage editorial de un piso de Madrid con anotaciones de diagnóstico arquitectónico',
   },
   autoridad: {
     eyebrow: '01 · Diagnóstico',
@@ -43,9 +42,9 @@ export const COPY = {
         title: 'Piso de 70 m² con presupuesto corto',
         body: 'Quieren una reforma integral con 25.000 €. La realidad: no es viable sin recortar calidad o alcance.',
         closing: 'Lo detectamos antes de empezar.',
-        image:
-          'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=1200&q=80',
-        imageAlt: 'Cocina reformada con isla central y acabados claros',
+        image: '/images/cota/escenario-1.jpeg',
+        imageAlt:
+          'Collage editorial de un piso vintage con problemas marcados en rojo',
       },
       {
         title: 'Reforma sin planificación técnica',
