@@ -24,8 +24,8 @@ export function BlueprintBackground() {
   ) => {
     if (reduce) {
       return {
-        initial: { pathLength: 1, opacity: 0.55 },
-        animate: { pathLength: 1, opacity: 0.55 },
+        initial: { pathLength: 1, opacity: 0.85 },
+        animate: { pathLength: 1, opacity: 0.85 },
       };
     }
     const total = 24;
@@ -37,7 +37,7 @@ export function BlueprintBackground() {
       initial: { pathLength: 0, opacity: 0 },
       animate: {
         pathLength: [0, 0, 1, 1, 1, 0],
-        opacity: [0, 0, 0.55, 0.55, 0.55, 0],
+        opacity: [0, 0, 0.85, 0.85, 0.85, 0],
       },
       transition: {
         duration: total,
@@ -65,7 +65,7 @@ export function BlueprintBackground() {
         className="absolute left-[2%] top-[6%] h-[60vh] w-auto opacity-90"
         fill="none"
         stroke={stroke}
-        strokeWidth="1.4"
+        strokeWidth="1.8"
         strokeLinecap="round"
         strokeLinejoin="round"
       >
@@ -126,7 +126,7 @@ export function BlueprintBackground() {
         className="absolute right-[2%] top-[35%] h-[55vh] w-auto opacity-90"
         fill="none"
         stroke={stroke}
-        strokeWidth="1.4"
+        strokeWidth="1.8"
         strokeLinecap="round"
         strokeLinejoin="round"
       >
@@ -192,7 +192,7 @@ export function BlueprintBackground() {
         className="absolute left-[3%] bottom-[8%] h-[45vh] w-auto opacity-90"
         fill="none"
         stroke={stroke}
-        strokeWidth="1.4"
+        strokeWidth="1.8"
         strokeLinecap="round"
         strokeLinejoin="round"
       >

@@ -11,7 +11,7 @@ export function ComoFunciona() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden bg-background/92 px-6 py-16 md:py-24"
+      className="relative overflow-hidden bg-transparent px-6 py-16 md:py-24"
     >
       <div className="relative mx-auto max-w-7xl">
         <motion.div

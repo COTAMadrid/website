@@ -12,7 +12,7 @@ export function Autoridad() {
   return (
     <section
       ref={ref}
-      className="relative py-16 md:py-24 px-6 bg-[var(--color-cream)]/92 text-[var(--color-cream-foreground)] overflow-hidden"
+      className="relative py-16 md:py-24 px-6 bg-[var(--color-cream)] text-[var(--color-cream-foreground)] overflow-hidden"
     >
       <div className="mx-auto max-w-5xl">
         <motion.div
