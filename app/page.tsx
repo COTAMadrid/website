@@ -1,9 +1,13 @@
+import { Button } from '@/components/ui/button';
+
 export default function Home() {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-neutral-950 text-neutral-50">
-      <div className="text-center">
-        <h1 className="text-5xl font-light tracking-tight">Cota</h1>
-        <p className="mt-4 text-neutral-400">Coming soon · Madrid</p>
+    <main className="flex min-h-screen flex-col items-center justify-center gap-8">
+      <h1 className="text-6xl">Cota</h1>
+      <p className="text-muted-foreground">Reforma con criterio · Madrid</p>
+      <div className="flex gap-3">
+        <Button>Empezar diagnóstico</Button>
+        <Button variant="outline">Saber más</Button>
       </div>
     </main>
   );
