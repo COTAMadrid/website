@@ -12,7 +12,7 @@ export function Escenarios() {
   return (
     <section
       ref={ref}
-      className="relative bg-[var(--color-cream)] text-[var(--color-cream-foreground)] overflow-hidden"
+      className="relative bg-[var(--color-cream)]/85 text-[var(--color-cream-foreground)] overflow-hidden"
     >
       {/* Section header */}
       <div className="relative mx-auto max-w-7xl px-6 pt-16 pb-10 md:pt-24 md:pb-14">

@@ -24,8 +24,8 @@ export function BlueprintBackground() {
   ) => {
     if (reduce) {
       return {
-        initial: { pathLength: 1, opacity: 0.85 },
-        animate: { pathLength: 1, opacity: 0.85 },
+        initial: { pathLength: 1, opacity: 1 },
+        animate: { pathLength: 1, opacity: 1 },
       };
     }
     const total = 24;
@@ -37,7 +37,7 @@ export function BlueprintBackground() {
       initial: { pathLength: 0, opacity: 0 },
       animate: {
         pathLength: [0, 0, 1, 1, 1, 0],
-        opacity: [0, 0, 0.85, 0.85, 0.85, 0],
+        opacity: [0, 0, 1, 1, 1, 0],
       },
       transition: {
         duration: total,
@@ -48,7 +48,7 @@ export function BlueprintBackground() {
     };
   };
 
-  const stroke = '#c9a66b';
+  const stroke = '#3e5c7f';
 
   return (
     <div
@@ -65,7 +65,7 @@ export function BlueprintBackground() {
         className="absolute left-[2%] top-[6%] h-[60vh] w-auto opacity-90"
         fill="none"
         stroke={stroke}
-        strokeWidth="1.8"
+        strokeWidth="1.1"
         strokeLinecap="round"
         strokeLinejoin="round"
       >
@@ -101,18 +101,31 @@ export function BlueprintBackground() {
         {/* Bath circle (lavabo) */}
         <motion.circle cx="380" cy="280" r="14" {...drawStage(0, 11.2, 0.6)} />
 
-        {/* Label */}
+        {/* Room labels */}
+        <motion.text x="160" y="160" fill={stroke} stroke="none" fontSize="9" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" letterSpacing="0.2em" {...drawStage(0, 11, 0.4)}>SALÓN</motion.text>
+        <motion.text x="135" y="120" fill={stroke} stroke="none" fontSize="8" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" letterSpacing="0.18em" {...drawStage(0, 11.1, 0.4)}>22.4 m²</motion.text>
+        <motion.text x="140" y="60" fill={stroke} stroke="none" fontSize="9" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" letterSpacing="0.2em" {...drawStage(0, 11.2, 0.4)}>COCINA</motion.text>
+        <motion.text x="430" y="170" fill={stroke} stroke="none" fontSize="9" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" letterSpacing="0.2em" {...drawStage(0, 11.3, 0.4)}>DORM</motion.text>
+        <motion.text x="430" y="280" fill={stroke} stroke="none" fontSize="9" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" letterSpacing="0.2em" {...drawStage(0, 11.4, 0.4)}>BAÑO</motion.text>
+
+        {/* Dimension line bottom */}
+        <motion.line x1="40" y1="465" x2="560" y2="465" strokeDasharray="2 3" {...drawStage(0, 11.6, 0.6)} />
+        <motion.line x1="40" y1="460" x2="40" y2="470" {...drawStage(0, 11.6, 0.4)} />
+        <motion.line x1="560" y1="460" x2="560" y2="470" {...drawStage(0, 11.6, 0.4)} />
+        <motion.text x="300" y="461" textAnchor="middle" fill={stroke} stroke="none" fontSize="9" fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace" letterSpacing="0.15em" {...drawStage(0, 11.7, 0.4)}>10.40 m</motion.text>
+
+        {/* Title */}
         <motion.text
           x="50"
-          y="465"
+          y="22"
           fill={stroke}
           stroke="none"
-          fontSize="11"
+          fontSize="9"
           fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
-          letterSpacing="0.18em"
-          {...drawStage(0, 11.5, 0.5)}
+          letterSpacing="0.22em"
+          {...drawStage(0, 11.8, 0.5)}
         >
-          PLANTA · 01 · 65 m²
+          PLANTA · 01 · 65 m² · CHAMBERÍ
         </motion.text>
       </svg>
 
@@ -126,7 +139,7 @@ export function BlueprintBackground() {
         className="absolute right-[2%] top-[35%] h-[55vh] w-auto opacity-90"
         fill="none"
         stroke={stroke}
-        strokeWidth="1.8"
+        strokeWidth="1.1"
         strokeLinecap="round"
         strokeLinejoin="round"
       >
@@ -192,7 +205,7 @@ export function BlueprintBackground() {
         className="absolute left-[3%] bottom-[8%] h-[45vh] w-auto opacity-90"
         fill="none"
         stroke={stroke}
-        strokeWidth="1.8"
+        strokeWidth="1.1"
         strokeLinecap="round"
         strokeLinejoin="round"
       >
