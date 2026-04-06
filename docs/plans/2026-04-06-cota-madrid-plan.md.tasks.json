@@ -66,7 +66,7 @@
     {
       "id": 9,
       "subject": "Task 9: Agenda (Cal.com) + WhatsApp floating button",
-      "status": "pending",
+      "status": "completed",
       "blockedBy": [2],
       "description": "**Goal:** Cal.com lazy embed in agenda block + global floating WhatsApp button.\n\n**Files:** components/whatsapp-floating.tsx, components/marketing/agenda-embed.tsx, app/layout.tsx\n\n**Verify:** Manual: scroll to #agenda, click WhatsApp button\n\n```json:metadata\n{\"files\": [\"components/whatsapp-floating.tsx\", \"components/marketing/agenda-embed.tsx\", \"components/marketing/agenda-block.tsx\", \"app/layout.tsx\"], \"verifyCommand\": \"npm run dev\", \"acceptanceCriteria\": [\"Cal.com embed lazy-loads\", \"WhatsApp button on all pages\", \"Aria-labels present\"]}\n```"
     },
