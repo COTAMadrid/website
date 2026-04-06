@@ -45,7 +45,7 @@
     {
       "id": 6,
       "subject": "Task 6: Wizard UI — 10-step state machine with animations",
-      "status": "pending",
+      "status": "completed",
       "blockedBy": [2, 3],
       "description": "**Goal:** 10-step diagnostic wizard with persistent state (sessionStorage), Framer Motion transitions, mobile-perfect.\n\n**Files:** app/diagnostico/page.tsx, components/wizard/*, lib/wizard-state.ts\n\n**Verify:** Manual end-to-end on /diagnostico\n\n```json:metadata\n{\"files\": [\"app/diagnostico/page.tsx\", \"components/wizard/wizard.tsx\", \"components/wizard/progress-bar.tsx\", \"components/wizard/step-tipo.tsx\", \"components/wizard/step-metros.tsx\", \"components/wizard/step-barrio.tsx\", \"components/wizard/step-antiguedad.tsx\", \"components/wizard/step-calidad.tsx\", \"components/wizard/step-estado.tsx\", \"components/wizard/step-plazo.tsx\", \"components/wizard/step-extras.tsx\", \"components/wizard/step-presupuesto.tsx\", \"components/wizard/step-contacto.tsx\", \"lib/wizard-state.ts\"], \"verifyCommand\": \"npm run dev\", \"acceptanceCriteria\": [\"10 steps with back/next\", \"Progress bar X of 10\", \"State persists in sessionStorage\", \"Animations between steps\", \"Mobile touch targets >=44px\"]}\n```"
     },
