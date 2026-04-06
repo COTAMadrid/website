@@ -14,7 +14,7 @@ export function PropuestaValor() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden bg-background px-6 py-32 md:py-40"
+      className="relative overflow-hidden bg-background px-6 py-16 md:py-24"
     >
       <div
         aria-hidden
@@ -27,7 +27,7 @@ export function PropuestaValor() {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-24 max-w-3xl md:mb-32"
+          className="mb-14 max-w-3xl md:mb-20"
         >
           <div className="mb-6 flex items-center gap-4">
             <span className="h-px w-10 bg-border" />
@@ -93,7 +93,7 @@ function Statement({
       initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative grid grid-cols-12 items-baseline gap-y-4 py-14 md:py-20"
+      className="group relative grid grid-cols-12 items-baseline gap-y-4 py-8 md:py-10"
     >
       {/* Number */}
       <div className="col-span-12 md:col-span-2">
@@ -113,7 +113,7 @@ function Statement({
       {!isLast && (
         <div
           aria-hidden
-          className="col-span-12 mt-10 h-px bg-border/50 md:mt-16"
+          className="col-span-12 mt-6 h-px bg-border/50 md:mt-8"
         />
       )}
     </motion.li>

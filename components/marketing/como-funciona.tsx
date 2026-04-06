@@ -11,14 +11,14 @@ export function ComoFunciona() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden bg-background px-6 py-32 md:py-40"
+      className="relative overflow-hidden bg-background px-6 py-16 md:py-24"
     >
       <div className="relative mx-auto max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-24 max-w-3xl md:mb-32"
+          className="mb-14 max-w-3xl md:mb-20"
         >
           <div className="mb-6 flex items-center gap-4">
             <span className="h-px w-10 bg-border" />
@@ -67,7 +67,7 @@ function Step({
   return (
     <div ref={ref} className="relative">
       <div
-        className={`grid grid-cols-12 items-center gap-y-6 py-20 md:py-32 ${
+        className={`grid grid-cols-12 items-center gap-y-6 py-12 md:py-16 ${
           align === 'right' ? 'md:[&>.num]:col-start-7' : ''
         }`}
       >
@@ -83,7 +83,7 @@ function Step({
           <div
             aria-hidden
             className="select-none font-serif leading-[0.82] tracking-[-0.04em] text-foreground"
-            style={{ fontSize: 'clamp(9rem, 22vw, 20rem)' }}
+            style={{ fontSize: 'clamp(7rem, 16vw, 14rem)' }}
           >
             {n}
           </div>

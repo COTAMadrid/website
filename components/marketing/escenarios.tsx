@@ -15,7 +15,7 @@ export function Escenarios() {
       className="relative bg-[var(--color-cream)] text-[var(--color-cream-foreground)] overflow-hidden"
     >
       {/* Section header */}
-      <div className="relative mx-auto max-w-7xl px-6 pt-32 pb-20 md:pt-40 md:pb-24">
+      <div className="relative mx-auto max-w-7xl px-6 pt-16 pb-10 md:pt-24 md:pb-14">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -54,7 +54,7 @@ export function Escenarios() {
           );
         })}
       </div>
-      <div className="h-24 md:h-32" />
+      <div className="h-12 md:h-16" />
     </section>
   );
 }
@@ -84,7 +84,7 @@ function EditorialPage({
   return (
     <div
       ref={ref}
-      className="relative mx-auto grid max-w-[1600px] grid-cols-12 items-stretch gap-y-8 px-6 py-16 md:py-28"
+      className="relative mx-auto grid max-w-[1600px] grid-cols-12 items-stretch gap-y-8 px-6 py-10 md:py-16"
     >
       {/* Image */}
       <motion.div
@@ -125,11 +125,11 @@ function EditorialPage({
         <div
           aria-hidden
           className="pointer-events-none relative mb-6 select-none font-serif leading-none text-[var(--color-cream-foreground)]/10"
-          style={{ fontSize: 'clamp(7rem, 16vw, 15rem)' }}
+          style={{ fontSize: 'clamp(5rem, 11vw, 10rem)' }}
         >
           {num}
         </div>
-        <div className="relative -mt-10 md:-mt-16">
+        <div className="relative -mt-6 md:-mt-10">
           <h3 className="mb-6 font-serif text-3xl leading-[1.05] tracking-[-0.01em] md:text-5xl text-balance">
             {title}
           </h3>
@@ -147,7 +147,7 @@ function EditorialPage({
       {index < 2 && (
         <div
           aria-hidden
-          className="col-span-12 mt-12 h-px bg-[var(--color-cream-border)] md:mt-20"
+          className="col-span-12 mt-6 h-px bg-[var(--color-cream-border)] md:mt-10"
         />
       )}
     </div>

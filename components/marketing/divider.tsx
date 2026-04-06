@@ -26,7 +26,7 @@ export function Divider({
       <div
         ref={ref}
         aria-hidden
-        className={`flex items-center justify-center gap-6 py-12 text-[color:var(--color-accent,oklch(0.78_0.12_80))]/70 ${className}`}
+        className={`flex items-center justify-center gap-6 py-6 text-[color:var(--color-accent,oklch(0.78_0.12_80))]/70 ${className}`}
       >
         {[0, 1, 2, 3, 4].map((i) => (
           <motion.span
@@ -45,7 +45,7 @@ export function Divider({
 
   if (variant === 'hairline') {
     return (
-      <div ref={ref} aria-hidden className={`relative py-16 ${className}`}>
+      <div ref={ref} aria-hidden className={`relative py-8 ${className}`}>
         <motion.div
           initial={{ scaleX: 0, opacity: 0 }}
           animate={inView ? { scaleX: 1, opacity: 1 } : {}}
@@ -61,7 +61,7 @@ export function Divider({
     <div
       ref={ref}
       aria-hidden
-      className={`relative mx-auto flex max-w-4xl items-center gap-4 px-6 py-16 ${className}`}
+      className={`relative mx-auto flex max-w-4xl items-center gap-4 px-6 py-8 ${className}`}
     >
       <motion.svg
         initial={{ opacity: 0 }}

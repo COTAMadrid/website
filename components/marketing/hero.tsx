@@ -53,14 +53,14 @@ export function Hero() {
       {/* 3D floating architecture layer (desktop, no reduced-motion) */}
       <Hero3D />
 
-      {/* Cinematic gradient overlay */}
+      {/* Cinematic gradient overlay (lighter so 3D breathes) */}
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 bg-gradient-to-b from-black/85 via-black/65 to-background"
+        className="absolute inset-0 -z-10 bg-gradient-to-b from-black/70 via-black/40 to-background"
       />
       <div
         aria-hidden
-        className="absolute inset-0 -z-10 bg-gradient-to-r from-black/80 via-transparent to-black/40"
+        className="absolute inset-0 -z-10 bg-gradient-to-r from-black/70 via-black/20 to-black/30"
       />
 
       {/* Subtle gold glow */}
@@ -77,7 +77,7 @@ export function Hero() {
         className="pointer-events-none absolute inset-0 -z-10 opacity-[0.03] [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:72px_72px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_80%)]"
       />
 
-      <div className="relative mx-auto max-w-7xl w-full grid lg:grid-cols-12 gap-10 items-center py-28">
+      <div className="relative z-10 mx-auto max-w-7xl w-full grid lg:grid-cols-12 gap-10 items-center py-20">
         <div className="lg:col-span-8 lg:text-left text-center">
           <motion.div
             initial={{ opacity: 0, y: 8 }}

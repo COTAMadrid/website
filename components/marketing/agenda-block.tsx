@@ -14,7 +14,7 @@ export function AgendaBlock() {
     <section
       id="agenda"
       ref={ref}
-      className="relative overflow-hidden bg-background px-6 py-32 md:py-40"
+      className="relative overflow-hidden bg-background px-6 py-16 md:py-24"
     >
       {/* Textural background image */}
       <div aria-hidden className="absolute inset-0 -z-10">
@@ -34,7 +34,7 @@ export function AgendaBlock() {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-16 md:mb-20"
+          className="mb-10 md:mb-12"
         >
           <div className="mb-6 flex items-center gap-4">
             <span className="h-px w-10 bg-border" />
@@ -67,14 +67,14 @@ export function AgendaBlock() {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-12 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground"
+          className="mt-8 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground"
         >
           <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
           Solo un número limitado de proyectos al mes
         </motion.p>
 
         {/* Embed below */}
-        <div className="mt-16 md:mt-20">
+        <div className="mt-10 md:mt-12">
           <AgendaEmbed />
         </div>
       </div>
@@ -104,7 +104,7 @@ function MenuRow({
       transition={{ duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
       className="group relative border-b border-border/60 transition-colors duration-500 hover:bg-card/40"
     >
-      <div className="flex flex-col gap-3 px-2 py-10 md:grid md:grid-cols-[auto_1fr_auto_auto] md:items-baseline md:gap-6 md:px-4 md:py-12">
+      <div className="flex flex-col gap-3 px-2 py-6 md:grid md:grid-cols-[auto_1fr_auto_auto] md:items-baseline md:gap-6 md:px-4 md:py-8">
         {/* Number */}
         <span className="font-serif text-2xl text-accent/80 md:text-3xl">
           {num}
@@ -127,7 +127,7 @@ function MenuRow({
           {duration}
         </span>
       </div>
-      <div className="px-2 pb-10 md:grid md:grid-cols-[auto_1fr_auto_auto] md:gap-6 md:px-4 md:pb-12">
+      <div className="px-2 pb-6 md:grid md:grid-cols-[auto_1fr_auto_auto] md:gap-6 md:px-4 md:pb-8">
         <span className="hidden md:block" />
         <p className="max-w-xl text-base leading-relaxed text-muted-foreground">
           {body}
