@@ -83,19 +83,19 @@ export function HeroAnnotations() {
             - 3.20 m vertical cota: drops DOWN from the pen tip
             - DETALLE circle: relocated to TOP-LEFT corner area */}
 
-        {/* ANNOTATION 1 — Horizontal "80 m²" left of pen tip, just below
-            (starts at 2.5s) */}
+        {/* ANNOTATION 1 — Horizontal "80 m²" further LEFT, ending under
+            pen tip area (starts at 2.5s) */}
         <motion.g>
-          {/* Right tick anchored under pen tip */}
-          <motion.line x1="900" y1="555" x2="900" y2="585" {...drawLoop(2.5, 0.3)} />
+          {/* Right tick (under pen tip vicinity) */}
+          <motion.line x1="780" y1="555" x2="780" y2="585" {...drawLoop(2.5, 0.3)} />
           {/* Left tick */}
-          <motion.line x1="450" y1="555" x2="450" y2="585" {...drawLoop(2.5, 0.3)} />
+          <motion.line x1="280" y1="555" x2="280" y2="585" {...drawLoop(2.5, 0.3)} />
           {/* Horizontal rule with gap for label */}
-          <motion.line x1="450" y1="570" x2="620" y2="570" {...drawLoop(2.7, 0.7)} />
-          <motion.line x1="730" y1="570" x2="900" y2="570" {...drawLoop(2.7, 0.7)} />
+          <motion.line x1="280" y1="570" x2="465" y2="570" {...drawLoop(2.7, 0.7)} />
+          <motion.line x1="595" y1="570" x2="780" y2="570" {...drawLoop(2.7, 0.7)} />
         </motion.g>
         <motion.text
-          x="675"
+          x="530"
           y="578"
           textAnchor="middle"
           fill={stroke}
@@ -108,20 +108,20 @@ export function HeroAnnotations() {
           80 m²
         </motion.text>
 
-        {/* ANNOTATION 2 — Vertical "3.20 m" dropping straight down from
-            the pen tip (starts at 4.0s) */}
+        {/* ANNOTATION 2 — Vertical "3.20 m" RISING UP from pen tip
+            (starts at 4.0s) */}
         <motion.g>
-          {/* Top tick at pen tip (x ~900, y ~540) */}
+          {/* Bottom tick at pen tip (y=540) */}
           <motion.line x1="885" y1="540" x2="915" y2="540" {...drawLoop(4.0, 0.3)} />
-          {/* Bottom tick */}
-          <motion.line x1="885" y1="820" x2="915" y2="820" {...drawLoop(4.0, 0.3)} />
+          {/* Top tick higher up */}
+          <motion.line x1="885" y1="240" x2="915" y2="240" {...drawLoop(4.0, 0.3)} />
           {/* Vertical rule with gap for label */}
-          <motion.line x1="900" y1="540" x2="900" y2="665" {...drawLoop(4.2, 0.6)} />
-          <motion.line x1="900" y1="715" x2="900" y2="820" {...drawLoop(4.2, 0.6)} />
+          <motion.line x1="900" y1="240" x2="900" y2="365" {...drawLoop(4.2, 0.6)} />
+          <motion.line x1="900" y1="415" x2="900" y2="540" {...drawLoop(4.2, 0.6)} />
         </motion.g>
         <motion.text
           x="900"
-          y="697"
+          y="397"
           textAnchor="middle"
           fill={stroke}
           stroke="none"
