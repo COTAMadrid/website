@@ -47,15 +47,17 @@ export async function Footer() {
         <div className="grid grid-cols-1 gap-12 md:grid-cols-4 md:gap-10">
           {/* Brand column */}
           <div className="md:col-span-1">
-            {/* Logo */}
+            {/* Logo — inverted via CSS so the dark serif "Cota" reads
+                white on the dark green footer without needing a
+                transparent PNG. */}
             <Link href="/" aria-label="Cota Madrid" className="inline-block">
-              <div className="relative h-20 w-40 bg-white/95 rounded-md overflow-hidden">
+              <div className="relative h-16 w-40">
                 <Image
                   src="/images/cota/logo-cota.png"
                   alt="Cota Madrid"
                   fill
                   sizes="160px"
-                  className="object-contain p-2"
+                  className="object-contain object-left invert brightness-110 contrast-125"
                   priority={false}
                 />
               </div>
