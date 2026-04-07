@@ -83,70 +83,81 @@ export function HeroAnnotations() {
             - 3.20 m vertical cota: drops DOWN from the pen tip
             - DETALLE circle: relocated to TOP-LEFT corner area */}
 
-        {/* ANNOTATION 1 — Horizontal "80 m²" further LEFT, ending under
-            pen tip area (starts at 2.5s) */}
-        <motion.g>
-          {/* Right tick (under pen tip vicinity) */}
-          <motion.line x1="780" y1="555" x2="780" y2="585" {...drawLoop(2.5, 0.3)} />
-          {/* Left tick */}
-          <motion.line x1="280" y1="555" x2="280" y2="585" {...drawLoop(2.5, 0.3)} />
-          {/* Horizontal rule with gap for label */}
-          <motion.line x1="280" y1="570" x2="465" y2="570" {...drawLoop(2.7, 0.7)} />
-          <motion.line x1="595" y1="570" x2="780" y2="570" {...drawLoop(2.7, 0.7)} />
-        </motion.g>
-        <motion.text
-          x="530"
-          y="578"
-          textAnchor="middle"
-          fill={stroke}
-          stroke="none"
-          fontSize="24"
-          fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
-          letterSpacing="0.08em"
-          {...fadeLoop(3.2)}
-        >
-          80 m²
-        </motion.text>
+        {/* L-shape composition on the right side of the photo:
+            - Vertical 3.20m sits at x=900 (pen tip), goes from y=320 to y=620
+            - Horizontal 80m² starts where vertical ends (x=900, y=620),
+              extends RIGHT to x=1450
+            - DETALLE circle floats inside the empty rectangle delimited
+              by the two cotas (top-right of vertical, above horizontal),
+              not touching either line */}
 
-        {/* ANNOTATION 2 — Vertical "3.20 m" RISING UP from pen tip
-            (starts at 4.0s) */}
+        {/* ANNOTATION 1 — Vertical "3.20 m" rising above pen tip
+            (starts at 2.5s — drawn first because the horizontal anchors here) */}
         <motion.g>
-          {/* Bottom tick at pen tip (y=540) */}
-          <motion.line x1="885" y1="540" x2="915" y2="540" {...drawLoop(4.0, 0.3)} />
-          {/* Top tick higher up */}
-          <motion.line x1="885" y1="240" x2="915" y2="240" {...drawLoop(4.0, 0.3)} />
+          {/* Bottom tick at horizontal junction */}
+          <motion.line x1="885" y1="620" x2="915" y2="620" {...drawLoop(2.5, 0.3)} />
+          {/* Top tick */}
+          <motion.line x1="885" y1="320" x2="915" y2="320" {...drawLoop(2.5, 0.3)} />
           {/* Vertical rule with gap for label */}
-          <motion.line x1="900" y1="240" x2="900" y2="365" {...drawLoop(4.2, 0.6)} />
-          <motion.line x1="900" y1="415" x2="900" y2="540" {...drawLoop(4.2, 0.6)} />
+          <motion.line x1="900" y1="320" x2="900" y2="445" {...drawLoop(2.7, 0.6)} />
+          <motion.line x1="900" y1="495" x2="900" y2="620" {...drawLoop(2.7, 0.6)} />
         </motion.g>
         <motion.text
           x="900"
-          y="397"
+          y="477"
           textAnchor="middle"
           fill={stroke}
           stroke="none"
           fontSize="18"
           fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
           letterSpacing="0.08em"
-          {...fadeLoop(4.7)}
+          {...fadeLoop(3.3)}
         >
           3.20 m
         </motion.text>
 
-        {/* ANNOTATION 3 — Detail circle relocated to TOP-LEFT area
-            (starts at 5.5s) */}
+        {/* ANNOTATION 2 — Horizontal "80 m²" extending RIGHT from where
+            the vertical ends (starts at 4.0s) */}
+        <motion.g>
+          {/* Left tick where the vertical bottom is */}
+          <motion.line x1="900" y1="605" x2="900" y2="635" {...drawLoop(4.0, 0.3)} />
+          {/* Right tick */}
+          <motion.line x1="1450" y1="605" x2="1450" y2="635" {...drawLoop(4.0, 0.3)} />
+          {/* Horizontal rule with gap for label */}
+          <motion.line x1="900" y1="620" x2="1115" y2="620" {...drawLoop(4.2, 0.7)} />
+          <motion.line x1="1235" y1="620" x2="1450" y2="620" {...drawLoop(4.2, 0.7)} />
+        </motion.g>
+        <motion.text
+          x="1175"
+          y="628"
+          textAnchor="middle"
+          fill={stroke}
+          stroke="none"
+          fontSize="24"
+          fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
+          letterSpacing="0.08em"
+          {...fadeLoop(4.8)}
+        >
+          80 m²
+        </motion.text>
+
+        {/* ANNOTATION 3 — Detail circle floating in the empty rectangle
+            delimited by the two cotas, NOT touching them.
+            Rectangle: x ∈ [900, 1450], y ∈ [320, 620]
+            Circle center: (1200, 460), r=46. Margins: 254px right, 134px
+            top, 160px bottom — well clear of both lines. */}
         <motion.circle
-          cx="220"
-          cy="200"
-          r="50"
+          cx="1200"
+          cy="460"
+          r="46"
           strokeDasharray="4 6"
           {...drawLoop(5.5, 1.1)}
         />
-        <motion.line x1="265" y1="240" x2="350" y2="310" {...drawLoop(6.4, 0.6)} />
+        {/* Leader line goes UP-RIGHT to label, away from the cotas */}
+        <motion.line x1="1240" y1="425" x2="1335" y2="370" {...drawLoop(6.4, 0.6)} />
         <motion.text
-          x="220"
-          y="290"
-          textAnchor="middle"
+          x="1345"
+          y="365"
           fill={muted}
           stroke="none"
           fontSize="13"
