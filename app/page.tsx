@@ -10,7 +10,8 @@ import { Filtrado } from '@/components/marketing/filtrado';
 import { AgendaBlock } from '@/components/marketing/agenda-block';
 import { Cierre } from '@/components/marketing/cierre';
 import { Divider } from '@/components/marketing/divider';
-import { CotaLinesBackground } from '@/components/marketing/cota-lines-background';
+// Background experiments removed — global cotas and floor plans
+// were unfixable in time. The page stays clean without them.
 import { pageMeta } from '@/lib/seo';
 
 export const metadata = pageMeta({
@@ -41,7 +42,6 @@ export default function Home() {
           }),
         }}
       />
-      <CotaLinesBackground />
       <Hero />
       <BudgetShowcase />
       <Autoridad />

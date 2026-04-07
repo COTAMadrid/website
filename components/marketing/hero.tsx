@@ -5,7 +5,8 @@ import { useRef } from 'react';
 import Image from 'next/image';
 import { COPY } from '@/content/copy';
 import { HeroAnnotations } from './hero-annotations';
-import { HeroFloorPlan3D } from './hero-floor-plan-3d';
+// HeroFloorPlan3D disabled — could not be made to fit the container
+// without clipping. Files kept on disk for future revival.
 import { HeroLeadCard } from '@/components/lead-capture/hero-lead-card';
 
 export function Hero() {
@@ -52,8 +53,8 @@ export function Hero() {
         className="absolute inset-0 z-[1] bg-gradient-to-b from-[oklch(0.1_0.02_168/0.4)] via-transparent to-[oklch(0.1_0.02_168/0.8)]"
       />
 
-      {/* LAYER 2: 3D rotating floor plan (desktop only, lazy) */}
-      <HeroFloorPlan3D />
+      {/* LAYER 2: 3D rotating floor plan — DISABLED (clipping issue) */}
+      {/* <HeroFloorPlan3D /> */}
 
       {/* LAYER 5: Animated cota annotations (SVG, draws over the photo) */}
       <HeroAnnotations />
