@@ -78,25 +78,28 @@ export function HeroAnnotations() {
         strokeWidth="1.5"
         strokeLinecap="round"
       >
-        {/* Annotations positioned over the plano area of the photo
-            (center-bottom where the pencil tip is). Coordinates assume
-            the photo is roughly centered with the hand in the right half. */}
+        {/* Cotas now ORIGINATE near the pen tip (right endpoint ≈ x: 940, y: 540
+            in the photo) and extend to the LEFT, like the hand is drawing
+            them outward. Each cota's right edge clusters around the pen tip. */}
 
-        {/* ANNOTATION 1 — Horizontal cota line over the plan area
-            (starts at 2.5s — after viewer notices the hand) */}
+        {/* ANNOTATION 1 — Horizontal cota extending LEFT from pen tip
+            (starts at 2.5s) */}
         <motion.g>
-          <motion.line x1="700" y1="560" x2="700" y2="595" {...drawLoop(2.5, 0.4)} />
-          <motion.line x1="1100" y1="560" x2="1100" y2="595" {...drawLoop(2.5, 0.4)} />
-          <motion.line x1="700" y1="578" x2="855" y2="578" {...drawLoop(2.7, 0.7)} />
-          <motion.line x1="945" y1="578" x2="1100" y2="578" {...drawLoop(2.7, 0.7)} />
+          {/* Right tick (near pen tip) */}
+          <motion.line x1="940" y1="525" x2="940" y2="555" {...drawLoop(2.5, 0.3)} />
+          {/* Left tick */}
+          <motion.line x1="220" y1="525" x2="220" y2="555" {...drawLoop(2.5, 0.3)} />
+          {/* Horizontal rule with gap for label */}
+          <motion.line x1="220" y1="540" x2="520" y2="540" {...drawLoop(2.7, 0.7)} />
+          <motion.line x1="640" y1="540" x2="940" y2="540" {...drawLoop(2.7, 0.7)} />
         </motion.g>
         <motion.text
-          x="900"
-          y="585"
+          x="580"
+          y="548"
           textAnchor="middle"
           fill={stroke}
           stroke="none"
-          fontSize="22"
+          fontSize="26"
           fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
           letterSpacing="0.08em"
           {...fadeLoop(3.2)}
@@ -104,20 +107,21 @@ export function HeroAnnotations() {
           80 m²
         </motion.text>
 
-        {/* ANNOTATION 2 — Vertical cota left side of plan (starts at 4.0s) */}
+        {/* ANNOTATION 2 — Vertical cota anchored to pen tip area
+            (starts at 4.0s) */}
         <motion.g>
-          <motion.line x1="640" y1="380" x2="675" y2="380" {...drawLoop(4.0, 0.4)} />
-          <motion.line x1="640" y1="700" x2="675" y2="700" {...drawLoop(4.0, 0.4)} />
-          <motion.line x1="657" y1="380" x2="657" y2="525" {...drawLoop(4.2, 0.6)} />
-          <motion.line x1="657" y1="555" x2="657" y2="700" {...drawLoop(4.2, 0.6)} />
+          <motion.line x1="905" y1="220" x2="935" y2="220" {...drawLoop(4.0, 0.3)} />
+          <motion.line x1="905" y1="500" x2="935" y2="500" {...drawLoop(4.0, 0.3)} />
+          <motion.line x1="920" y1="220" x2="920" y2="335" {...drawLoop(4.2, 0.6)} />
+          <motion.line x1="920" y1="395" x2="920" y2="500" {...drawLoop(4.2, 0.6)} />
         </motion.g>
         <motion.text
-          x="657"
-          y="544"
+          x="920"
+          y="370"
           textAnchor="middle"
           fill={stroke}
           stroke="none"
-          fontSize="18"
+          fontSize="20"
           fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
           letterSpacing="0.08em"
           {...fadeLoop(4.7)}
@@ -125,19 +129,21 @@ export function HeroAnnotations() {
           3.20 m
         </motion.text>
 
-        {/* ANNOTATION 3 — Detail circle (zoom marker) near pencil tip
-            (starts at 5.5s — feels like the pencil just drew it) */}
+        {/* ANNOTATION 3 — Detail circle (zoom marker) on the LEFT
+            with a leader line back to the pen tip (starts at 5.5s) */}
         <motion.circle
-          cx="850"
-          cy="450"
+          cx="380"
+          cy="380"
           r="55"
           strokeDasharray="4 6"
           {...drawLoop(5.5, 1.1)}
         />
-        <motion.line x1="900" y1="410" x2="1000" y2="350" {...drawLoop(6.4, 0.5)} />
+        {/* Leader line going FROM pen tip area TO the detail circle */}
+        <motion.line x1="900" y1="500" x2="430" y2="420" {...drawLoop(6.4, 0.6)} />
         <motion.text
-          x="1012"
-          y="345"
+          x="380"
+          y="475"
+          textAnchor="middle"
           fill={muted}
           stroke="none"
           fontSize="14"
@@ -149,18 +155,18 @@ export function HeroAnnotations() {
         </motion.text>
 
         {/* ANNOTATION 4 — Bottom-left location stamp (starts at 7.5s) */}
-        <motion.line x1="100" y1="820" x2="320" y2="820" {...drawLoop(7.5, 0.5)} />
+        <motion.line x1="100" y1="780" x2="380" y2="780" {...drawLoop(7.5, 0.5)} />
         <motion.text
           x="100"
-          y="848"
+          y="808"
           fill={muted}
           stroke="none"
-          fontSize="13"
+          fontSize="14"
           fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
           letterSpacing="0.22em"
           {...fadeLoop(7.9)}
         >
-          SALAMANCA · MADRID
+          SALAMANCA · MADRID · 80 M²
         </motion.text>
       </svg>
     </div>
