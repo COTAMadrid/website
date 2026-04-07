@@ -78,7 +78,7 @@ export function HeroLeadCard() {
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, delay: 0.48, ease: 'easeOut' }}
-      className="mt-10 max-w-xl lg:mx-0 mx-auto rounded-2xl border border-white/12 bg-[oklch(0.14_0.02_168/0.5)] backdrop-blur-2xl shadow-[inset_0_1px_0_oklch(1_0_0/0.08),0_40px_100px_-30px_oklch(0.06_0.02_168/0.9)] overflow-hidden focus-within:border-accent/50 focus-within:shadow-[inset_0_1px_0_oklch(1_0_0/0.1),0_40px_100px_-20px_oklch(0.76_0.11_78/0.22)] transition-all duration-500"
+      className="mt-10 max-w-xl lg:mx-0 mx-auto rounded-2xl border-2 border-accent/45 bg-[oklch(0.14_0.02_168/0.55)] backdrop-blur-2xl shadow-[inset_0_1px_0_oklch(1_0_0/0.12),0_0_0_4px_oklch(0.76_0.11_78/0.08),0_30px_80px_-20px_oklch(0.76_0.11_78/0.45)] overflow-hidden focus-within:border-accent/80 focus-within:shadow-[inset_0_1px_0_oklch(1_0_0/0.15),0_0_0_5px_oklch(0.76_0.11_78/0.15),0_40px_100px_-20px_oklch(0.76_0.11_78/0.6)] transition-all duration-500"
     >
       {/* Restrained header — numbered ribbon, no emoji */}
       <div className="flex items-center justify-between border-b border-white/10 px-4 py-2.5 text-[0.6rem] font-mono uppercase tracking-[0.22em] text-white/70">

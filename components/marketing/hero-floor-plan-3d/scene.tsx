@@ -231,7 +231,7 @@ export default function FloorPlanScene() {
       camera={{ position: [5.5, 6.2, 7.5], fov: 30 }}
       gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
       style={{ background: 'transparent' }}
-      onCreated={({ camera }) => camera.lookAt(0, -0.4, 0)}
+      onCreated={({ camera }) => camera.lookAt(0, 1.4, 0)}
     >
       <Suspense fallback={null}>
         <FloorPlan />

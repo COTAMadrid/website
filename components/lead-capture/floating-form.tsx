@@ -95,7 +95,7 @@ export function FloatingForm() {
           transition={{ duration: 0.5, ease: 'easeOut' }}
           className="fixed z-30 bottom-6 left-1/2 -translate-x-1/2 w-[calc(100vw-3rem)] max-w-[360px] sm:left-6 sm:translate-x-0"
         >
-          <div className="relative rounded-xl border border-white/10 bg-[oklch(0.2_0.016_168/0.92)] backdrop-blur-xl shadow-editorial overflow-hidden">
+          <div className="relative rounded-xl border-2 border-accent/45 bg-[oklch(0.2_0.016_168/0.95)] backdrop-blur-xl shadow-[0_0_0_4px_oklch(0.76_0.11_78/0.1),0_30px_70px_-15px_oklch(0.76_0.11_78/0.5)] overflow-hidden focus-within:border-accent/80 focus-within:shadow-[0_0_0_5px_oklch(0.76_0.11_78/0.18),0_40px_90px_-15px_oklch(0.76_0.11_78/0.65)] transition-all duration-500">
             {/* Restrained header */}
             <div className="flex items-center justify-between border-b border-white/10 px-4 py-2.5 text-[0.6rem] font-mono uppercase tracking-[0.22em] text-foreground/75">
               <span className="inline-flex items-center gap-2">

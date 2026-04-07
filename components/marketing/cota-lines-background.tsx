@@ -74,7 +74,7 @@ export function CotaLinesBackground() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none fixed inset-0 z-0 overflow-hidden"
+      className="pointer-events-none fixed inset-0 z-30 overflow-hidden mix-blend-screen"
     >
       {/* Single SVG covering the entire viewport. Cotas positioned in
           screen-relative coordinates so they distribute across the page. */}
