@@ -29,7 +29,7 @@ export function HeroFloorPlan3D() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute right-[8%] top-[28%] size-[28rem] hidden md:block z-[2]"
+      className="pointer-events-none absolute right-[2%] top-[24%] h-[36rem] w-[36rem] hidden md:block z-[2]"
     >
       <FloorPlanScene />
     </div>

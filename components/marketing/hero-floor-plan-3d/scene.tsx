@@ -5,34 +5,72 @@ import { Suspense, useMemo, useRef } from 'react';
 import * as THREE from 'three';
 
 /**
- * Procedural isometric floor plan, BUILT FOR VISIBILITY.
- * Solid gold walls (BoxGeometry filled, not just edges), bright opacity,
- * darker more contrasting ground, more furniture, fully readable as a plan.
+ * Wireframe blueprint floor plan — slim gold lines on transparent
+ * background. No solid walls or boxes. Includes dimension cotas
+ * extending outside the plan and small furniture markers in line
+ * style. Slow Y rotation. Camera placed far enough back so the
+ * rotating plan never clips its container.
  */
 
-const GOLD = '#d4b27a';
-const GOLD_BRIGHT = '#e8c688';
-const GROUND = '#0a1814';
+const GOLD = '#e8c688';
+const GOLD_DIM = '#d4b27a';
 
-function Wall({
-  args,
-  position = [0, 0, 0],
+/**
+ * Helper: build a Line2-style segment from a list of [x,y,z] points.
+ * Uses BufferGeometry + Line for slim hairlines.
+ */
+function LineSegment({
+  points,
+  color = GOLD,
+  opacity = 1,
 }: {
-  args: [number, number, number];
-  position?: [number, number, number];
+  points: number[][];
+  color?: string;
+  opacity?: number;
 }) {
+  const geometry = useMemo(() => {
+    const g = new THREE.BufferGeometry();
+    const positions = new Float32Array(points.flat());
+    g.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+    return g;
+  }, [points]);
   return (
-    <mesh position={position} castShadow receiveShadow>
-      <boxGeometry args={args} />
-      <meshStandardMaterial
-        color={GOLD}
-        emissive={GOLD}
-        emissiveIntensity={0.18}
-        roughness={0.55}
-        metalness={0.1}
-      />
-    </mesh>
+    <line>
+      <primitive object={geometry} attach="geometry" />
+      <lineBasicMaterial color={color} transparent opacity={opacity} linewidth={2} />
+    </line>
   );
+}
+
+/**
+ * Wireframe rectangle in the XZ plane (a wall outline from above)
+ */
+function Rect({
+  x,
+  z,
+  w,
+  d,
+  color = GOLD,
+  opacity = 1,
+}: {
+  x: number;
+  z: number;
+  w: number;
+  d: number;
+  color?: string;
+  opacity?: number;
+}) {
+  const points = useMemo(
+    () => [
+      [x - w / 2, 0, z - d / 2],
+      [x + w / 2, 0, z - d / 2],
+      [x + w / 2, 0, z + d / 2],
+      [x - w / 2, 0, z + d / 2],
+      [x - w / 2, 0, z - d / 2],
+    ],
+    [x, z, w, d]
+  );
+  return <LineSegment points={points} color={color} opacity={opacity} />;
 }
 
 function FloorPlan() {
@@ -43,137 +81,157 @@ function FloorPlan() {
     group.current.rotation.y += 0.18 * delta;
   });
 
-  // Floor plan dimensions
-  const W = 4;
-  const D = 3;
-  const H = 0.85;
-  const T = 0.12;
+  // Floor plan dimensions (kept compact so rotation never clips container)
+  const W = 3.4;
+  const D = 2.4;
 
   return (
-    <group ref={group} position={[0, -0.25, 0]}>
-      {/* Ground plane — darker, more visible contrast */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]} receiveShadow>
-        <planeGeometry args={[W, D]} />
-        <meshStandardMaterial
-          color={GROUND}
-          roughness={0.9}
-          metalness={0.05}
-          side={THREE.DoubleSide}
-        />
-      </mesh>
+    <group ref={group} position={[0, 0, 0]} rotation={[0, 0, 0]}>
+      {/* OUTER WALLS — single hairline outline */}
+      <LineSegment
+        points={[
+          [-W / 2, 0, -D / 2],
+          [W / 2, 0, -D / 2],
+          [W / 2, 0, D / 2],
+          [-W / 2, 0, D / 2],
+          [-W / 2, 0, -D / 2],
+        ]}
+      />
 
-      {/* Subtle floor grid lines on the ground (procedural geometry) */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.001, 0]}>
-        <planeGeometry args={[W, D, 8, 6]} />
-        <meshBasicMaterial color={GOLD_BRIGHT} wireframe transparent opacity={0.18} />
-      </mesh>
-
-      {/* OUTER WALLS — solid boxes */}
-      <Wall args={[W, H, T]} position={[0, H / 2, -D / 2]} />
-      <Wall args={[W, H, T]} position={[0, H / 2, D / 2]} />
-      <Wall args={[T, H, D]} position={[-W / 2, H / 2, 0]} />
-      <Wall args={[T, H, D]} position={[W / 2, H / 2, 0]} />
-
-      {/* INTERIOR WALLS — splits into 3 rooms */}
-      {/* Vertical partition (separates left bath from main area) */}
-      <Wall args={[T, H * 0.92, D * 0.65]} position={[-W * 0.18, (H * 0.92) / 2, -D * 0.18]} />
-      {/* Horizontal partition (separates kitchen from salon) */}
-      <Wall args={[W * 0.4, H * 0.92, T]} position={[W * 0.18, (H * 0.92) / 2, -D * 0.05]} />
+      {/* INTERIOR PARTITIONS */}
+      {/* Vertical wall splitting bath/main */}
+      <LineSegment
+        points={[
+          [-W * 0.18, 0, -D / 2],
+          [-W * 0.18, 0, D * 0.1],
+        ]}
+      />
+      {/* Horizontal wall under kitchen */}
+      <LineSegment
+        points={[
+          [-W * 0.18, 0, -D * 0.1],
+          [W * 0.42, 0, -D * 0.1],
+        ]}
+      />
       {/* Bedroom partition */}
-      <Wall args={[T, H * 0.92, D * 0.4]} position={[W * 0.05, (H * 0.92) / 2, D * 0.3]} />
+      <LineSegment
+        points={[
+          [W * 0.05, 0, D * 0.5],
+          [W * 0.05, 0, D * 0.1],
+          [W * 0.42, 0, D * 0.1],
+        ]}
+      />
 
-      {/* DOOR FRAMES — small gaps in walls indicated by tiny gold posts */}
-      {/* Bath entrance post */}
-      <mesh position={[-W * 0.18, H * 0.35, D * 0.18]}>
-        <boxGeometry args={[T * 1.2, H * 0.7, T * 1.2]} />
-        <meshStandardMaterial color={GOLD_BRIGHT} emissive={GOLD_BRIGHT} emissiveIntensity={0.3} />
-      </mesh>
+      {/* DOOR ARCS (small quarter-circle line strips) */}
+      <DoorArc cx={-W * 0.18} cz={D * 0.1} radius={0.22} startDeg={0} endDeg={90} />
+      <DoorArc cx={W * 0.05} cz={D * 0.1} radius={0.22} startDeg={180} endDeg={270} />
 
-      {/* FURNITURE — solid filled */}
+      {/* WINDOWS (double parallel hairlines) */}
+      <LineSegment points={[[-W * 0.36, 0, -D / 2 - 0.018], [W * 0.0, 0, -D / 2 - 0.018]]} opacity={0.85} />
+      <LineSegment points={[[-W * 0.36, 0, -D / 2 + 0.018], [W * 0.0, 0, -D / 2 + 0.018]]} opacity={0.85} />
+
+      <LineSegment points={[[W / 2 + 0.018, 0, -D * 0.18], [W / 2 + 0.018, 0, D * 0.18]]} opacity={0.85} />
+      <LineSegment points={[[W / 2 - 0.018, 0, -D * 0.18], [W / 2 - 0.018, 0, D * 0.18]]} opacity={0.85} />
+
+      {/* FURNITURE — light line outlines */}
       {/* Bed (back-right room) */}
-      <mesh position={[W * 0.3, 0.1, -D * 0.3]} castShadow>
-        <boxGeometry args={[0.65, 0.18, 0.42]} />
-        <meshStandardMaterial color={GOLD} emissive={GOLD} emissiveIntensity={0.25} roughness={0.6} />
-      </mesh>
-      {/* 2 pillows */}
-      <mesh position={[W * 0.22, 0.21, -D * 0.36]}>
-        <boxGeometry args={[0.16, 0.06, 0.12]} />
-        <meshStandardMaterial color={GOLD_BRIGHT} emissive={GOLD_BRIGHT} emissiveIntensity={0.3} />
-      </mesh>
-      <mesh position={[W * 0.34, 0.21, -D * 0.36]}>
-        <boxGeometry args={[0.16, 0.06, 0.12]} />
-        <meshStandardMaterial color={GOLD_BRIGHT} emissive={GOLD_BRIGHT} emissiveIntensity={0.3} />
-      </mesh>
-
-      {/* Sofa (front-right) */}
-      <mesh position={[W * 0.22, 0.1, D * 0.28]} castShadow>
-        <boxGeometry args={[0.85, 0.18, 0.32]} />
-        <meshStandardMaterial color={GOLD} emissive={GOLD} emissiveIntensity={0.25} roughness={0.6} />
-      </mesh>
-      {/* Sofa back */}
-      <mesh position={[W * 0.22, 0.22, D * 0.36]}>
-        <boxGeometry args={[0.85, 0.16, 0.05]} />
-        <meshStandardMaterial color={GOLD_BRIGHT} emissive={GOLD_BRIGHT} emissiveIntensity={0.3} />
-      </mesh>
-
+      <Rect x={W * 0.28} z={-D * 0.32} w={0.55} d={0.35} color={GOLD_DIM} opacity={0.85} />
+      {/* Sofa (front center) */}
+      <Rect x={W * 0.22} z={D * 0.3} w={0.7} d={0.22} color={GOLD_DIM} opacity={0.85} />
       {/* Coffee table */}
-      <mesh position={[W * 0.22, 0.06, D * 0.05]}>
-        <boxGeometry args={[0.45, 0.04, 0.3]} />
-        <meshStandardMaterial color={GOLD_BRIGHT} emissive={GOLD_BRIGHT} emissiveIntensity={0.25} />
-      </mesh>
+      <Rect x={W * 0.22} z={D * 0.05} w={0.32} d={0.18} color={GOLD_DIM} opacity={0.7} />
+      {/* Kitchen counter */}
+      <LineSegment
+        points={[
+          [-W * 0.16, 0, -D / 2 + 0.05],
+          [W * 0.4, 0, -D / 2 + 0.05],
+        ]}
+        color={GOLD_DIM}
+        opacity={0.85}
+      />
+      {/* Bath bathtub */}
+      <Rect x={-W * 0.36} z={-D * 0.18} w={0.16} d={0.45} color={GOLD_DIM} opacity={0.85} />
+      {/* Bath WC */}
+      <CircleOutline cx={-W * 0.32} cz={D * 0.18} r={0.09} color={GOLD_DIM} opacity={0.8} />
+      {/* Bath lavabo */}
+      <CircleOutline cx={-W * 0.4} cz={D * 0.32} r={0.07} color={GOLD_DIM} opacity={0.8} />
 
-      {/* Kitchen counter (back-center) */}
-      <mesh position={[W * 0.05, 0.1, -D * 0.38]}>
-        <boxGeometry args={[0.95, 0.18, 0.18]} />
-        <meshStandardMaterial color={GOLD} emissive={GOLD} emissiveIntensity={0.25} />
-      </mesh>
-      {/* Stove (2 burners on counter) */}
-      <mesh position={[W * 0.0, 0.21, -D * 0.38]}>
-        <cylinderGeometry args={[0.04, 0.04, 0.02, 16]} />
-        <meshStandardMaterial color={GOLD_BRIGHT} emissive={GOLD_BRIGHT} emissiveIntensity={0.4} />
-      </mesh>
-      <mesh position={[W * 0.1, 0.21, -D * 0.38]}>
-        <cylinderGeometry args={[0.04, 0.04, 0.02, 16]} />
-        <meshStandardMaterial color={GOLD_BRIGHT} emissive={GOLD_BRIGHT} emissiveIntensity={0.4} />
-      </mesh>
+      {/* DIMENSION COTAS — extending outside the plan, like real plans */}
+      {/* Bottom cota: total width with ticks */}
+      <LineSegment points={[[-W / 2, 0, D / 2 + 0.25], [W / 2, 0, D / 2 + 0.25]]} color={GOLD} opacity={0.95} />
+      <LineSegment points={[[-W / 2, 0, D / 2 + 0.18], [-W / 2, 0, D / 2 + 0.32]]} color={GOLD} opacity={0.95} />
+      <LineSegment points={[[W / 2, 0, D / 2 + 0.18], [W / 2, 0, D / 2 + 0.32]]} color={GOLD} opacity={0.95} />
 
-      {/* Bath fixtures — left compartment */}
-      {/* Bathtub */}
-      <mesh position={[-W * 0.34, 0.1, -D * 0.18]}>
-        <boxGeometry args={[0.2, 0.18, 0.55]} />
-        <meshStandardMaterial color={GOLD} emissive={GOLD} emissiveIntensity={0.25} />
-      </mesh>
-      {/* WC */}
-      <mesh position={[-W * 0.32, 0.1, D * 0.18]}>
-        <cylinderGeometry args={[0.1, 0.1, 0.18, 16]} />
-        <meshStandardMaterial color={GOLD_BRIGHT} emissive={GOLD_BRIGHT} emissiveIntensity={0.3} />
-      </mesh>
-      {/* Lavabo */}
-      <mesh position={[-W * 0.4, 0.1, D * 0.32]}>
-        <cylinderGeometry args={[0.085, 0.085, 0.12, 16]} />
-        <meshStandardMaterial color={GOLD_BRIGHT} emissive={GOLD_BRIGHT} emissiveIntensity={0.3} />
-      </mesh>
+      {/* Right cota: depth */}
+      <LineSegment points={[[W / 2 + 0.25, 0, -D / 2], [W / 2 + 0.25, 0, D / 2]]} color={GOLD} opacity={0.95} />
+      <LineSegment points={[[W / 2 + 0.18, 0, -D / 2], [W / 2 + 0.32, 0, -D / 2]]} color={GOLD} opacity={0.95} />
+      <LineSegment points={[[W / 2 + 0.18, 0, D / 2], [W / 2 + 0.32, 0, D / 2]]} color={GOLD} opacity={0.95} />
+
+      {/* Top cota fragment over kitchen */}
+      <LineSegment points={[[-W * 0.18, 0, -D / 2 - 0.22], [W * 0.42, 0, -D / 2 - 0.22]]} color={GOLD_DIM} opacity={0.6} />
     </group>
   );
+}
+
+function DoorArc({
+  cx,
+  cz,
+  radius,
+  startDeg,
+  endDeg,
+}: {
+  cx: number;
+  cz: number;
+  radius: number;
+  startDeg: number;
+  endDeg: number;
+}) {
+  const points = useMemo(() => {
+    const segments = 12;
+    const arr: number[][] = [];
+    for (let i = 0; i <= segments; i++) {
+      const t = startDeg + ((endDeg - startDeg) * i) / segments;
+      const rad = (t * Math.PI) / 180;
+      arr.push([cx + Math.cos(rad) * radius, 0, cz + Math.sin(rad) * radius]);
+    }
+    return arr;
+  }, [cx, cz, radius, startDeg, endDeg]);
+  return <LineSegment points={points} color={GOLD_DIM} opacity={0.7} />;
+}
+
+function CircleOutline({
+  cx,
+  cz,
+  r,
+  color,
+  opacity = 1,
+}: {
+  cx: number;
+  cz: number;
+  r: number;
+  color: string;
+  opacity?: number;
+}) {
+  const points = useMemo(() => {
+    const segments = 24;
+    const arr: number[][] = [];
+    for (let i = 0; i <= segments; i++) {
+      const t = (i / segments) * Math.PI * 2;
+      arr.push([cx + Math.cos(t) * r, 0, cz + Math.sin(t) * r]);
+    }
+    return arr;
+  }, [cx, cz, r]);
+  return <LineSegment points={points} color={color} opacity={opacity} />;
 }
 
 export default function FloorPlanScene() {
   return (
     <Canvas
       dpr={[1, 1.5]}
-      camera={{ position: [3.2, 3.4, 4.2], fov: 36 }}
+      camera={{ position: [4.6, 5.2, 6.5], fov: 32 }}
       gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
       style={{ background: 'transparent' }}
-      shadows
     >
-      <ambientLight intensity={0.7} color="#fef0d0" />
-      <directionalLight
-        position={[4, 6, 3]}
-        intensity={1.1}
-        color="#fef0d0"
-        castShadow
-      />
-      <directionalLight position={[-3, 2, -2]} intensity={0.35} color="#a8c8ff" />
       <Suspense fallback={null}>
         <FloorPlan />
       </Suspense>
