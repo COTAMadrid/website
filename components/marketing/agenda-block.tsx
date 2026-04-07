@@ -109,37 +109,25 @@ function MenuRow({
       initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative border-b border-border/60 transition-colors duration-500 hover:bg-card/40"
+      className="cota-row group relative border-b border-border/60 transition-colors duration-500 hover:bg-card/40"
     >
-      <div className="flex flex-col gap-3 px-2 py-6 md:grid md:grid-cols-[auto_1fr_auto_auto] md:items-baseline md:gap-6 md:px-4 md:py-8">
-        {/* Number */}
-        <span className="nums font-serif text-xl text-accent/80 md:text-2xl">
+      <div className="flex items-end gap-4 px-2 py-7 md:px-4 md:py-9">
+        <span className="nums shrink-0 self-start pt-3 font-mono text-[11px] uppercase tracking-[0.22em] text-accent/80">
           {num}
         </span>
-        {/* Title */}
-        <h3 className="inline-flex items-center gap-4 font-serif text-2xl leading-tight tracking-tight md:text-[1.85rem]">
-          <Icon className="size-5 text-accent/70 shrink-0" strokeWidth={1.5} />
-          {title}
-        </h3>
-        {/* Dotted leader (desktop) */}
-        <span
-          aria-hidden
-          className="hidden flex-1 translate-y-[-6px] overflow-hidden text-border md:block"
-        >
-          <span className="block truncate tracking-[0.4em]">
-            ··················································································································
-          </span>
-        </span>
-        {/* Duration */}
-        <span className="font-mono text-xs uppercase tracking-[0.22em] text-muted-foreground md:text-right">
+        <div className="flex-1">
+          <h3 className="inline-flex items-center gap-4 font-serif text-2xl leading-tight tracking-tight md:text-[2rem]">
+            <Icon className="size-5 text-accent/70 shrink-0" strokeWidth={1.5} />
+            {title}
+          </h3>
+          <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground md:text-base">
+            {body}
+          </p>
+        </div>
+        <span aria-hidden className="cota-leader hidden md:block" />
+        <span className="shrink-0 self-end pb-1 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
           {duration}
         </span>
-      </div>
-      <div className="px-2 pb-6 md:grid md:grid-cols-[auto_1fr_auto_auto] md:gap-6 md:px-4 md:pb-8">
-        <span className="hidden md:block" />
-        <p className="max-w-xl text-base leading-relaxed text-muted-foreground">
-          {body}
-        </p>
       </div>
     </motion.div>
   );

@@ -30,13 +30,15 @@ export function BudgetShowcase() {
         className="pointer-events-none absolute inset-0 opacity-[0.04] [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:64px_64px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_85%)]"
       />
 
-      <div className="relative mx-auto max-w-7xl px-6 py-20 md:py-28">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
+      <div className="relative mx-auto max-w-7xl px-6 py-20 md:py-32">
+        {/* Asymmetric grid: 7/5 split, copy gets the wider column */}
+        <div className="grid md:grid-cols-12 gap-12 items-center">
           {/* LEFT */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            className="md:col-span-7 md:border-l md:border-border/40 md:pl-10"
           >
             <div className="inline-flex items-center gap-3 font-mono text-[0.65rem] uppercase tracking-[0.26em] text-accent">
               <Ruler className="size-3" strokeWidth={1.5} />
@@ -94,7 +96,7 @@ export function BudgetShowcase() {
               delay: 0.15,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="relative md:rotate-[1.2deg] md:translate-x-4 will-change-transform"
+            className="relative md:col-span-5 md:rotate-[1.6deg] md:translate-x-4 md:translate-y-2 will-change-transform"
           >
             <div className="relative rounded-2xl border border-white/10 bg-[oklch(0.2_0.016_168/0.75)] backdrop-blur-md p-8 shadow-editorial">
               <div className="font-mono text-[0.65rem] uppercase tracking-[0.22em] text-muted-foreground">

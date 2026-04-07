@@ -5,6 +5,13 @@ import { useRef } from 'react';
 import Image from 'next/image';
 import { COPY } from '@/content/copy';
 
+/**
+ * Z-axis cascade — three editorial "case files" that overlap with
+ * varying rotation, scale and offset. Each card has its image clipped
+ * into a tall portrait, a numbered file tab, and a dotted-leader meta row.
+ *
+ * Mobile collapses to a clean stacked feed.
+ */
 export function Escenarios() {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: '-120px' });
@@ -15,58 +22,69 @@ export function Escenarios() {
       className="relative bg-[var(--color-cream)]/85 text-[var(--color-cream-foreground)] overflow-hidden"
     >
       {/* Section header */}
-      <div className="relative mx-auto max-w-7xl px-6 pt-16 pb-10 md:pt-24 md:pb-14">
+      <div className="relative mx-auto max-w-7xl px-6 pt-20 pb-12 md:pt-32 md:pb-20">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="max-w-3xl"
+          className="grid grid-cols-12 items-end gap-y-6"
         >
-          <div className="mb-6 flex items-center gap-4">
-            <span className="h-px w-10 bg-[var(--color-cream-border)]" />
-            <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--color-cream-muted)]">
-              {COPY.escenarios.eyebrow}
-            </span>
+          <div className="col-span-12 md:col-span-8">
+            <div className="mb-6 flex items-center gap-4">
+              <span className="h-px w-10 bg-[var(--color-cream-border)]" />
+              <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-[var(--color-cream-muted)]">
+                {COPY.escenarios.eyebrow}
+              </span>
+            </div>
+            <h2 className="font-serif text-[2.2rem] leading-[1.02] tracking-[-0.03em] md:text-[3rem] lg:text-[3.5rem] text-balance max-w-[18ch]">
+              {COPY.escenarios.title}
+            </h2>
           </div>
-          <h2 className="font-serif text-[2.2rem] leading-[1.04] tracking-[-0.025em] md:text-5xl lg:text-[3.25rem] text-balance max-w-[18ch]">
-            {COPY.escenarios.title}
-          </h2>
+          <div className="col-span-12 md:col-span-4 md:text-right">
+            <div className="font-mono text-[10px] uppercase tracking-[0.24em] text-[var(--color-cream-muted)]">
+              Archivo · 03 expedientes
+            </div>
+            <div className="ml-auto mt-3 hidden h-px w-24 bg-[color:oklch(0.55_0.12_75)] md:block md:ml-auto" />
+          </div>
         </motion.div>
       </div>
 
-      {/* Editorial pages — alternating layouts */}
-      <div className="relative">
-        {COPY.escenarios.cards.map((c, i) => {
-          const num = String(i + 1).padStart(2, '0');
-          const isReverse = i % 2 === 1;
-          return (
-            <EditorialPage
+      {/* Z-cascade canvas */}
+      <div className="relative mx-auto max-w-6xl px-6 pb-24 md:pb-32">
+        {/* Mobile: stacked. Desktop: overlapping z-cascade. */}
+        <div className="relative md:h-[44rem]">
+          {COPY.escenarios.cards.map((c, i) => (
+            <CaseFile
               key={c.title}
-              num={num}
+              num={String(i + 1).padStart(2, '0')}
               title={c.title}
               body={c.body}
               closing={c.closing}
               image={c.image}
               imageAlt={c.imageAlt}
-              reverse={isReverse}
               index={i}
             />
-          );
-        })}
+          ))}
+        </div>
       </div>
-      <div className="h-12 md:h-16" />
     </section>
   );
 }
 
-function EditorialPage({
+const POSITIONS = [
+  // each position is desktop-only; mobile is the natural flow
+  'md:absolute md:left-[2%] md:top-0 md:w-[42%] md:rotate-[-2.2deg] md:z-10',
+  'md:absolute md:left-[34%] md:top-[20%] md:w-[40%] md:rotate-[1.4deg] md:z-20',
+  'md:absolute md:right-[1%] md:top-[6%] md:w-[40%] md:rotate-[2.6deg] md:z-30',
+];
+
+function CaseFile({
   num,
   title,
   body,
   closing,
   image,
   imageAlt,
-  reverse,
   index,
 }: {
   num: string;
@@ -75,81 +93,68 @@ function EditorialPage({
   closing: string;
   image: string;
   imageAlt: string;
-  reverse: boolean;
   index: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-20%' });
+  const inView = useInView(ref, { once: true, margin: '-15%' });
 
   return (
-    <div
+    <motion.article
       ref={ref}
-      className="relative mx-auto grid max-w-5xl grid-cols-12 items-center gap-y-6 px-6 py-10 md:py-14"
+      initial={{ opacity: 0, y: 50 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 1, delay: 0.15 * index, ease: [0.22, 1, 0.36, 1] }}
+      className={`mb-12 md:mb-0 ${POSITIONS[index]} group transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:md:rotate-0 hover:md:scale-[1.02] hover:md:z-40`}
     >
-      {/* Image — small inset */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-        className={`relative col-span-12 md:col-span-4 md:row-start-1 ${
-          reverse ? 'md:col-start-9' : 'md:col-start-1'
-        }`}
-      >
-        <div className="relative aspect-[4/3] w-full max-w-[300px] overflow-hidden">
+      <div className="relative bg-white shadow-editorial">
+        {/* File tab */}
+        <div className="absolute -top-4 left-6 z-10 flex items-center gap-2 bg-[var(--color-cream)] px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.24em] text-[color:oklch(0.45_0.12_75)] shadow-[0_2px_8px_-2px_rgba(0,0,0,0.15)]">
+          <span className="cota-cross text-[color:oklch(0.55_0.12_75)]" />
+          Caso · {num}
+        </div>
+
+        {/* Image */}
+        <div className="relative aspect-[5/4] w-full overflow-hidden">
           <Image
             src={image}
             alt={imageAlt}
             fill
-            sizes="(min-width: 768px) 300px, 100vw"
-            className="object-cover"
+            sizes="(min-width: 768px) 480px, 100vw"
+            className="object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-105"
           />
+          {/* Overlay gradient for text legibility on caption */}
+          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/55 to-transparent" />
+          <div className="absolute inset-x-5 bottom-4 font-mono text-[10px] uppercase tracking-[0.24em] text-white/85">
+            Fig. {num} · {imageAlt}
+          </div>
         </div>
-        {/* Figure caption */}
-        <div className="mt-2 flex max-w-[300px] items-center gap-3 font-mono text-[10px] uppercase tracking-[0.24em] text-[var(--color-cream-muted)]">
-          <span>Fig. {num}</span>
-          <span className="h-px w-6 bg-[var(--color-cream-border)]" />
-          <span className="truncate">{imageAlt}</span>
-        </div>
-      </motion.div>
 
-      {/* Text column */}
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.9, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-        className={`relative col-span-12 flex flex-col justify-center md:col-span-8 md:row-start-1 ${
-          reverse ? 'md:col-start-1 md:pr-10' : 'md:col-start-5 md:pl-10'
-        }`}
-      >
-        {/* Smaller ghost number */}
-        <div
-          aria-hidden
-          className="pointer-events-none relative mb-3 select-none font-serif leading-none text-[var(--color-cream-foreground)]/10"
-          style={{ fontSize: 'clamp(3rem, 6vw, 5.5rem)' }}
-        >
-          {num}
-        </div>
-        <div className="relative -mt-3 md:-mt-5">
-          <h3 className="mb-5 font-serif text-2xl leading-[1.05] tracking-[-0.01em] md:text-4xl text-balance">
+        {/* Body */}
+        <div className="relative p-6 md:p-7">
+          <h3 className="font-serif text-[1.5rem] leading-[1.1] tracking-[-0.01em] text-balance md:text-[1.85rem]">
             {title}
           </h3>
-          <div className="mb-6 h-px w-12 bg-[color:oklch(0.55_0.12_75)]" />
-          <p className="max-w-md text-base leading-relaxed text-[var(--color-cream-muted)]">
+          <div className="mt-4 h-px w-10 bg-[color:oklch(0.55_0.12_75)]" />
+          <p className="mt-4 text-sm leading-relaxed text-[var(--color-cream-muted)]">
             {body}
           </p>
-          <p className="mt-6 font-serif text-lg italic text-[color:oklch(0.45_0.12_75)]">
-            — {closing}
-          </p>
-        </div>
-      </motion.div>
 
-      {/* Between-rows hairline (except last) */}
-      {index < 2 && (
-        <div
-          aria-hidden
-          className="col-span-12 mt-4 h-px bg-[var(--color-cream-border)] md:mt-8"
-        />
-      )}
-    </div>
+          {/* Dotted-leader meta row */}
+          <div className="mt-5 flex items-end font-mono text-[10px] uppercase tracking-[0.22em] text-[var(--color-cream-muted)]">
+            <span>Resultado</span>
+            <span className="cota-leader cream" />
+            <span className="text-[color:oklch(0.45_0.12_75)]">
+              {closing.replace(/[—.\s]+$/, '')}
+            </span>
+          </div>
+
+          {/* Bottom-right corner mark */}
+          <div
+            aria-hidden
+            className="absolute -bottom-2 -right-2 h-10 w-10 border-b border-r border-[color:oklch(0.55_0.12_75)]/60"
+          />
+        </div>
+      </div>
+    </motion.article>
   );
 }

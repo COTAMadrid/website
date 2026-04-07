@@ -14,20 +14,20 @@ export function PropuestaValor() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden bg-transparent px-6 py-16 md:py-24"
+      className="relative overflow-hidden bg-transparent px-6 py-20 md:py-32"
     >
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-[0.035] [background-image:radial-gradient(oklch(1_0_0)_1px,transparent_1px)] [background-size:32px_32px]"
       />
 
-      <div className="relative mx-auto max-w-6xl">
-        {/* Header */}
+      <div className="relative mx-auto grid max-w-7xl grid-cols-12 gap-y-12 md:gap-x-12">
+        {/* Editorial split — sticky column with eyebrow + huge index */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-14 max-w-3xl md:mb-20"
+          className="col-span-12 md:col-span-5 md:sticky md:top-24 md:self-start"
         >
           <div className="mb-6 flex items-center gap-4">
             <span className="h-px w-10 bg-border" />
@@ -35,13 +35,19 @@ export function PropuestaValor() {
               {COPY.propuesta.eyebrow}
             </span>
           </div>
-          <h2 className="font-serif text-[2.2rem] leading-[1.04] tracking-[-0.025em] md:text-5xl lg:text-[3.5rem] text-balance max-w-[18ch]">
+          <h2 className="font-serif text-[2.2rem] leading-[1.02] tracking-[-0.03em] md:text-[3rem] lg:text-[3.5rem] text-balance max-w-[14ch]">
             {COPY.propuesta.title}
           </h2>
+
+          {/* Drafted index marker */}
+          <div className="mt-12 hidden items-center gap-3 font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground md:flex">
+            <span className="cota-cross text-accent/60" />
+            <span>04 puntos · método propio</span>
+          </div>
         </motion.div>
 
-        {/* Manifesto */}
-        <ol className="relative">
+        {/* Manifesto rows */}
+        <ol className="col-span-12 md:col-span-7 md:border-l md:border-border/40 md:pl-12">
           {bullets.map((b, i) => (
             <Statement
               key={b}
@@ -49,7 +55,7 @@ export function PropuestaValor() {
               text={b}
               accentWord={accents[i]}
               isLast={i === bullets.length - 1}
-              delay={0.1 + i * 0.12}
+              delay={0.1 + i * 0.1}
             />
           ))}
         </ol>
@@ -74,7 +80,6 @@ function Statement({
   const ref = useRef<HTMLLIElement>(null);
   const inView = useInView(ref, { once: true, margin: '-15%' });
 
-  // Split text around the accent word (first match, case-insensitive).
   let before = text;
   let match = '';
   let after = '';
@@ -93,27 +98,22 @@ function Statement({
       initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.9, delay, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative grid grid-cols-12 items-baseline gap-y-4 py-8 md:py-10"
+      className="cota-row group relative py-8 md:py-10"
     >
-      {/* Number */}
-      <div className="col-span-12 md:col-span-2">
-        <span className="font-serif text-xl text-accent/90 md:text-2xl">
+      <div className="flex items-start gap-5 md:gap-8">
+        <span className="nums shrink-0 font-mono text-[11px] uppercase tracking-[0.22em] text-accent/80 pt-3">
           {num}
-          <span className="text-border">.</span>
         </span>
+        <p className="font-serif text-[1.55rem] leading-[1.18] tracking-[-0.015em] md:text-[2rem] lg:text-[2.35rem] text-balance">
+          {before}
+          {match && <span className="italic text-accent">{match}</span>}
+          {after}
+        </p>
       </div>
-      {/* Statement */}
-      <p className="col-span-12 font-serif text-[1.6rem] leading-[1.2] tracking-[-0.01em] md:col-span-10 md:text-[2.25rem] lg:text-[2.75rem] text-balance">
-        {before}
-        {match && (
-          <span className="italic text-accent">{match}</span>
-        )}
-        {after}
-      </p>
       {!isLast && (
         <div
           aria-hidden
-          className="col-span-12 mt-6 h-px bg-border/50 md:mt-8"
+          className="mt-8 h-px w-full bg-border/40 md:mt-10"
         />
       )}
     </motion.li>

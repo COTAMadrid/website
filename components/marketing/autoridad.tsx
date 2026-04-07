@@ -12,48 +12,69 @@ export function Autoridad() {
   return (
     <section
       ref={ref}
-      className="relative py-16 md:py-24 px-6 bg-[var(--color-cream)]/85 text-[var(--color-cream-foreground)] overflow-hidden"
+      className="relative py-20 md:py-32 px-6 bg-[var(--color-cream)]/85 text-[var(--color-cream-foreground)] overflow-hidden"
     >
-      <div className="mx-auto max-w-5xl">
+      <div className="relative mx-auto grid max-w-6xl grid-cols-12 items-center gap-y-12 md:gap-x-12">
+        {/* Image — bigger, asymmetric, lower-left */}
         <motion.div
           initial={{ opacity: 0, scale: 0.96 }}
           animate={inView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-          className="relative float-none mb-8 w-full max-w-[280px] sm:max-w-[320px] md:float-right md:mb-4 md:ml-10 md:max-w-[340px] group md:rotate-[2deg] md:translate-y-4 hover:md:rotate-0 transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
+          className="relative col-span-12 md:col-span-5 md:col-start-1 md:row-start-1 group md:translate-y-6"
         >
-          <div className="relative aspect-[4/3] overflow-hidden rounded-sm shadow-editorial">
+          <div className="relative aspect-[4/5] w-full max-w-[460px] overflow-hidden rounded-sm shadow-editorial md:rotate-[-1.5deg] md:transition-transform md:duration-[700ms] md:ease-[cubic-bezier(0.22,1,0.36,1)] md:group-hover:rotate-0">
             <Image
               src={COPY.autoridad.image}
               alt={COPY.autoridad.imageAlt}
               fill
-              sizes="(min-width: 768px) 340px, 320px"
+              sizes="(min-width: 768px) 460px, 100vw"
               className="object-cover transition-transform duration-[1400ms] ease-out group-hover:scale-105"
             />
             <div className="absolute inset-0 ring-1 ring-black/5" />
+
+            {/* Annotation tag */}
+            <div className="absolute left-3 top-3 bg-white/90 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-[color:oklch(0.45_0.12_75)] backdrop-blur-sm">
+              Cocina · ref. 01
+            </div>
           </div>
-          <div className="absolute -bottom-3 -right-3 hidden md:block h-14 w-14 border-b border-r border-accent" />
+          {/* Caption with dimension marker */}
+          <div className="mt-3 flex max-w-[460px] items-center gap-3 font-mono text-[10px] uppercase tracking-[0.24em] text-[var(--color-cream-muted)]">
+            <span className="cota-cross text-[color:oklch(0.55_0.12_75)]" />
+            <span>Fig. 01 · {COPY.autoridad.imageAlt}</span>
+          </div>
         </motion.div>
 
+        {/* Copy column */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+          className="relative col-span-12 md:col-span-7 md:col-start-6 md:row-start-1"
         >
           <div className="text-xs uppercase tracking-[0.24em] text-[var(--color-cream-muted)]">
             {COPY.autoridad.eyebrow}
           </div>
           <div className="mt-3 h-px w-12 bg-accent" />
-          <h2 className="mt-8 font-serif text-[2.2rem] md:text-[2.75rem] lg:text-[3.25rem] leading-[1.05] tracking-[-0.02em] text-balance max-w-[18ch]">
+
+          {/* Ghost numeral */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -top-12 right-0 select-none font-serif leading-none text-[color:oklch(0.18_0_0)]/[0.06]"
+            style={{ fontSize: 'clamp(8rem, 16vw, 14rem)' }}
+          >
+            I
+          </div>
+
+          <h2 className="relative mt-8 font-serif text-[2.2rem] md:text-[3rem] lg:text-[3.5rem] leading-[1.0] tracking-[-0.03em] text-balance max-w-[18ch]">
             {COPY.autoridad.title}
           </h2>
-          <p className="mt-8 text-base md:text-lg text-[var(--color-cream-muted)] max-w-xl leading-relaxed">
+          <p className="relative mt-8 max-w-[55ch] text-base leading-relaxed text-[var(--color-cream-muted)] md:text-lg">
             {COPY.autoridad.body}
           </p>
-          <p className="mt-8 font-serif text-xl md:text-2xl italic text-[var(--color-cream-foreground)]">
+          <p className="relative mt-8 font-serif text-xl italic text-[var(--color-cream-foreground)] md:text-2xl">
             {COPY.autoridad.closing}
           </p>
         </motion.div>
-        <div className="clear-both" />
       </div>
     </section>
   );
