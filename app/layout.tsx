@@ -82,6 +82,10 @@ export const metadata: Metadata = {
     google: '[PLACEHOLDER: google-site-verification]',
     yandex: '[PLACEHOLDER: yandex-verification]',
   },
+  icons: {
+    icon: '/images/cota/logo-cota.png',
+    apple: '/images/cota/logo-cota.png',
+  },
 };
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
@@ -95,7 +99,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         name: company.legal_name,
         alternateName: `${company.commercial_name} Madrid`,
         url: SITE_URL,
-        logo: `${SITE_URL}/opengraph-image`,
+        logo: `${SITE_URL}/images/cota/logo-cota.png`,
         email: company.email_contacto || undefined,
         telephone: company.telefono || undefined,
         description:

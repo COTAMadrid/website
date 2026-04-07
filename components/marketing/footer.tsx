@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { MapPin, Phone, Mail, MessageCircle } from 'lucide-react';
 import { getCompany } from '@/lib/db/repositories/company';
 
@@ -46,10 +47,20 @@ export async function Footer() {
         <div className="grid grid-cols-1 gap-12 md:grid-cols-4 md:gap-10">
           {/* Brand column */}
           <div className="md:col-span-1">
-            <p className="font-serif text-3xl tracking-[-0.02em] text-foreground">
-              Cota
-            </p>
-            <p className="mt-3 text-sm leading-relaxed text-foreground/70">
+            {/* Logo */}
+            <Link href="/" aria-label="Cota Madrid" className="inline-block">
+              <div className="relative h-20 w-40 bg-white/95 rounded-md overflow-hidden">
+                <Image
+                  src="/images/cota/logo-cota.png"
+                  alt="Cota Madrid"
+                  fill
+                  sizes="160px"
+                  className="object-contain p-2"
+                  priority={false}
+                />
+              </div>
+            </Link>
+            <p className="mt-5 text-sm leading-relaxed text-foreground/70">
               Reforma con criterio.
               <br />
               Consultoría premium de reformas integrales en Madrid.
