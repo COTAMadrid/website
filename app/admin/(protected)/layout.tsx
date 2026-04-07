@@ -1,6 +1,25 @@
 import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { LogoutButton } from './logout-button';
+import {
+  LayoutDashboard,
+  Building2,
+  Calculator,
+  Calendar,
+  Users,
+  MessageSquare,
+  Database,
+} from 'lucide-react';
+
+const NAV = [
+  { href: '/admin', label: 'Dashboard', Icon: LayoutDashboard },
+  { href: '/admin/empresa', label: 'Empresa', Icon: Building2 },
+  { href: '/admin/precios', label: 'Precios', Icon: Calculator },
+  { href: '/admin/agenda', label: 'Agenda', Icon: Calendar },
+  { href: '/admin/leads', label: 'Leads', Icon: Users },
+  { href: '/admin/chatbot', label: 'Chatbot', Icon: MessageSquare },
+  { href: '/admin/db', label: 'Base de datos', Icon: Database },
+];
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
   return (
@@ -10,14 +29,18 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
           <p className="text-xs uppercase tracking-wider text-muted-foreground">Cota</p>
           <p className="font-semibold text-lg">Admin</p>
         </div>
-        <nav className="flex md:flex-col gap-2 text-sm md:h-[calc(100vh-8rem)]">
-          <Link
-            href="/admin/chatbot"
-            className="px-3 py-2 rounded-md hover:bg-muted transition"
-          >
-            Chatbot
-          </Link>
-          <div className="md:mt-auto">
+        <nav className="flex md:flex-col gap-1 text-sm md:h-[calc(100vh-8rem)] flex-wrap">
+          {NAV.map(({ href, label, Icon }) => (
+            <Link
+              key={href}
+              href={href}
+              className="px-3 py-2 rounded-md hover:bg-muted transition flex items-center gap-2"
+            >
+              <Icon className="h-4 w-4" />
+              <span>{label}</span>
+            </Link>
+          ))}
+          <div className="md:mt-auto pt-4">
             <LogoutButton />
           </div>
         </nav>

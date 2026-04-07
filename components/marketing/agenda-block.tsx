@@ -7,9 +7,19 @@ import { Phone, Monitor, Home, Check } from 'lucide-react';
 import { COPY } from '@/content/copy';
 import { AgendaCalendar } from './agenda-calendar';
 
+interface AgendaBlockProps {
+  timeSlots?: string[];
+  blockedDates?: string[];
+  blockedWeekdays?: number[];
+}
+
 const ICONS: Record<string, typeof Phone> = { Phone, Monitor, Home };
 
-export function AgendaBlock() {
+export function AgendaBlock({
+  timeSlots,
+  blockedDates,
+  blockedWeekdays,
+}: AgendaBlockProps = {}) {
   const ref = useRef<HTMLElement>(null);
   const inView = useInView(ref, { once: true, margin: '-120px' });
   const [selectedKind, setSelectedKind] = useState<string>(
@@ -106,7 +116,11 @@ export function AgendaBlock() {
               <span className="inline-flex size-5 items-center justify-center rounded-full border border-accent/40 text-accent">2</span>
               Reserva fecha y hora
             </div>
-            <AgendaCalendar />
+            <AgendaCalendar
+              timeSlots={timeSlots}
+              blockedDates={blockedDates}
+              blockedWeekdays={blockedWeekdays}
+            />
           </motion.div>
         </div>
       </div>

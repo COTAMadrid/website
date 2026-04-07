@@ -5,6 +5,7 @@ import { Footer } from '@/components/marketing/footer';
 import { CookieBanner } from '@/components/cookie-banner';
 import { WhatsAppFloating } from '@/components/whatsapp-floating';
 import { ChatBubble } from '@/components/chatbot/chat-bubble';
+import { getCompany } from '@/lib/db/repositories/company';
 
 const fraunces = Fraunces({
   subsets: ['latin'],
@@ -83,65 +84,71 @@ export const metadata: Metadata = {
   },
 };
 
-const JSON_LD = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    {
-      '@type': 'Organization',
-      '@id': `${SITE_URL}/#organization`,
-      name: 'PCH Obras',
-      alternateName: 'Cota Madrid',
-      url: SITE_URL,
-      logo: `${SITE_URL}/opengraph-image`,
-      description:
-        'Consultoría premium de reformas integrales en Madrid operando bajo la marca comercial Cota.',
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Madrid',
-        addressRegion: 'Madrid',
-        addressCountry: 'ES',
-      },
-    },
-    {
-      '@type': 'GeneralContractor',
-      '@id': `${SITE_URL}/#localbusiness`,
-      name: 'Cota Madrid',
-      image: `${SITE_URL}/opengraph-image`,
-      url: SITE_URL,
-      priceRange: '€€€',
-      description:
-        'Reformas integrales, cocinas y baños en Madrid. Diagnóstico online gratuito y presupuesto tras visita técnica.',
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Madrid',
-        addressRegion: 'Madrid',
-        addressCountry: 'ES',
-      },
-      areaServed: {
-        '@type': 'City',
-        name: 'Madrid',
-      },
-    },
-    {
-      '@type': 'WebSite',
-      '@id': `${SITE_URL}/#website`,
-      url: SITE_URL,
-      name: 'Cota Madrid',
-      inLanguage: 'es-ES',
-      publisher: { '@id': `${SITE_URL}/#organization` },
-      potentialAction: {
-        '@type': 'SearchAction',
-        target: {
-          '@type': 'EntryPoint',
-          urlTemplate: `${SITE_URL}/?q={search_term_string}`,
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const company = await getCompany();
+  const JSON_LD = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Organization',
+        '@id': `${SITE_URL}/#organization`,
+        name: company.legal_name,
+        alternateName: `${company.commercial_name} Madrid`,
+        url: SITE_URL,
+        logo: `${SITE_URL}/opengraph-image`,
+        email: company.email_contacto || undefined,
+        telephone: company.telefono || undefined,
+        description:
+          'Consultoría premium de reformas integrales en Madrid operando bajo la marca comercial Cota.',
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: company.domicilio || undefined,
+          addressLocality: 'Madrid',
+          addressRegion: 'Madrid',
+          addressCountry: 'ES',
         },
-        'query-input': 'required name=search_term_string',
       },
-    },
-  ],
-};
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+      {
+        '@type': 'GeneralContractor',
+        '@id': `${SITE_URL}/#localbusiness`,
+        name: `${company.commercial_name} Madrid`,
+        image: `${SITE_URL}/opengraph-image`,
+        url: SITE_URL,
+        priceRange: '€€€',
+        telephone: company.telefono || undefined,
+        email: company.email_contacto || undefined,
+        description:
+          'Reformas integrales, cocinas y baños en Madrid. Diagnóstico online gratuito y presupuesto tras visita técnica.',
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: company.domicilio || undefined,
+          addressLocality: 'Madrid',
+          addressRegion: 'Madrid',
+          addressCountry: 'ES',
+        },
+        areaServed: {
+          '@type': 'City',
+          name: 'Madrid',
+        },
+      },
+      {
+        '@type': 'WebSite',
+        '@id': `${SITE_URL}/#website`,
+        url: SITE_URL,
+        name: `${company.commercial_name} Madrid`,
+        inLanguage: 'es-ES',
+        publisher: { '@id': `${SITE_URL}/#organization` },
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: {
+            '@type': 'EntryPoint',
+            urlTemplate: `${SITE_URL}/?q={search_term_string}`,
+          },
+          'query-input': 'required name=search_term_string',
+        },
+      },
+    ],
+  };
   return (
     <html lang="es" className={`${fraunces.variable} ${inter.variable}`}>
       <body className="font-sans antialiased bg-background text-foreground min-h-screen flex flex-col">

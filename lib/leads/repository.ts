@@ -1,5 +1,5 @@
 import { appendLeadRow } from './google-sheets';
-import { sendLeadEmail } from './resend';
+import { sendLeadEmail } from './smtp';
 import type { Lead, LeadRepository } from './types';
 
 export class DefaultLeadRepository implements LeadRepository {

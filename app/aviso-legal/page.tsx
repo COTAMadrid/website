@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import { getCompany } from '@/lib/db/repositories/company';
 
 export const metadata: Metadata = {
   title: 'Aviso Legal',
@@ -10,7 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://cotamadrid.com/aviso-legal' },
 };
 
-export default function Page() {
+export default async function Page() {
+  const company = await getCompany();
   return (
     <main className="mx-auto max-w-3xl px-6 py-24 md:py-32">
       <article>
@@ -22,7 +24,7 @@ export default function Page() {
             Aviso Legal
           </h1>
           <p className="mt-4 text-sm text-muted-foreground">
-            Última actualización: [PLACEHOLDER: 1 de enero de 2026]
+            Última actualización: {company.last_legal_update}
           </p>
         </header>
 
@@ -37,27 +39,26 @@ export default function Page() {
           </p>
           <ul>
             <li>
-              <strong>Denominación social:</strong> PCH Obras (en adelante,
-              &laquo;el Titular&raquo;), operando bajo la marca comercial{' '}
-              <strong>Cota</strong>.
+              <strong>Denominación social:</strong> {company.legal_name} (en
+              adelante, &laquo;el Titular&raquo;), operando bajo la marca
+              comercial <strong>{company.commercial_name}</strong>.
             </li>
             <li>
-              <strong>CIF:</strong> [PLACEHOLDER: CIF]
+              <strong>CIF:</strong> {company.cif || '—'}
             </li>
             <li>
-              <strong>Domicilio social:</strong> [PLACEHOLDER: domicilio
-              completo, Madrid, España]
+              <strong>Domicilio social:</strong> {company.domicilio || '—'}
             </li>
             <li>
-              <strong>Datos registrales:</strong> [PLACEHOLDER: Registro
-              Mercantil de Madrid, tomo, folio, hoja, inscripción]
+              <strong>Datos registrales:</strong>{' '}
+              {company.registro_mercantil || '—'}
             </li>
             <li>
-              <strong>Correo electrónico de contacto:</strong> [PLACEHOLDER:
-              email]
+              <strong>Correo electrónico de contacto:</strong>{' '}
+              {company.email_contacto || '—'}
             </li>
             <li>
-              <strong>Teléfono:</strong> [PLACEHOLDER: teléfono]
+              <strong>Teléfono:</strong> {company.telefono || '—'}
             </li>
           </ul>
 

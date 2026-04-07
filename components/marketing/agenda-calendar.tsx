@@ -10,7 +10,13 @@ import { ChevronLeft, ChevronRight, Check } from 'lucide-react';
  */
 
 const WEEK_LABELS = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
-const TIME_SLOTS = ['10:00', '12:00', '16:00', '18:00'];
+const DEFAULT_TIME_SLOTS = ['10:00', '12:00', '16:00', '18:00'];
+
+export interface AgendaCalendarProps {
+  timeSlots?: string[];
+  blockedDates?: string[];
+  blockedWeekdays?: number[]; // 0=Mon..6=Sun
+}
 
 function pad(n: number) {
   return n.toString().padStart(2, '0');
@@ -30,7 +36,13 @@ function mondayOffset(jsDay: number) {
   return (jsDay + 6) % 7;
 }
 
-export function AgendaCalendar() {
+export function AgendaCalendar({
+  timeSlots = DEFAULT_TIME_SLOTS,
+  blockedDates = [],
+  blockedWeekdays = [6],
+}: AgendaCalendarProps = {}) {
+  const blockedDateSet = useMemo(() => new Set(blockedDates), [blockedDates]);
+  const blockedWeekdaySet = useMemo(() => new Set(blockedWeekdays), [blockedWeekdays]);
   const now = useMemo(() => new Date(), []);
   const currentMonthStart = useMemo(
     () => new Date(Date.UTC(now.getFullYear(), now.getMonth(), 1)),
@@ -188,7 +200,11 @@ export function AgendaCalendar() {
           const isPast = c.iso < today;
           const isToday = c.iso === today;
           const isSelected = c.iso === selectedDate;
-          const disabled = isPast || !c.inMonth;
+          const cellDate = new Date(Date.UTC(c.year, c.month, c.day));
+          const weekdayMon0 = mondayOffset(cellDate.getUTCDay());
+          const isBlockedWeekday = blockedWeekdaySet.has(weekdayMon0);
+          const isBlockedDate = blockedDateSet.has(c.iso);
+          const disabled = isPast || !c.inMonth || isBlockedWeekday || isBlockedDate;
 
           const base =
             'flex h-9 items-center justify-center rounded text-sm transition-colors';
@@ -231,7 +247,7 @@ export function AgendaCalendar() {
           Franja horaria
         </div>
         <div className="grid grid-cols-4 gap-2">
-          {TIME_SLOTS.map((slot) => {
+          {timeSlots.map((slot) => {
             const enabled = !!selectedDate;
             const active = slot === selectedTime;
             return (

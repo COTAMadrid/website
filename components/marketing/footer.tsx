@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { MapPin, Phone, Mail, MessageCircle } from 'lucide-react';
+import { getCompany } from '@/lib/db/repositories/company';
 
 const SERVICIOS: Array<{ label: string; href: string }> = [
   { label: 'Reforma integral', href: '/#propuesta' },
@@ -26,8 +27,11 @@ const LEGAL: Array<{ label: string; href: string }> = [
   { label: 'Reclamaciones', href: '/reclamaciones' },
 ];
 
-export function Footer() {
+export async function Footer() {
   const year = new Date().getFullYear();
+  const company = await getCompany();
+  const telHref = `tel:${company.telefono.replace(/\s+/g, '')}`;
+  const waHref = `https://wa.me/${company.whatsapp.replace(/[^0-9]/g, '')}`;
 
   return (
     <footer
@@ -51,7 +55,7 @@ export function Footer() {
               Consultoría premium de reformas integrales en Madrid.
             </p>
             <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.24em] text-foreground/50">
-              PCH Obras · Cota Madrid
+              {company.legal_name} · {company.commercial_name} Madrid
             </p>
           </div>
 
@@ -101,30 +105,27 @@ export function Footer() {
             <ul className="mt-6 space-y-3 text-sm text-foreground/70">
               <li className="flex items-start gap-2">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-foreground/50" aria-hidden />
-                <span>Madrid, España</span>
+                <span>{company.domicilio || 'Madrid, España'}</span>
               </li>
               <li className="flex items-start gap-2">
                 <Phone className="mt-0.5 h-4 w-4 shrink-0 text-foreground/50" aria-hidden />
-                <a
-                  href="tel:+34000000000"
-                  className="transition-colors hover:text-accent"
-                >
-                  [PLACEHOLDER: teléfono]
+                <a href={telHref} className="transition-colors hover:text-accent">
+                  {company.telefono}
                 </a>
               </li>
               <li className="flex items-start gap-2">
                 <Mail className="mt-0.5 h-4 w-4 shrink-0 text-foreground/50" aria-hidden />
                 <a
-                  href="mailto:hola@cotamadrid.com"
+                  href={`mailto:${company.email_contacto}`}
                   className="transition-colors hover:text-accent"
                 >
-                  [PLACEHOLDER: email]
+                  {company.email_contacto}
                 </a>
               </li>
               <li className="flex items-start gap-2">
                 <MessageCircle className="mt-0.5 h-4 w-4 shrink-0 text-foreground/50" aria-hidden />
                 <a
-                  href="https://wa.me/34000000000"
+                  href={waHref}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="transition-colors hover:text-accent"
@@ -140,7 +141,7 @@ export function Footer() {
         <div className="mt-16 border-t border-border/40 pt-8 md:mt-20">
           <div className="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
             <p className="font-mono text-[10px] uppercase tracking-[0.24em] text-foreground/50">
-              © {year} PCH Obras · Cota Madrid · Todos los derechos reservados
+              © {year} {company.legal_name} · {company.commercial_name} Madrid · Todos los derechos reservados
             </p>
             <nav aria-label="Enlaces legales">
               <ul className="flex flex-wrap gap-x-5 gap-y-2">

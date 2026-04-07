@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import { getCompany } from '@/lib/db/repositories/company';
 
 export const metadata: Metadata = {
   title: 'Hojas de Reclamaciones',
@@ -10,7 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://cotamadrid.com/reclamaciones' },
 };
 
-export default function Page() {
+export default async function Page() {
+  const company = await getCompany();
   return (
     <main className="mx-auto max-w-3xl px-6 py-24 md:py-32">
       <article>
@@ -22,7 +24,7 @@ export default function Page() {
             Hojas de Reclamaciones
           </h1>
           <p className="mt-4 text-sm text-muted-foreground">
-            Última actualización: [PLACEHOLDER: 1 de enero de 2026]
+            Última actualización: {company.last_legal_update}
           </p>
         </header>
 
@@ -47,8 +49,8 @@ export default function Page() {
           </p>
           <ul>
             <li>
-              <strong>Correo electrónico:</strong> [PLACEHOLDER: email para
-              reclamaciones]
+              <strong>Correo electrónico:</strong>{' '}
+              {company.email_reclamaciones || '—'}
             </li>
             <li>
               <strong>Presencialmente en obra</strong> al responsable
@@ -92,17 +94,18 @@ export default function Page() {
           <h2>5. Datos de contacto para reclamaciones</h2>
           <ul>
             <li>
-              <strong>Entidad:</strong> PCH Obras · Cota Madrid
+              <strong>Entidad:</strong> {company.legal_name} ·{' '}
+              {company.commercial_name} Madrid
             </li>
             <li>
-              <strong>Correo electrónico:</strong> [PLACEHOLDER: email para
-              reclamaciones]
+              <strong>Correo electrónico:</strong>{' '}
+              {company.email_reclamaciones || '—'}
             </li>
             <li>
-              <strong>Teléfono:</strong> [PLACEHOLDER: teléfono]
+              <strong>Teléfono:</strong> {company.telefono || '—'}
             </li>
             <li>
-              <strong>Dirección postal:</strong> [PLACEHOLDER: domicilio]
+              <strong>Dirección postal:</strong> {company.domicilio || '—'}
             </li>
           </ul>
 

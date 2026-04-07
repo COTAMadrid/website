@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import { getCompany } from '@/lib/db/repositories/company';
 
 export const metadata: Metadata = {
   title: 'Términos y Condiciones',
@@ -10,7 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://cotamadrid.com/terminos' },
 };
 
-export default function Page() {
+export default async function Page() {
+  const company = await getCompany();
   return (
     <main className="mx-auto max-w-3xl px-6 py-24 md:py-32">
       <article>
@@ -22,7 +24,7 @@ export default function Page() {
             Términos y Condiciones
           </h1>
           <p className="mt-4 text-sm text-muted-foreground">
-            Última actualización: [PLACEHOLDER: 1 de enero de 2026]
+            Última actualización: {company.last_legal_update}
           </p>
         </header>
 
@@ -144,7 +146,7 @@ export default function Page() {
           <p>
             El consumidor podrá ejercer su derecho comunicándolo por
             escrito al correo electrónico{' '}
-            <strong>[PLACEHOLDER: email]</strong> antes de la finalización
+            <strong>{company.email_contacto || '—'}</strong> antes de la finalización
             del plazo. En caso de que el consumidor haya solicitado
             expresamente el inicio de la prestación de los servicios
             durante el plazo de desistimiento, deberá abonar al Prestador

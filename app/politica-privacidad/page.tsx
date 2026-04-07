@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import { getCompany } from '@/lib/db/repositories/company';
 
 export const metadata: Metadata = {
   title: 'Política de Privacidad',
@@ -10,7 +11,8 @@ export const metadata: Metadata = {
   alternates: { canonical: 'https://cotamadrid.com/politica-privacidad' },
 };
 
-export default function Page() {
+export default async function Page() {
+  const company = await getCompany();
   return (
     <main className="mx-auto max-w-3xl px-6 py-24 md:py-32">
       <article>
@@ -22,7 +24,7 @@ export default function Page() {
             Política de Privacidad
           </h1>
           <p className="mt-4 text-sm text-muted-foreground">
-            Última actualización: [PLACEHOLDER: 1 de enero de 2026]
+            Última actualización: {company.last_legal_update}
           </p>
         </header>
 
@@ -40,19 +42,18 @@ export default function Page() {
           <h2>1. Responsable del tratamiento</h2>
           <ul>
             <li>
-              <strong>Responsable:</strong> PCH Obras (marca comercial{' '}
-              <strong>Cota</strong>)
+              <strong>Responsable:</strong> {company.legal_name} (marca
+              comercial <strong>{company.commercial_name}</strong>)
             </li>
             <li>
-              <strong>CIF:</strong> [PLACEHOLDER: CIF]
+              <strong>CIF:</strong> {company.cif || '—'}
             </li>
             <li>
-              <strong>Domicilio:</strong> [PLACEHOLDER: domicilio, Madrid,
-              España]
+              <strong>Domicilio:</strong> {company.domicilio || '—'}
             </li>
             <li>
-              <strong>Correo electrónico:</strong> [PLACEHOLDER: email de
-              contacto para privacidad]
+              <strong>Correo electrónico:</strong>{' '}
+              {company.email_contacto || '—'}
             </li>
           </ul>
 
@@ -199,7 +200,7 @@ export default function Page() {
           <p>
             El usuario podrá ejercer sus derechos enviando una comunicación
             escrita al correo electrónico{' '}
-            <strong>[PLACEHOLDER: email]</strong> o por correo postal al
+            <strong>{company.email_contacto || '—'}</strong> o por correo postal al
             domicilio indicado en el apartado 1, acompañando copia de su DNI
             o documento acreditativo equivalente.
           </p>

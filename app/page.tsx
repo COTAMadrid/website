@@ -13,6 +13,7 @@ import { Divider } from '@/components/marketing/divider';
 // Background experiments removed — global cotas and floor plans
 // were unfixable in time. The page stays clean without them.
 import { pageMeta } from '@/lib/seo';
+import { getAgendaAvailability } from '@/lib/db/repositories/agenda';
 
 export const metadata = pageMeta({
   title: 'Reforma integral de pisos en Madrid · Cota',
@@ -21,7 +22,8 @@ export const metadata = pageMeta({
   path: '/',
 });
 
-export default function Home() {
+export default async function Home() {
+  const agenda = await getAgendaAvailability();
   return (
     <>
       <Script
@@ -52,7 +54,11 @@ export default function Home() {
       <ComoFunciona />
       <Filtrado />
       <Divider variant="measure" label="Agenda · 06" />
-      <AgendaBlock />
+      <AgendaBlock
+        timeSlots={agenda.time_slots}
+        blockedDates={agenda.blocked_dates}
+        blockedWeekdays={agenda.blocked_weekdays}
+      />
       <Cierre />
       <FloatingForm />
     </>
