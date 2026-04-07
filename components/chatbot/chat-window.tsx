@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState, type FormEvent } from 'react';
+import Image from 'next/image';
 import { X, Send, Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -97,9 +98,15 @@ export function ChatWindow({ onClose }: Props) {
         <div className="flex items-center gap-3">
           {/* Avatar with online status */}
           <div className="relative shrink-0">
-            <div className="h-10 w-10 rounded-full overflow-hidden border-2 border-accent/50 bg-accent/10 flex items-center justify-center">
-              {/* Initial fallback. Replace with <Image src="/images/cota/avatar-lucia.jpg" /> when a real photo is provided. */}
-              <span className="font-serif text-base text-accent">L</span>
+            <div className="relative h-11 w-11 rounded-full overflow-hidden border-2 border-accent/60">
+              <Image
+                src="/images/cota/avatar-lucia.png"
+                alt="Lucia, asesora de Cota Madrid"
+                fill
+                sizes="44px"
+                className="object-cover"
+                priority={false}
+              />
             </div>
             <span
               aria-hidden
@@ -135,28 +142,55 @@ export function ChatWindow({ onClose }: Props) {
         ref={scrollRef}
         className="relative z-[1] flex-1 overflow-y-auto px-4 py-3 space-y-3"
       >
-        {messages.map((m, i) => (
-          <div
-            key={i}
-            className={cn(
-              'flex',
-              m.role === 'user' ? 'justify-end' : 'justify-start'
-            )}
-          >
+        {messages.map((m, i) => {
+          const isUser = m.role === 'user';
+          // Show avatar only on the first assistant message in a streak
+          const prevSameRole = i > 0 && messages[i - 1].role === m.role;
+          return (
             <div
+              key={i}
               className={cn(
-                'rounded-2xl px-3 py-2 text-sm max-w-[85%] whitespace-pre-wrap',
-                m.role === 'user'
-                  ? 'bg-primary text-primary-foreground rounded-br-sm'
-                  : 'bg-muted text-foreground rounded-bl-sm'
+                'flex items-end gap-2',
+                isUser ? 'justify-end' : 'justify-start'
               )}
             >
-              {m.content}
+              {!isUser && (
+                <div className="h-7 w-7 shrink-0 rounded-full overflow-hidden border border-accent/50 relative">
+                  {!prevSameRole ? (
+                    <Image
+                      src="/images/cota/avatar-lucia.png"
+                      alt=""
+                      fill
+                      sizes="28px"
+                      className="object-cover"
+                    />
+                  ) : null}
+                </div>
+              )}
+              <div
+                className={cn(
+                  'rounded-2xl px-3 py-2 text-sm max-w-[80%] whitespace-pre-wrap',
+                  isUser
+                    ? 'bg-accent text-accent-foreground rounded-br-sm'
+                    : 'bg-muted text-foreground rounded-bl-sm'
+                )}
+              >
+                {m.content}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
         {loading && (
-          <div className="flex justify-start">
+          <div className="flex items-end gap-2 justify-start">
+            <div className="h-7 w-7 shrink-0 rounded-full overflow-hidden border border-accent/50 relative">
+              <Image
+                src="/images/cota/avatar-lucia.png"
+                alt=""
+                fill
+                sizes="28px"
+                className="object-cover"
+              />
+            </div>
             <div className="bg-muted rounded-2xl px-3 py-2 text-sm inline-flex items-center gap-2 text-muted-foreground">
               <Loader2 className="h-3.5 w-3.5 animate-spin" /> escribiendo...
             </div>
