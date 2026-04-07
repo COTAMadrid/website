@@ -14,15 +14,20 @@ export function Cierre() {
   return (
     <section
       ref={ref}
-      className="relative isolate py-28 md:py-40 px-6 overflow-hidden bg-background"
+      className="relative isolate pt-40 md:pt-56 pb-28 md:pb-40 px-6 overflow-hidden bg-background"
     >
+      {/* SOLID OPAQUE COVER — blocks the global blueprint background
+          from leaking through. z-0 keeps it inside the stacking context
+          but above any negative-z siblings. */}
+      <div aria-hidden className="absolute inset-0 z-0 bg-background" />
+
       {/* Soft warm glow halo */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-[1]">
         <div className="absolute left-1/2 top-1/2 h-[42rem] w-[42rem] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(closest-side,oklch(0.78_0.12_80/0.18),transparent_70%)] blur-3xl" />
       </div>
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10 opacity-[0.04] [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:72px_72px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_80%)]"
+        className="pointer-events-none absolute inset-0 z-[1] opacity-[0.04] [background-image:linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] [background-size:72px_72px] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_80%)]"
       />
 
       {/* THE 3D MOMENT — procedural wireframe arch */}

@@ -14,14 +14,16 @@ export function PropuestaValor() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden bg-transparent px-6 py-20 md:py-32"
+      className="relative isolate overflow-hidden bg-background px-6 py-20 md:py-32"
     >
+      {/* Solid opaque cover blocks the global blueprint background */}
+      <div aria-hidden className="absolute inset-0 z-0 bg-background" />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.035] [background-image:radial-gradient(oklch(1_0_0)_1px,transparent_1px)] [background-size:32px_32px]"
+        className="pointer-events-none absolute inset-0 z-[1] opacity-[0.035] [background-image:radial-gradient(oklch(1_0_0)_1px,transparent_1px)] [background-size:32px_32px]"
       />
 
-      <div className="relative mx-auto grid max-w-7xl grid-cols-12 gap-y-12 md:gap-x-12">
+      <div className="relative z-[2] mx-auto grid max-w-7xl grid-cols-12 gap-y-12 md:gap-x-12">
         {/* Editorial split — sticky column with eyebrow + huge index */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

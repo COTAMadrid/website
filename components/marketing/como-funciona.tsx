@@ -16,9 +16,11 @@ export function ComoFunciona() {
   return (
     <section
       ref={ref}
-      className="relative overflow-hidden bg-transparent px-6 py-20 md:py-32"
+      className="relative isolate overflow-hidden bg-background px-6 py-20 md:py-32"
     >
-      <div className="relative mx-auto max-w-7xl">
+      {/* Solid opaque cover blocks the global blueprint background */}
+      <div aria-hidden className="absolute inset-0 z-0 bg-background" />
+      <div className="relative z-[1] mx-auto max-w-7xl">
         {/* Editorial split header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}

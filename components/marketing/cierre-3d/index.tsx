@@ -61,7 +61,7 @@ export function Cierre3D() {
   return (
     <div
       aria-hidden
-      className="pointer-events-none absolute inset-0 z-[1] mix-blend-screen [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"
+      className="pointer-events-none absolute inset-x-0 bottom-0 top-[18%] z-[2] mix-blend-screen [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"
     >
       <ArchScene />
     </div>

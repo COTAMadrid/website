@@ -122,15 +122,16 @@ export function AgendaCalendar() {
 
   if (confirmed && selectedDate && selectedTime) {
     return (
-      <div className="bg-card border border-border rounded-xl p-6 shadow-editorial">
+      <div className="relative isolate bg-[oklch(0.18_0.022_168)] border border-accent/30 rounded-xl p-6 shadow-editorial">
+        <div className="absolute inset-0 -z-10 rounded-xl bg-background" />
         <div className="flex flex-col items-center gap-4 py-8 text-center">
-          <div className="flex size-12 items-center justify-center rounded-full bg-accent/15 text-accent">
+          <div className="flex size-12 items-center justify-center rounded-full bg-accent/20 text-accent ring-1 ring-accent/40">
             <Check className="size-6" strokeWidth={2} />
           </div>
-          <p className="max-w-xs font-serif text-lg leading-snug">
+          <p className="max-w-xs font-serif text-lg leading-snug text-foreground">
             Reserva registrada · {selectedDate} {selectedTime}
           </p>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-foreground/65">
             Te contactaremos para confirmar
           </p>
           <button
@@ -146,7 +147,10 @@ export function AgendaCalendar() {
   }
 
   return (
-    <div className="bg-card border border-border rounded-xl p-6 shadow-editorial">
+    <div className="relative isolate bg-[oklch(0.18_0.022_168)] border border-accent/30 rounded-xl p-6 shadow-editorial">
+      {/* Solid opaque cover so the global blueprint background never leaks
+          through and the calendar reads as a real card */}
+      <div aria-hidden className="absolute inset-0 -z-10 rounded-xl bg-background" />
       {/* Header */}
       <div className="mb-5 flex items-center justify-between">
         <button
@@ -154,23 +158,23 @@ export function AgendaCalendar() {
           onClick={goPrev}
           disabled={!canGoPrev}
           aria-label="Mes anterior"
-          className="flex size-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent/10 hover:text-accent disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-muted-foreground"
+          className="flex size-9 items-center justify-center rounded-md border border-border/60 text-foreground/80 transition-colors hover:bg-accent/15 hover:text-accent hover:border-accent/40 disabled:cursor-not-allowed disabled:opacity-25 disabled:hover:bg-transparent disabled:hover:text-foreground/80 disabled:hover:border-border/60"
         >
-          <ChevronLeft className="size-4" strokeWidth={1.5} />
+          <ChevronLeft className="size-4" strokeWidth={2} />
         </button>
-        <div className="font-serif text-lg tracking-tight">{monthLabel}</div>
+        <div className="font-serif text-xl tracking-tight text-foreground">{monthLabel}</div>
         <button
           type="button"
           onClick={goNext}
           aria-label="Mes siguiente"
-          className="flex size-8 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-accent/10 hover:text-accent"
+          className="flex size-9 items-center justify-center rounded-md border border-border/60 text-foreground/80 transition-colors hover:bg-accent/15 hover:text-accent hover:border-accent/40"
         >
-          <ChevronRight className="size-4" strokeWidth={1.5} />
+          <ChevronRight className="size-4" strokeWidth={2} />
         </button>
       </div>
 
       {/* Day-of-week header */}
-      <div className="mb-2 grid grid-cols-7 gap-1 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
+      <div className="mb-2 grid grid-cols-7 gap-1 font-mono text-[11px] uppercase tracking-[0.2em] text-foreground/65">
         {WEEK_LABELS.map((l) => (
           <div key={l} className="flex h-7 items-center justify-center">
             {l}
