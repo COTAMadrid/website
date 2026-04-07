@@ -1,6 +1,8 @@
 import Script from 'next/script';
 import { Hero } from '@/components/marketing/hero';
+import { BudgetShowcase } from '@/components/marketing/budget-showcase';
 import { Autoridad } from '@/components/marketing/autoridad';
+import { FloatingForm } from '@/components/lead-capture/floating-form';
 import { PropuestaValor } from '@/components/marketing/propuesta-valor';
 import { Escenarios } from '@/components/marketing/escenarios';
 import { ComoFunciona } from '@/components/marketing/como-funciona';
@@ -41,6 +43,7 @@ export default function Home() {
       />
       <BlueprintBackground />
       <Hero />
+      <BudgetShowcase />
       <Autoridad />
       <PropuestaValor />
       <Divider variant="measure" label="Casos · 03" />
@@ -51,6 +54,7 @@ export default function Home() {
       <Divider variant="measure" label="Agenda · 06" />
       <AgendaBlock />
       <Cierre />
+      <FloatingForm />
     </>
   );
 }
