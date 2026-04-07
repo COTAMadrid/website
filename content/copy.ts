@@ -33,7 +33,7 @@ export const COPY = {
         n: '02',
         title: 'Tiempos imprecisos',
         body: 'Plazos optimistas sin margen para imprevistos → meses extra viviendo en obra.',
-        image: '/images/cota/autoridad-02-tiempos.png',
+        image: '/images/cota/autoridad-02-tiempos-v2.png',
         imageAlt:
           'Persona esperando sentada en un salón a medio reformar con sofás plastificados',
       },
@@ -41,7 +41,7 @@ export const COPY = {
         n: '03',
         title: 'Riesgos invisibles',
         body: 'Estructura, instalaciones, comunidad. Problemas que aparecen tarde y cuestan caro.',
-        image: '/images/cota/autoridad-03-riesgos.png',
+        image: '/images/cota/autoridad-03-riesgos-v2.png',
         imageAlt:
           'Salón premium con grieta estructural visible y cables eléctricos expuestos',
       },
