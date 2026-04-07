@@ -22,7 +22,7 @@ export function Hero() {
   return (
     <section
       ref={ref}
-      className="relative isolate min-h-[82vh] flex items-center px-6 overflow-hidden bg-black"
+      className="relative isolate min-h-[82dvh] flex items-center px-6 overflow-hidden bg-background"
     >
       {/* LAYER 0: Background image with parallax */}
       <motion.div
@@ -44,11 +44,11 @@ export function Hero() {
           Left side dark (for text), right side reveals the hand image */}
       <div
         aria-hidden
-        className="absolute inset-0 z-[1] bg-gradient-to-r from-black/90 via-black/55 to-black/10"
+        className="absolute inset-0 z-[1] bg-[linear-gradient(100deg,oklch(0.12_0.02_168/0.94)_0%,oklch(0.14_0.02_168/0.7)_45%,oklch(0.14_0.02_168/0.15)_100%)]"
       />
       <div
         aria-hidden
-        className="absolute inset-0 z-[1] bg-gradient-to-b from-black/30 via-transparent to-black/70"
+        className="absolute inset-0 z-[1] bg-gradient-to-b from-[oklch(0.1_0.02_168/0.4)] via-transparent to-[oklch(0.1_0.02_168/0.8)]"
       />
 
       {/* LAYER 5: Animated cota annotations (SVG, draws over the photo) */}
@@ -82,7 +82,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.95, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-8 font-serif text-5xl md:text-7xl lg:text-[5.75rem] leading-[1.01] tracking-[-0.028em] text-balance text-white"
+            className="mt-8 font-serif text-[2.6rem] md:text-5xl lg:text-[4.25rem] leading-[1.02] tracking-[-0.028em] text-balance text-white max-w-[18ch]"
           >
             {titleWords[0]}
             <span className="italic text-accent">{COPY.hero.highlight}</span>
@@ -93,7 +93,7 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.32, ease: 'easeOut' }}
-            className="mt-8 text-lg md:text-xl text-white/75 max-w-2xl lg:mx-0 mx-auto leading-relaxed"
+            className="mt-8 text-base md:text-[1.05rem] text-white/70 max-w-[58ch] lg:mx-0 mx-auto leading-relaxed font-medium"
           >
             {COPY.hero.subtitle}
           </motion.p>

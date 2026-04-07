@@ -3,7 +3,7 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { ArrowRight, X } from 'lucide-react';
+import { ArrowRight, X, Ruler } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
@@ -76,17 +76,21 @@ export function FloatingForm() {
           transition={{ duration: 0.5, ease: 'easeOut' }}
           className="fixed z-30 bottom-6 left-1/2 -translate-x-1/2 w-[calc(100vw-3rem)] max-w-[340px] sm:left-6 sm:translate-x-0"
         >
-          <div className="relative rounded-lg border border-border bg-card shadow-2xl overflow-hidden">
-            {/* Gold ribbon header */}
-            <div className="bg-accent text-accent-foreground px-4 py-2 text-[0.65rem] font-mono uppercase tracking-[0.18em] flex items-center justify-between">
-              <span>📐 Calcula tu reforma · Gratis</span>
+          <div className="relative rounded-xl border border-white/10 bg-[oklch(0.2_0.016_168/0.9)] backdrop-blur-xl shadow-editorial overflow-hidden">
+            {/* Restrained header */}
+            <div className="flex items-center justify-between border-b border-white/10 px-4 py-2.5 text-[0.6rem] font-mono uppercase tracking-[0.22em] text-foreground/75">
+              <span className="inline-flex items-center gap-2">
+                <Ruler className="size-3 text-accent" strokeWidth={1.5} />
+                Calcula tu reforma
+              </span>
+              <span className="text-foreground/45">01 · gratis</span>
             </div>
 
             <button
               type="button"
               onClick={() => setDismissed(true)}
               aria-label="Cerrar"
-              className="absolute top-1.5 right-1.5 rounded-md p-1 text-accent-foreground/80 hover:text-accent-foreground transition-colors"
+              className="absolute top-1.5 right-1.5 rounded-md p-1 text-foreground/60 hover:text-foreground transition-colors"
             >
               <X className="size-3.5" />
             </button>

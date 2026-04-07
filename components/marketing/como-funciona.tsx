@@ -26,7 +26,7 @@ export function ComoFunciona() {
               {COPY.comoFunciona.eyebrow}
             </span>
           </div>
-          <h2 className="font-serif text-4xl leading-[1.02] tracking-[-0.02em] md:text-6xl lg:text-7xl text-balance">
+          <h2 className="font-serif text-[2.2rem] leading-[1.04] tracking-[-0.025em] md:text-5xl lg:text-[3.25rem] text-balance max-w-[16ch]">
             {COPY.comoFunciona.title}
           </h2>
         </motion.div>
@@ -82,8 +82,8 @@ function Step({
         >
           <div
             aria-hidden
-            className="select-none font-serif leading-[0.82] tracking-[-0.04em] text-foreground"
-            style={{ fontSize: 'clamp(7rem, 16vw, 14rem)' }}
+            className="nums select-none font-serif leading-[0.82] tracking-[-0.04em] bg-gradient-to-br from-foreground to-foreground/30 bg-clip-text text-transparent"
+            style={{ fontSize: 'clamp(5rem, 11vw, 9.5rem)' }}
           >
             {n}
           </div>
@@ -98,7 +98,7 @@ function Step({
             align === 'right' ? 'md:order-1 md:pr-12' : 'md:pl-12'
           }`}
         >
-          <h3 className="mb-6 font-serif text-3xl leading-[1.1] tracking-[-0.01em] md:text-5xl text-balance">
+          <h3 className="mb-6 font-serif text-[1.75rem] leading-[1.1] tracking-[-0.01em] md:text-[2.25rem] text-balance">
             {title}
           </h3>
           <div className="mb-6 h-px w-16 bg-accent/60" />

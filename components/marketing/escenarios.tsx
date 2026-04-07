@@ -28,7 +28,7 @@ export function Escenarios() {
               {COPY.escenarios.eyebrow}
             </span>
           </div>
-          <h2 className="font-serif text-4xl leading-[1.02] tracking-[-0.02em] md:text-6xl lg:text-7xl text-balance">
+          <h2 className="font-serif text-[2.2rem] leading-[1.04] tracking-[-0.025em] md:text-5xl lg:text-[3.25rem] text-balance max-w-[18ch]">
             {COPY.escenarios.title}
           </h2>
         </motion.div>

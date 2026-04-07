@@ -3,8 +3,11 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import Image from 'next/image';
+import { Phone, Monitor, Home } from 'lucide-react';
 import { COPY } from '@/content/copy';
 import { AgendaEmbed } from './agenda-embed';
+
+const ICONS: Record<string, typeof Phone> = { Phone, Monitor, Home };
 
 export function AgendaBlock() {
   const ref = useRef<HTMLElement>(null);
@@ -42,7 +45,7 @@ export function AgendaBlock() {
               {COPY.agenda.eyebrow}
             </span>
           </div>
-          <h2 className="max-w-3xl font-serif text-4xl leading-[1.02] tracking-[-0.02em] md:text-6xl lg:text-7xl text-balance">
+          <h2 className="max-w-3xl font-serif text-[2.2rem] leading-[1.04] tracking-[-0.025em] md:text-5xl lg:text-[3.25rem] text-balance">
             {COPY.agenda.title}
           </h2>
         </motion.div>
@@ -56,6 +59,7 @@ export function AgendaBlock() {
               title={o.title}
               duration={o.duration}
               body={o.body}
+              icon={o.icon}
               delay={0.1 + i * 0.1}
               inView={inView}
             />
@@ -87,6 +91,7 @@ function MenuRow({
   title,
   duration,
   body,
+  icon,
   delay,
   inView,
 }: {
@@ -94,9 +99,11 @@ function MenuRow({
   title: string;
   duration: string;
   body: string;
+  icon: string;
   delay: number;
   inView: boolean;
 }) {
+  const Icon = ICONS[icon] ?? Phone;
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -106,11 +113,12 @@ function MenuRow({
     >
       <div className="flex flex-col gap-3 px-2 py-6 md:grid md:grid-cols-[auto_1fr_auto_auto] md:items-baseline md:gap-6 md:px-4 md:py-8">
         {/* Number */}
-        <span className="font-serif text-2xl text-accent/80 md:text-3xl">
+        <span className="nums font-serif text-xl text-accent/80 md:text-2xl">
           {num}
         </span>
         {/* Title */}
-        <h3 className="font-serif text-3xl leading-tight tracking-tight md:text-4xl">
+        <h3 className="inline-flex items-center gap-4 font-serif text-2xl leading-tight tracking-tight md:text-[1.85rem]">
+          <Icon className="size-5 text-accent/70 shrink-0" strokeWidth={1.5} />
           {title}
         </h3>
         {/* Dotted leader (desktop) */}

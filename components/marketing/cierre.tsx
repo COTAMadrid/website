@@ -4,8 +4,6 @@ import Link from 'next/link';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
-import { buttonVariants } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 import { COPY } from '@/content/copy';
 
 export function Cierre() {
@@ -30,7 +28,7 @@ export function Cierre() {
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
-          className="font-serif text-4xl md:text-6xl lg:text-7xl leading-[1.05] tracking-[-0.025em] text-balance mb-14"
+          className="font-serif text-[2.2rem] md:text-5xl lg:text-[3.5rem] leading-[1.05] tracking-[-0.025em] text-balance mb-14 max-w-[22ch] mx-auto"
         >
           {COPY.cierre.title}
         </motion.h2>
@@ -39,15 +37,10 @@ export function Cierre() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
         >
-          <Link
-            href="/diagnostico"
-            className={cn(
-              buttonVariants({ size: 'lg' }),
-              'h-16 text-base px-9 gap-2 group/cta shadow-[0_30px_80px_-20px_oklch(0.78_0.12_80/0.55)] transition-transform duration-300 hover:scale-[1.03]'
-            )}
-          >
-            {COPY.cierre.cta}
-            <ArrowRight className="size-4 transition-transform duration-300 group-hover/cta:translate-x-1" />
+          <Link href="/diagnostico" className="cota-numlink">
+            <span className="idx">07</span>
+            <span>{COPY.cierre.cta}</span>
+            <ArrowRight className="arrow size-3.5" strokeWidth={1.5} />
           </Link>
         </motion.div>
       </div>

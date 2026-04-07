@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Ruler } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
@@ -51,11 +51,15 @@ export function HeroLeadCard() {
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, delay: 0.48, ease: 'easeOut' }}
-      className="mt-10 max-w-xl lg:mx-0 mx-auto rounded-xl border border-white/15 bg-white/[0.06] backdrop-blur-xl shadow-[0_40px_100px_-30px_oklch(0_0_0/0.8)] overflow-hidden focus-within:border-accent/50 focus-within:shadow-[0_40px_100px_-20px_oklch(0.78_0.12_80/0.28)] transition-all duration-500"
+      className="mt-10 max-w-xl lg:mx-0 mx-auto rounded-2xl border border-white/12 bg-[oklch(0.14_0.02_168/0.5)] backdrop-blur-2xl shadow-[inset_0_1px_0_oklch(1_0_0/0.08),0_40px_100px_-30px_oklch(0.06_0.02_168/0.9)] overflow-hidden focus-within:border-accent/50 focus-within:shadow-[inset_0_1px_0_oklch(1_0_0/0.1),0_40px_100px_-20px_oklch(0.76_0.11_78/0.22)] transition-all duration-500"
     >
-      {/* Gold ribbon header — same as floating form */}
-      <div className="bg-accent text-accent-foreground px-4 py-2 text-[0.65rem] font-mono uppercase tracking-[0.18em] flex items-center justify-between">
-        <span>📐 Calcula tu reforma · Gratis · 60 s</span>
+      {/* Restrained header — numbered ribbon, no emoji */}
+      <div className="flex items-center justify-between border-b border-white/10 px-4 py-2.5 text-[0.6rem] font-mono uppercase tracking-[0.22em] text-white/70">
+        <span className="inline-flex items-center gap-2">
+          <Ruler className="size-3 text-accent" strokeWidth={1.5} />
+          Calcula tu reforma
+        </span>
+        <span className="text-white/45">01 / gratis · 60 s</span>
       </div>
 
       <form onSubmit={submit} className="p-4 space-y-3">

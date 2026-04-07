@@ -35,7 +35,7 @@ export function PropuestaValor() {
               {COPY.propuesta.eyebrow}
             </span>
           </div>
-          <h2 className="font-serif text-4xl leading-[1.02] tracking-[-0.02em] md:text-6xl lg:text-7xl text-balance">
+          <h2 className="font-serif text-[2.2rem] leading-[1.04] tracking-[-0.025em] md:text-5xl lg:text-[3.5rem] text-balance max-w-[18ch]">
             {COPY.propuesta.title}
           </h2>
         </motion.div>
@@ -103,7 +103,7 @@ function Statement({
         </span>
       </div>
       {/* Statement */}
-      <p className="col-span-12 font-serif text-3xl leading-[1.15] tracking-[-0.01em] md:col-span-10 md:text-5xl lg:text-[3.5rem] text-balance">
+      <p className="col-span-12 font-serif text-[1.6rem] leading-[1.2] tracking-[-0.01em] md:col-span-10 md:text-[2.25rem] lg:text-[2.75rem] text-balance">
         {before}
         {match && (
           <span className="italic text-accent">{match}</span>

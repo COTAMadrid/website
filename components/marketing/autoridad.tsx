@@ -19,9 +19,9 @@ export function Autoridad() {
           initial={{ opacity: 0, scale: 0.96 }}
           animate={inView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-          className="relative float-none mb-8 w-full max-w-[280px] sm:max-w-[320px] md:float-right md:mb-4 md:ml-10 md:max-w-[340px] group"
+          className="relative float-none mb-8 w-full max-w-[280px] sm:max-w-[320px] md:float-right md:mb-4 md:ml-10 md:max-w-[340px] group md:rotate-[2deg] md:translate-y-4 hover:md:rotate-0 transition-transform duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
         >
-          <div className="relative aspect-[4/3] overflow-hidden rounded-sm">
+          <div className="relative aspect-[4/3] overflow-hidden rounded-sm shadow-editorial">
             <Image
               src={COPY.autoridad.image}
               alt={COPY.autoridad.imageAlt}
@@ -43,7 +43,7 @@ export function Autoridad() {
             {COPY.autoridad.eyebrow}
           </div>
           <div className="mt-3 h-px w-12 bg-accent" />
-          <h2 className="mt-8 font-serif text-4xl md:text-5xl lg:text-[3.5rem] leading-[1.05] tracking-[-0.02em] text-balance">
+          <h2 className="mt-8 font-serif text-[2.2rem] md:text-[2.75rem] lg:text-[3.25rem] leading-[1.05] tracking-[-0.02em] text-balance max-w-[18ch]">
             {COPY.autoridad.title}
           </h2>
           <p className="mt-8 text-base md:text-lg text-[var(--color-cream-muted)] max-w-xl leading-relaxed">

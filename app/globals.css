@@ -6,23 +6,24 @@
   --font-serif: var(--font-serif), Georgia, serif;
   --font-sans: var(--font-sans), system-ui, sans-serif;
 
-  --color-background: oklch(0.13 0 0);
-  --color-foreground: oklch(0.98 0 0);
-  --color-muted: oklch(0.20 0 0);
-  --color-muted-foreground: oklch(0.65 0 0);
-  --color-border: oklch(0.25 0 0);
-  --color-input: oklch(0.20 0 0);
+  /* Editorial deep-green — warmer and more distinctive than pure black */
+  --color-background: oklch(0.158 0.018 168);
+  --color-foreground: oklch(0.97 0.005 90);
+  --color-muted: oklch(0.22 0.014 168);
+  --color-muted-foreground: oklch(0.68 0.012 150);
+  --color-border: oklch(0.28 0.014 168);
+  --color-input: oklch(0.22 0.014 168);
   --color-ring: oklch(0.75 0.10 80);
-  --color-accent: oklch(0.78 0.12 80);
-  --color-accent-foreground: oklch(0.13 0 0);
-  --color-card: oklch(0.16 0 0);
-  --color-card-foreground: oklch(0.98 0 0);
-  --color-popover: oklch(0.16 0 0);
-  --color-popover-foreground: oklch(0.98 0 0);
-  --color-primary: oklch(0.98 0 0);
-  --color-primary-foreground: oklch(0.13 0 0);
-  --color-secondary: oklch(0.20 0 0);
-  --color-secondary-foreground: oklch(0.98 0 0);
+  --color-accent: oklch(0.76 0.11 78);
+  --color-accent-foreground: oklch(0.15 0.018 168);
+  --color-card: oklch(0.188 0.016 168);
+  --color-card-foreground: oklch(0.97 0.005 90);
+  --color-popover: oklch(0.188 0.016 168);
+  --color-popover-foreground: oklch(0.97 0.005 90);
+  --color-primary: oklch(0.97 0.005 90);
+  --color-primary-foreground: oklch(0.15 0.018 168);
+  --color-secondary: oklch(0.22 0.014 168);
+  --color-secondary-foreground: oklch(0.97 0.005 90);
   --color-destructive: oklch(0.55 0.20 25);
   --color-destructive-foreground: oklch(0.98 0 0);
   --color-success: oklch(0.65 0.15 145);
@@ -45,10 +46,79 @@ html {
 
 body {
   font-feature-settings: "ss01", "cv11";
+  position: relative;
+}
+
+/* Fixed grain overlay for the whole page — keeps dark sections from feeling sterile */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  mix-blend-mode: overlay;
+  opacity: 0.05;
+  background-image: radial-gradient(oklch(1 0 0 / 1) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::after { opacity: 0.03; }
 }
 
 h1, h2, h3, h4 {
   font-family: var(--font-serif);
   font-weight: 300;
   letter-spacing: -0.02em;
+  text-wrap: balance;
 }
+
+/* Tabular numerics everywhere a `.nums` class is used */
+.nums { font-variant-numeric: tabular-nums; }
+
+/* Reusable noise / grain overlay (use via div with .cota-noise) */
+.cota-noise {
+  background-image: radial-gradient(oklch(1 0 0 / 0.04) 1px, transparent 1px);
+  background-size: 3px 3px;
+}
+
+/* Editorial eyebrow label (small caps, monospace) */
+.cota-eyebrow {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.28em;
+  color: var(--color-muted-foreground);
+}
+
+/* Tinted shadow carries a hint of deep-green instead of pure black */
+.shadow-editorial {
+  box-shadow:
+    0 1px 0 oklch(1 0 0 / 0.04) inset,
+    0 30px 80px -30px oklch(0.08 0.02 168 / 0.85),
+    0 10px 40px -20px oklch(0.08 0.02 168 / 0.6);
+}
+
+/* Numbered restrained link (01 → Label) */
+.cota-numlink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  padding: 0.9rem 1.25rem;
+  border: 1px solid oklch(1 0 0 / 0.14);
+  border-radius: 999px;
+  color: var(--color-foreground);
+  transition: all 400ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.cota-numlink:hover {
+  border-color: oklch(0.76 0.11 78 / 0.7);
+  background: oklch(0.76 0.11 78 / 0.08);
+  transform: translateY(-1px);
+}
+.cota-numlink .idx { color: var(--color-accent); font-variant-numeric: tabular-nums; }
+.cota-numlink .arrow { transition: transform 400ms cubic-bezier(0.22, 1, 0.36, 1); }
+.cota-numlink:hover .arrow { transform: translateX(4px); }

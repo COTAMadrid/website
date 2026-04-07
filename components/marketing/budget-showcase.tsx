@@ -3,7 +3,7 @@
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import Link from 'next/link';
-import { ArrowRight, Check } from 'lucide-react';
+import { ArrowRight, Check, Ruler, TriangleAlert } from 'lucide-react';
 import { buttonVariants } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
@@ -38,13 +38,14 @@ export function BudgetShowcase() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="font-mono text-[0.7rem] uppercase tracking-[0.22em] text-accent">
-              📐 Calculadora · Gratis · 60 segundos
+            <div className="inline-flex items-center gap-3 font-mono text-[0.65rem] uppercase tracking-[0.26em] text-accent">
+              <Ruler className="size-3" strokeWidth={1.5} />
+              Calculadora · Gratis · 60 s
             </div>
 
             <h2
               id="budget-showcase-title"
-              className="mt-6 font-serif text-5xl md:text-6xl leading-[1.02] tracking-[-0.025em] text-balance text-foreground"
+              className="mt-6 font-serif text-[2.4rem] md:text-5xl leading-[1.02] tracking-[-0.025em] text-balance text-foreground max-w-[16ch]"
             >
               Sabe cuánto puede costar tu reforma en 60 segundos
             </h2>
@@ -68,27 +69,20 @@ export function BudgetShowcase() {
               ))}
             </ul>
 
-            <div className="mt-10 relative inline-block">
-              <span
-                aria-hidden
-                className="absolute inset-0 rounded-lg bg-accent/40 blur-xl animate-pulse"
-              />
+            <div className="mt-10 flex flex-wrap items-center gap-5">
               <Link
                 href="/diagnostico"
                 aria-label="Empezar mi cálculo gratuito"
-                className={cn(
-                  buttonVariants({ size: 'lg' }),
-                  'relative h-16 px-12 text-base gap-3 bg-accent text-accent-foreground hover:bg-accent/90 transition-transform duration-300 hover:scale-[1.03] shadow-[0_20px_60px_-20px_oklch(0.78_0.12_80/0.6)]'
-                )}
+                className="cota-numlink"
               >
-                Empezar mi cálculo
-                <ArrowRight className="size-5" />
+                <span className="idx">01</span>
+                <span>Empezar mi cálculo</span>
+                <ArrowRight className="arrow size-3.5" strokeWidth={1.5} />
               </Link>
+              <span className="font-mono text-[0.65rem] uppercase tracking-[0.22em] text-muted-foreground">
+                Sin compromiso
+              </span>
             </div>
-
-            <p className="mt-4 text-sm text-muted-foreground">
-              Análisis gratuito · 60 segundos
-            </p>
           </motion.div>
 
           {/* RIGHT — Preview card */}
@@ -100,9 +94,9 @@ export function BudgetShowcase() {
               delay: 0.15,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="relative"
+            className="relative md:rotate-[1.2deg] md:translate-x-4 will-change-transform"
           >
-            <div className="relative rounded-xl border border-border bg-card p-8 shadow-2xl">
+            <div className="relative rounded-2xl border border-white/10 bg-[oklch(0.2_0.016_168/0.75)] backdrop-blur-md p-8 shadow-editorial">
               <div className="font-mono text-[0.65rem] uppercase tracking-[0.22em] text-muted-foreground">
                 Ejemplo real
               </div>
@@ -125,7 +119,7 @@ export function BudgetShowcase() {
                     repeat: Infinity,
                     ease: 'easeInOut',
                   }}
-                  className="mt-2 font-serif text-3xl md:text-4xl text-accent leading-tight"
+                  className="nums mt-2 font-serif text-3xl md:text-[2.25rem] text-accent leading-tight"
                 >
                   96.000 € – 130.000 €
                 </motion.div>
@@ -150,8 +144,9 @@ export function BudgetShowcase() {
 
               {/* Disclaimer block */}
               <div className="mt-4 rounded-md border border-amber-500/25 bg-amber-500/5 p-3 text-[0.7rem] leading-relaxed text-amber-200/90">
-                <span className="font-mono uppercase tracking-[0.14em] text-amber-300/90">
-                  ⚠ Precio indicativo
+                <span className="inline-flex items-center gap-1.5 font-mono uppercase tracking-[0.16em] text-amber-300/90">
+                  <TriangleAlert className="size-3" strokeWidth={1.75} />
+                  Precio indicativo
                 </span>
                 <p className="mt-1 text-amber-100/80">
                   Rango orientativo basado en datos del mercado. El precio

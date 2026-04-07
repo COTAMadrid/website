@@ -101,9 +101,9 @@ export const COPY = {
       'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=2000&q=80',
     imageAlt: 'Mesa de arquitecto con planos y herramientas de planificación',
     options: [
-      { icon: '📞', title: 'Llamada inicial', duration: '15 min', body: 'Para entender tu caso rápidamente.' },
-      { icon: '💻', title: 'Videollamada', duration: '30 min', body: 'Para analizar tu reforma en detalle.' },
-      { icon: '🏠', title: 'Visita técnica', duration: 'Premium', body: 'Solo para proyectos avanzados.' },
+      { icon: 'Phone', title: 'Llamada inicial', duration: '15 min', body: 'Para entender tu caso rápidamente.' },
+      { icon: 'Monitor', title: 'Videollamada', duration: '30 min', body: 'Para analizar tu reforma en detalle.' },
+      { icon: 'Home', title: 'Visita técnica', duration: 'Premium', body: 'Solo para proyectos avanzados.' },
     ],
   },
   cierre: {
