@@ -4,6 +4,7 @@ import './globals.css';
 import { Footer } from '@/components/marketing/footer';
 import { CookieBanner } from '@/components/cookie-banner';
 import { WhatsAppFloating } from '@/components/whatsapp-floating';
+import { ChatBubble } from '@/components/chatbot/chat-bubble';
 
 const fraunces = Fraunces({
   subsets: ['latin'],
@@ -32,6 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
         <CookieBanner />
         <WhatsAppFloating />
+        <ChatBubble />
       </body>
     </html>
   );
