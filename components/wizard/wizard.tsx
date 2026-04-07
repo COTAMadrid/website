@@ -2,8 +2,12 @@
 
 import { AnimatePresence, motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useWizardState, isComplete } from '@/lib/wizard-state';
+import {
+  PREFILL_KEY,
+  type PrefillContact,
+} from '@/components/lead-capture/hero-lead-card';
 import { ProgressBar } from './progress-bar';
 import { ReceiptPanel, buildReceipt } from './receipt-panel';
 import { StepTipo } from './step-tipo';
@@ -47,13 +51,63 @@ function fmtEur(n: number): string {
   }).format(n);
 }
 
+function readPrefill(): PrefillContact | null {
+  if (typeof window === 'undefined') return null;
+  try {
+    const raw = sessionStorage.getItem(PREFILL_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as Partial<PrefillContact>;
+    if (
+      typeof parsed.nombre === 'string' &&
+      parsed.nombre.trim().length >= 2 &&
+      typeof parsed.email === 'string' &&
+      /\S+@\S+\.\S+/.test(parsed.email) &&
+      typeof parsed.telefono === 'string' &&
+      parsed.telefono.replace(/\D/g, '').length >= 9 &&
+      typeof parsed.localidad === 'string' &&
+      parsed.localidad.trim().length >= 2
+    ) {
+      return parsed as PrefillContact;
+    }
+  } catch {
+    // ignore
+  }
+  return null;
+}
+
 export function Wizard() {
   const router = useRouter();
   const { answers, step, setStep, update, hydrated } = useWizardState();
   const [generating, setGenerating] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [gateChecked, setGateChecked] = useState(false);
+  const [prefill, setPrefill] = useState<PrefillContact | null>(null);
 
-  if (!hydrated) return null;
+  // Gate: require valid PrefillContact in sessionStorage. Otherwise bounce
+  // back to home where the user must fill the lead form first.
+  useEffect(() => {
+    const p = readPrefill();
+    if (!p) {
+      router.replace('/');
+      return;
+    }
+    setPrefill(p);
+    // Hydrate the wizard contacto state from prefill so the contact step
+    // already shows the user's data — they just confirm and submit.
+    if (hydrated && (!answers.contacto || !answers.contacto.email)) {
+      update({
+        contacto: {
+          nombre: p.nombre,
+          email: p.email,
+          telefono: p.telefono,
+        },
+      });
+    }
+    setGateChecked(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [router, hydrated]);
+
+  if (!hydrated || !gateChecked) return null;
 
   const Current = STEPS[step];
   const isLast = step === STEPS.length - 1;
