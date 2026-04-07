@@ -95,12 +95,12 @@ export function HeroAnnotations() {
             (starts at 2.5s — drawn first because the horizontal anchors here) */}
         <motion.g>
           {/* Bottom tick at horizontal junction */}
-          <motion.line x1="885" y1="620" x2="915" y2="620" {...drawLoop(2.5, 0.3)} />
+          <motion.line x1="885" y1="620" x2="915" y2="620" {...drawLoop(1.8, 0.25)} />
           {/* Top tick */}
-          <motion.line x1="885" y1="320" x2="915" y2="320" {...drawLoop(2.5, 0.3)} />
+          <motion.line x1="885" y1="320" x2="915" y2="320" {...drawLoop(1.8, 0.25)} />
           {/* Vertical rule with gap for label */}
-          <motion.line x1="900" y1="320" x2="900" y2="445" {...drawLoop(2.7, 0.6)} />
-          <motion.line x1="900" y1="495" x2="900" y2="620" {...drawLoop(2.7, 0.6)} />
+          <motion.line x1="900" y1="320" x2="900" y2="445" {...drawLoop(2.0, 0.5)} />
+          <motion.line x1="900" y1="495" x2="900" y2="620" {...drawLoop(2.0, 0.5)} />
         </motion.g>
         <motion.text
           x="900"
@@ -111,7 +111,7 @@ export function HeroAnnotations() {
           fontSize="18"
           fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
           letterSpacing="0.08em"
-          {...fadeLoop(3.3)}
+          {...fadeLoop(2.6)}
         >
           3.20 m
         </motion.text>
@@ -120,12 +120,12 @@ export function HeroAnnotations() {
             the vertical ends (starts at 4.0s) */}
         <motion.g>
           {/* Left tick where the vertical bottom is */}
-          <motion.line x1="900" y1="605" x2="900" y2="635" {...drawLoop(4.0, 0.3)} />
+          <motion.line x1="900" y1="605" x2="900" y2="635" {...drawLoop(3.0, 0.25)} />
           {/* Right tick */}
-          <motion.line x1="1450" y1="605" x2="1450" y2="635" {...drawLoop(4.0, 0.3)} />
+          <motion.line x1="1450" y1="605" x2="1450" y2="635" {...drawLoop(3.0, 0.25)} />
           {/* Horizontal rule with gap for label */}
-          <motion.line x1="900" y1="620" x2="1115" y2="620" {...drawLoop(4.2, 0.7)} />
-          <motion.line x1="1235" y1="620" x2="1450" y2="620" {...drawLoop(4.2, 0.7)} />
+          <motion.line x1="900" y1="620" x2="1115" y2="620" {...drawLoop(3.2, 0.6)} />
+          <motion.line x1="1235" y1="620" x2="1450" y2="620" {...drawLoop(3.2, 0.6)} />
         </motion.g>
         <motion.text
           x="1175"
@@ -136,7 +136,7 @@ export function HeroAnnotations() {
           fontSize="24"
           fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
           letterSpacing="0.08em"
-          {...fadeLoop(4.8)}
+          {...fadeLoop(3.9)}
         >
           80 m²
         </motion.text>
@@ -151,10 +151,10 @@ export function HeroAnnotations() {
           cy="460"
           r="46"
           strokeDasharray="4 6"
-          {...drawLoop(5.5, 1.1)}
+          {...drawLoop(4.2, 0.9)}
         />
         {/* Leader line goes UP-RIGHT to label, away from the cotas */}
-        <motion.line x1="1240" y1="425" x2="1335" y2="370" {...drawLoop(6.4, 0.6)} />
+        <motion.line x1="1240" y1="425" x2="1335" y2="370" {...drawLoop(5.0, 0.5)} />
         <motion.text
           x="1345"
           y="365"
@@ -163,13 +163,13 @@ export function HeroAnnotations() {
           fontSize="13"
           fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
           letterSpacing="0.18em"
-          {...fadeLoop(6.8)}
+          {...fadeLoop(5.5)}
         >
           DETALLE · 01
         </motion.text>
 
         {/* ANNOTATION 4 — Bottom-right location stamp (starts at 7.5s) */}
-        <motion.line x1="1280" y1="850" x2="1500" y2="850" {...drawLoop(7.5, 0.5)} />
+        <motion.line x1="1280" y1="850" x2="1500" y2="850" {...drawLoop(5.8, 0.4)} />
         <motion.text
           x="1500"
           y="878"
@@ -179,7 +179,7 @@ export function HeroAnnotations() {
           fontSize="13"
           fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
           letterSpacing="0.22em"
-          {...fadeLoop(7.9)}
+          {...fadeLoop(6.2)}
         >
           SALAMANCA · MADRID · 80 M²
         </motion.text>
