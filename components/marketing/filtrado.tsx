@@ -69,18 +69,18 @@ export function Filtrado() {
           <div className="grid grid-cols-1 gap-y-12 md:grid-cols-2 md:gap-x-10">
             {/* SI */}
             <div>
-              <div className="mb-5 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.24em] text-[color:oklch(0.42_0.12_140)]">
-                <span className="inline-flex size-5 items-center justify-center rounded-full border border-[color:oklch(0.42_0.12_140)]/40">
-                  <Check className="size-3" strokeWidth={2} />
+              <div className="mb-6 flex items-center gap-3 font-mono text-[12px] uppercase tracking-[0.22em] text-[color:oklch(0.42_0.12_140)]">
+                <span className="inline-flex size-6 items-center justify-center rounded-full border border-[color:oklch(0.42_0.12_140)]/40">
+                  <Check className="size-3.5" strokeWidth={2} />
                 </span>
                 Sí trabajamos
               </div>
-              <ul className="space-y-4">
+              <ul className="space-y-5">
                 {ACCEPT.map((a) => (
-                  <li key={a} className="flex items-end font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--color-cream-foreground)]">
+                  <li key={a} className="flex items-end font-mono text-[14px] uppercase tracking-[0.12em] text-[var(--color-cream-foreground)]">
                     <span className="max-w-[24ch]">{a}</span>
                     <span className="cota-leader cream" />
-                    <span className="text-[color:oklch(0.42_0.12_140)]">SÍ</span>
+                    <span className="text-[color:oklch(0.42_0.12_140)] font-semibold">SÍ</span>
                   </li>
                 ))}
               </ul>
@@ -88,18 +88,18 @@ export function Filtrado() {
 
             {/* NO */}
             <div>
-              <div className="mb-5 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.24em] text-[color:oklch(0.45_0.18_25)]">
-                <span className="inline-flex size-5 items-center justify-center rounded-full border border-[color:oklch(0.45_0.18_25)]/40">
-                  <X className="size-3" strokeWidth={2} />
+              <div className="mb-6 flex items-center gap-3 font-mono text-[12px] uppercase tracking-[0.22em] text-[color:oklch(0.45_0.18_25)]">
+                <span className="inline-flex size-6 items-center justify-center rounded-full border border-[color:oklch(0.45_0.18_25)]/40">
+                  <X className="size-3.5" strokeWidth={2} />
                 </span>
                 No trabajamos
               </div>
-              <ul className="space-y-4">
+              <ul className="space-y-5">
                 {REJECT.map((r) => (
-                  <li key={r} className="flex items-end font-mono text-[11px] uppercase tracking-[0.16em] text-[var(--color-cream-muted)]">
+                  <li key={r} className="flex items-end font-mono text-[14px] uppercase tracking-[0.12em] text-[var(--color-cream-foreground)]/80">
                     <span className="max-w-[24ch]">{r}</span>
                     <span className="cota-leader cream" />
-                    <span className="text-[color:oklch(0.45_0.18_25)]">NO</span>
+                    <span className="text-[color:oklch(0.45_0.18_25)] font-semibold">NO</span>
                   </li>
                 ))}
               </ul>

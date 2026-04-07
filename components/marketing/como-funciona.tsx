@@ -38,7 +38,7 @@ export function ComoFunciona() {
             </h2>
           </div>
           <div className="col-span-12 md:col-span-4 md:text-right">
-            <div className="font-mono text-[10px] uppercase tracking-[0.24em] text-muted-foreground">
+            <div className="font-mono text-[11px] uppercase tracking-[0.24em] text-foreground/75">
               03 fases · ~5 días
             </div>
             <div className="ml-auto mt-3 hidden h-px w-24 bg-accent/60 md:block" />
@@ -106,11 +106,11 @@ function Step({
           <span>Fase {n}</span>
           <span className="h-px w-8 bg-accent/50" />
         </div>
-        <h3 className="font-serif text-[1.85rem] leading-[1.05] tracking-[-0.015em] md:text-[2.4rem] text-balance">
+        <h3 className="font-serif text-[1.85rem] leading-[1.05] tracking-[-0.015em] md:text-[2.4rem] text-balance text-foreground">
           {title}
         </h3>
-        <div className={`mt-5 h-px w-12 bg-border ${align === 'left' ? 'md:ml-auto' : ''}`} />
-        <p className="mt-5 max-w-[42ch] text-base leading-relaxed text-muted-foreground md:text-lg">
+        <div className={`mt-5 h-px w-12 bg-accent/50 ${align === 'left' ? 'md:ml-auto' : ''}`} />
+        <p className="mt-5 max-w-[42ch] text-base leading-relaxed text-foreground/85 md:text-lg">
           {body}
         </p>
       </motion.div>

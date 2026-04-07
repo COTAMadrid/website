@@ -14,7 +14,7 @@ export function Cierre() {
   return (
     <section
       ref={ref}
-      className="relative py-28 md:py-40 px-6 overflow-hidden bg-transparent"
+      className="relative isolate py-28 md:py-40 px-6 overflow-hidden bg-background"
     >
       {/* Soft warm glow halo */}
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
