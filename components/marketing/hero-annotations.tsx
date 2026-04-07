@@ -141,32 +141,7 @@ export function HeroAnnotations() {
           80 m²
         </motion.text>
 
-        {/* ANNOTATION 3 — Detail circle floating in the empty rectangle
-            delimited by the two cotas, NOT touching them.
-            Rectangle: x ∈ [900, 1450], y ∈ [320, 620]
-            Circle center: (1200, 460), r=46. Margins: 254px right, 134px
-            top, 160px bottom — well clear of both lines. */}
-        <motion.circle
-          cx="1200"
-          cy="460"
-          r="46"
-          strokeDasharray="4 6"
-          {...drawLoop(4.2, 0.9)}
-        />
-        {/* Leader line goes UP-RIGHT to label, away from the cotas */}
-        <motion.line x1="1240" y1="425" x2="1335" y2="370" {...drawLoop(5.0, 0.5)} />
-        <motion.text
-          x="1345"
-          y="365"
-          fill={muted}
-          stroke="none"
-          fontSize="13"
-          fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
-          letterSpacing="0.18em"
-          {...fadeLoop(5.5)}
-        >
-          DETALLE · 01
-        </motion.text>
+        {/* ANNOTATION 3 — (removed) DETALLE circle replaced by 3D floor plan layer */}
 
         {/* ANNOTATION 4 — Bottom-right location stamp (starts at 7.5s) */}
         <motion.line x1="1280" y1="850" x2="1500" y2="850" {...drawLoop(5.8, 0.4)} />

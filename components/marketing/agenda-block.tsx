@@ -5,7 +5,7 @@ import { useRef } from 'react';
 import Image from 'next/image';
 import { Phone, Monitor, Home } from 'lucide-react';
 import { COPY } from '@/content/copy';
-import { AgendaEmbed } from './agenda-embed';
+import { AgendaCalendar } from './agenda-calendar';
 
 const ICONS: Record<string, typeof Phone> = { Phone, Monitor, Home };
 
@@ -50,36 +50,43 @@ export function AgendaBlock() {
           </h2>
         </motion.div>
 
-        {/* Tasting menu list */}
-        <div className="relative border-t border-border/60">
-          {COPY.agenda.options.map((o, i) => (
-            <MenuRow
-              key={o.title}
-              num={String(i + 1).padStart(2, '0')}
-              title={o.title}
-              duration={o.duration}
-              body={o.body}
-              icon={o.icon}
-              delay={0.1 + i * 0.1}
-              inView={inView}
-            />
-          ))}
-        </div>
+        {/* 2-col split: tasting menu + calendar */}
+        <div className="grid gap-12 md:grid-cols-2">
+          <div>
+            <div className="relative border-t border-border/60">
+              {COPY.agenda.options.map((o, i) => (
+                <MenuRow
+                  key={o.title}
+                  num={String(i + 1).padStart(2, '0')}
+                  title={o.title}
+                  duration={o.duration}
+                  body={o.body}
+                  icon={o.icon}
+                  delay={0.1 + i * 0.1}
+                  inView={inView}
+                />
+              ))}
+            </div>
 
-        {/* Scarcity microcopy */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.6 }}
-          className="mt-8 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground"
-        >
-          <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
-          Solo un número limitado de proyectos al mes
-        </motion.p>
+            {/* Scarcity microcopy */}
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={inView ? { opacity: 1 } : {}}
+              transition={{ duration: 0.8, delay: 0.6 }}
+              className="mt-8 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground"
+            >
+              <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
+              Solo un número limitado de proyectos al mes
+            </motion.p>
+          </div>
 
-        {/* Embed below */}
-        <div className="mt-10 md:mt-12">
-          <AgendaEmbed />
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.9, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <AgendaCalendar />
+          </motion.div>
         </div>
       </div>
     </section>

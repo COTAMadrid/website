@@ -20,6 +20,11 @@ export const COPY = {
     image:
       'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=1600&q=80',
     imageAlt: 'Cocina reformada con acabados premium y luz cálida',
+    problemas: [
+      { n: '01', title: 'Coste real desconocido', body: 'Empezar sin saber cuánto cuesta la reforma → presupuesto inicial irreal, sobrecostes a mitad de obra.' },
+      { n: '02', title: 'Tiempos imprecisos', body: 'Plazos optimistas sin margen para imprevistos → meses extra viviendo en obra.' },
+      { n: '03', title: 'Riesgos invisibles', body: 'Estructura, instalaciones, comunidad. Problemas que aparecen tarde y cuestan caro.' },
+    ],
   },
   propuesta: {
     eyebrow: '02 · Método',
