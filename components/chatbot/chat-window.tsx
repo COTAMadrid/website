@@ -14,7 +14,7 @@ const STORAGE_KEY = 'cota-chat-history';
 const WELCOME: UiMessage = {
   role: 'assistant',
   content:
-    '¡Hola! Soy el asesor virtual de Cota. Puedo ayudarte con dudas sobre tu reforma en Madrid: viabilidad, precios orientativos, plazos o riesgos. ¿En qué te ayudo?',
+    '¡Hola! Soy Lucia, asesora de Cota. Puedo ayudarte con dudas sobre tu reforma en Madrid: viabilidad, precios orientativos, plazos o riesgos. ¿En qué te ayudo?',
 };
 
 interface Props {
@@ -90,25 +90,51 @@ export function ChatWindow({ onClose }: Props) {
   return (
     <div
       role="dialog"
-      aria-label="Chat con el asesor de Cota"
-      className="fixed bottom-40 right-4 sm:right-6 z-35 w-[calc(100vw-2rem)] sm:w-[380px] max-w-[380px] h-[70vh] sm:h-[540px] max-h-[640px] bg-background border border-border rounded-2xl shadow-2xl flex flex-col overflow-hidden"
+      aria-label="Chat con Lucia, asesora de Cota"
+      className="fixed bottom-40 right-4 sm:right-6 z-35 w-[calc(100vw-2rem)] sm:w-[380px] max-w-[380px] h-[70vh] sm:h-[540px] max-h-[640px] bg-background border border-accent/40 rounded-2xl shadow-[0_30px_80px_-15px_oklch(0.06_0.02_168/0.85),0_0_0_4px_oklch(0.76_0.11_78/0.06)] flex flex-col overflow-hidden"
     >
-      <header className="flex items-center justify-between px-4 py-3 border-b border-border bg-muted/40">
-        <div>
-          <p className="text-sm font-semibold leading-tight">Asesor de Cota</p>
-          <p className="text-xs text-muted-foreground">Reformas en Madrid</p>
+      <header className="relative flex items-center justify-between px-4 py-3 border-b border-border bg-[oklch(0.18_0.022_168)]">
+        <div className="flex items-center gap-3">
+          {/* Avatar with online status */}
+          <div className="relative shrink-0">
+            <div className="h-10 w-10 rounded-full overflow-hidden border-2 border-accent/50 bg-accent/10 flex items-center justify-center">
+              {/* Initial fallback. Replace with <Image src="/images/cota/avatar-lucia.jpg" /> when a real photo is provided. */}
+              <span className="font-serif text-base text-accent">L</span>
+            </div>
+            <span
+              aria-hidden
+              className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-emerald-500 ring-2 ring-[oklch(0.18_0.022_168)]"
+            />
+          </div>
+          <div>
+            <p className="text-sm font-semibold leading-tight text-foreground">
+              Lucia
+            </p>
+            <p className="text-[10px] uppercase tracking-[0.16em] text-foreground/60 font-mono">
+              Asesora · Cota Madrid
+            </p>
+          </div>
         </div>
         <button
           type="button"
           onClick={onClose}
           aria-label="Cerrar chat"
-          className="h-8 w-8 inline-flex items-center justify-center rounded-md hover:bg-muted transition"
+          className="h-8 w-8 inline-flex items-center justify-center rounded-md hover:bg-foreground/10 transition text-foreground/70"
         >
           <X className="h-4 w-4" />
         </button>
       </header>
 
-      <div ref={scrollRef} className="flex-1 overflow-y-auto px-4 py-3 space-y-3">
+      {/* Subtle background pattern (architectural hairlines) */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-[64px] bottom-[60px] opacity-[0.05] [background-image:linear-gradient(to_right,oklch(0.78_0.12_80)_1px,transparent_1px),linear-gradient(to_bottom,oklch(0.78_0.12_80)_1px,transparent_1px)] [background-size:32px_32px] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"
+      />
+
+      <div
+        ref={scrollRef}
+        className="relative z-[1] flex-1 overflow-y-auto px-4 py-3 space-y-3"
+      >
         {messages.map((m, i) => (
           <div
             key={i}
