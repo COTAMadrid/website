@@ -86,7 +86,7 @@ function FloorPlan() {
   const D = 2.4;
 
   return (
-    <group ref={group} position={[0, 0, 0]} rotation={[0, 0, 0]}>
+    <group ref={group} position={[0, -0.4, 0]} rotation={[0, 0, 0]}>
       {/* OUTER WALLS — single hairline outline */}
       <LineSegment
         points={[
@@ -228,9 +228,10 @@ export default function FloorPlanScene() {
   return (
     <Canvas
       dpr={[1, 1.5]}
-      camera={{ position: [4.6, 5.2, 6.5], fov: 32 }}
+      camera={{ position: [5.5, 6.2, 7.5], fov: 30 }}
       gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
       style={{ background: 'transparent' }}
+      onCreated={({ camera }) => camera.lookAt(0, -0.4, 0)}
     >
       <Suspense fallback={null}>
         <FloorPlan />

@@ -5,9 +5,9 @@ import { useRef } from 'react';
 import { COPY } from '@/content/copy';
 
 /**
- * Bento + timeline rail. Editorial split header (massive type left,
- * meta-marker right). Steps presented as a vertical rail with offset
- * cards alternating sides, connected by a dashed SVG path.
+ * Compact 3-column horizontal layout. Editorial header on top, then a
+ * single horizontal rail with 3 stations. Much denser than the prior
+ * vertical zig-zag — same content, half the vertical space.
  */
 export function ComoFunciona() {
   const ref = useRef<HTMLElement>(null);
@@ -16,55 +16,56 @@ export function ComoFunciona() {
   return (
     <section
       ref={ref}
-      className="relative isolate overflow-hidden bg-background px-6 py-20 md:py-32"
+      className="relative isolate overflow-hidden bg-background px-6 py-16 md:py-20"
     >
       {/* Solid opaque cover blocks the global blueprint background */}
       <div aria-hidden className="absolute inset-0 z-0 bg-background" />
-      <div className="relative z-[1] mx-auto max-w-7xl">
-        {/* Editorial split header */}
+
+      <div className="relative z-[1] mx-auto max-w-6xl">
+        {/* Editorial header — compact */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-20 grid grid-cols-12 items-end gap-y-8 md:mb-28"
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          className="mb-12 grid grid-cols-12 items-end gap-y-6 md:mb-14"
         >
           <div className="col-span-12 md:col-span-8">
-            <div className="mb-6 flex items-center gap-4">
-              <span className="h-px w-10 bg-border" />
+            <div className="mb-4 flex items-center gap-3">
+              <span className="h-px w-8 bg-border" />
               <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-accent">
                 {COPY.comoFunciona.eyebrow}
               </span>
             </div>
-            <h2 className="font-serif text-[2.4rem] leading-[1.0] tracking-[-0.035em] md:text-[3.5rem] lg:text-[4.25rem] text-balance max-w-[12ch]">
+            <h2 className="font-serif text-[2rem] leading-[1.02] tracking-[-0.03em] md:text-[2.6rem] lg:text-[3rem] text-balance max-w-[16ch] text-foreground">
               {COPY.comoFunciona.title}
             </h2>
           </div>
           <div className="col-span-12 md:col-span-4 md:text-right">
-            <div className="font-mono text-[11px] uppercase tracking-[0.24em] text-foreground/75">
+            <div className="font-mono text-[11px] uppercase tracking-[0.24em] text-foreground/70">
               03 fases · ~5 días
             </div>
-            <div className="ml-auto mt-3 hidden h-px w-24 bg-accent/60 md:block" />
+            <div className="ml-auto mt-3 hidden h-px w-20 bg-accent/60 md:block" />
           </div>
         </motion.div>
 
-        {/* Timeline rail */}
+        {/* 3-station horizontal rail */}
         <div className="relative">
-          {/* center rail */}
+          {/* Horizontal connecting rail (desktop only) */}
           <div
             aria-hidden
-            className="pointer-events-none absolute left-6 top-0 bottom-0 hidden text-border md:block md:left-1/2 md:-translate-x-1/2"
+            className="pointer-events-none absolute left-[16.6%] right-[16.6%] top-[1.75rem] hidden h-px md:block"
           >
-            <div className="cota-rail h-full" />
+            <div className="h-full w-full bg-[repeating-linear-gradient(to_right,oklch(0.78_0.12_80/0.55)_0_6px,transparent_6px_12px)]" />
           </div>
 
-          <ol className="relative space-y-16 md:space-y-24">
+          <ol className="grid grid-cols-1 gap-12 md:grid-cols-3 md:gap-8">
             {COPY.comoFunciona.steps.map((s, i) => (
               <Step
                 key={s.n}
                 n={s.n}
                 title={s.title}
                 body={s.body}
-                align={i % 2 === 0 ? 'left' : 'right'}
+                index={i}
               />
             ))}
           </ol>
@@ -78,62 +79,48 @@ function Step({
   n,
   title,
   body,
-  align,
+  index,
 }: {
   n: string;
   title: string;
   body: string;
-  align: 'left' | 'right';
+  index: number;
 }) {
   const ref = useRef<HTMLLIElement>(null);
-  const inView = useInView(ref, { once: true, margin: '-20%' });
+  const inView = useInView(ref, { once: true, margin: '-15%' });
 
   return (
-    <li ref={ref} className="relative grid grid-cols-12 items-center gap-y-6">
-      {/* node dot on the rail */}
+    <motion.li
+      ref={ref}
+      initial={{ opacity: 0, y: 24 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{
+        duration: 0.7,
+        delay: 0.1 + index * 0.12,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      className="relative flex flex-col items-center text-center md:items-center"
+    >
+      {/* Node dot on the rail */}
       <span
         aria-hidden
-        className="absolute left-6 z-10 hidden size-3 -translate-x-[5px] rounded-full bg-background ring-2 ring-accent md:block md:left-1/2 md:-translate-x-1/2"
-      />
-
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={inView ? { opacity: 1, y: 0 } : {}}
-        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-        className={`col-span-12 pl-14 md:col-span-5 md:pl-0 ${
-          align === 'left' ? 'md:col-start-1 md:pr-12 md:text-right' : 'md:col-start-8 md:pl-12'
-        }`}
+        className="relative z-10 flex size-14 items-center justify-center rounded-full border border-accent/40 bg-background font-serif text-2xl text-accent shadow-[0_0_0_4px_var(--color-background)]"
       >
-        <div className={`mb-4 inline-flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.24em] text-accent ${align === 'left' ? 'md:flex-row-reverse' : ''}`}>
-          <span>Fase {n}</span>
-          <span className="h-px w-8 bg-accent/50" />
-        </div>
-        <h3 className="font-serif text-[1.85rem] leading-[1.05] tracking-[-0.015em] md:text-[2.4rem] text-balance text-foreground">
-          {title}
-        </h3>
-        <div className={`mt-5 h-px w-12 bg-accent/50 ${align === 'left' ? 'md:ml-auto' : ''}`} />
-        <p className="mt-5 max-w-[42ch] text-base leading-relaxed text-foreground/85 md:text-lg">
-          {body}
-        </p>
-      </motion.div>
+        {n}
+      </span>
 
-      {/* Big ghost numeral on the opposite side */}
-      <motion.div
-        aria-hidden
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={inView ? { opacity: 1, scale: 1 } : {}}
-        transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-        className={`hidden md:col-span-5 md:flex md:items-center ${
-          align === 'left' ? 'md:col-start-8 md:pl-12' : 'md:col-start-1 md:pr-12 md:justify-end'
-        }`}
-      >
-        <span
-          className="select-none font-serif leading-[0.82] tracking-[-0.05em] text-foreground/[0.07]"
-          style={{ fontSize: 'clamp(8rem, 14vw, 14rem)' }}
-        >
-          {n}
-        </span>
-      </motion.div>
-    </li>
+      {/* Title */}
+      <h3 className="mt-5 font-serif text-2xl leading-tight tracking-tight text-foreground md:text-[1.6rem]">
+        {title}
+      </h3>
+
+      {/* Hairline */}
+      <div className="mt-3 h-px w-10 bg-accent/50" />
+
+      {/* Body */}
+      <p className="mt-3 max-w-[32ch] text-sm leading-relaxed text-foreground/80 md:text-base">
+        {body}
+      </p>
+    </motion.li>
   );
 }

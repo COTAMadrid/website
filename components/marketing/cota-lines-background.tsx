@@ -20,8 +20,8 @@ export function CotaLinesBackground() {
   const drawCota = (cycleStart: number, drawDur = 1.4) => {
     if (reduce) {
       return {
-        initial: { pathLength: 1, opacity: 0.18 },
-        animate: { pathLength: 1, opacity: 0.18 },
+        initial: { pathLength: 1, opacity: 0.45 },
+        animate: { pathLength: 1, opacity: 0.45 },
       };
     }
     const total = 22;
@@ -29,7 +29,7 @@ export function CotaLinesBackground() {
       initial: { pathLength: 0, opacity: 0 },
       animate: {
         pathLength: [0, 0, 1, 1, 0],
-        opacity: [0, 0, 0.18, 0.18, 0],
+        opacity: [0, 0, 0.45, 0.45, 0],
       },
       transition: {
         duration: total,
@@ -48,12 +48,12 @@ export function CotaLinesBackground() {
 
   const fadeText = (cycleStart: number) => {
     if (reduce) {
-      return { initial: { opacity: 0.16 }, animate: { opacity: 0.16 } };
+      return { initial: { opacity: 0.4 }, animate: { opacity: 0.4 } };
     }
     const total = 22;
     return {
       initial: { opacity: 0 },
-      animate: { opacity: [0, 0, 0.16, 0.16, 0] },
+      animate: { opacity: [0, 0, 0.4, 0.4, 0] },
       transition: {
         duration: total,
         repeat: Infinity,
@@ -84,7 +84,7 @@ export function CotaLinesBackground() {
         className="absolute inset-0 h-full w-full"
         fill="none"
         stroke={stroke}
-        strokeWidth="0.8"
+        strokeWidth="1.4"
         strokeLinecap="round"
       >
         {/* ─── Cota A — top-left horizontal (delay 0s) ─── */}
