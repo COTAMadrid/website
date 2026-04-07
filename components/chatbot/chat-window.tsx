@@ -132,11 +132,19 @@ export function ChatWindow({ onClose }: Props) {
         </button>
       </header>
 
-      {/* Subtle background pattern (architectural hairlines) */}
+      {/* Subtle architectural background image */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-[64px] bottom-[60px] opacity-[0.05] [background-image:linear-gradient(to_right,oklch(0.78_0.12_80)_1px,transparent_1px),linear-gradient(to_bottom,oklch(0.78_0.12_80)_1px,transparent_1px)] [background-size:32px_32px] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_85%)]"
-      />
+        className="pointer-events-none absolute inset-x-0 top-[64px] bottom-[60px] opacity-[0.18] [mask-image:radial-gradient(ellipse_at_center,black_40%,transparent_95%)]"
+      >
+        <Image
+          src="/images/cota/chat-bg.png"
+          alt=""
+          fill
+          sizes="380px"
+          className="object-cover"
+        />
+      </div>
 
       <div
         ref={scrollRef}
