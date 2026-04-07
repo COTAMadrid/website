@@ -17,29 +17,33 @@ export const COPY = {
     title: 'El problema no es reformar… es no saber en qué te estás metiendo',
     body: 'La mayoría de personas empieza una reforma sin tener claro el coste real, los tiempos ni los riesgos. Y eso es exactamente lo que provoca retrasos, sobrecostes y decisiones mal tomadas.',
     closing: 'Nosotros lo hacemos al revés.',
-    image: '/images/cota/autoridad-01-diagnostico.jpg',
-    imageAlt: 'Manos de arquitecto analizando un plano con regla y lápiz',
+    image: '/images/cota/autoridad-top.png',
+    imageAlt:
+      'Mesa de arquitecto con plano, portátil con CAD y muestrarios de materiales',
     problemas: [
       {
         n: '01',
         title: 'Coste real desconocido',
         body: 'Empezar sin saber cuánto cuesta la reforma → presupuesto inicial irreal, sobrecostes a mitad de obra.',
-        image: '/images/cota/autoridad-01-diagnostico.jpg',
-        imageAlt: 'Manos de arquitecto sobre un plano con lápiz y regla',
+        image: '/images/cota/autoridad-01-coste.png',
+        imageAlt:
+          'Cocina premium en obra con materiales y botes de pintura desbordados',
       },
       {
         n: '02',
         title: 'Tiempos imprecisos',
         body: 'Plazos optimistas sin margen para imprevistos → meses extra viviendo en obra.',
         image: '/images/cota/autoridad-02-tiempos.png',
-        imageAlt: 'Comparativa antes y después de una reforma de salón en Madrid',
+        imageAlt:
+          'Persona esperando sentada en un salón a medio reformar con sofás plastificados',
       },
       {
         n: '03',
         title: 'Riesgos invisibles',
         body: 'Estructura, instalaciones, comunidad. Problemas que aparecen tarde y cuestan caro.',
         image: '/images/cota/autoridad-03-riesgos.png',
-        imageAlt: 'Antes y después dramático de un piso reformado',
+        imageAlt:
+          'Salón premium con grieta estructural visible y cables eléctricos expuestos',
       },
     ],
   },
