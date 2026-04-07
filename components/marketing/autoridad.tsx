@@ -34,7 +34,7 @@ export function Autoridad() {
 
             {/* Annotation tag */}
             <div className="absolute left-3 top-3 bg-white/90 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-[color:oklch(0.45_0.12_75)] backdrop-blur-sm">
-              Cocina · ref. 01
+              Diagnóstico · ref. 01
             </div>
           </div>
           {/* Caption with dimension marker */}
@@ -77,15 +77,17 @@ export function Autoridad() {
         </motion.div>
       </div>
 
-      {/* Problemas — 3-card grid */}
+      {/* Problemas — 3-card grid with images */}
       <div className="relative mx-auto mt-16 max-w-6xl md:mt-24">
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-8">
           {COPY.autoridad.problemas.map((p, i) => (
             <ProblemaCard
               key={p.n}
               n={p.n}
               title={p.title}
               body={p.body}
+              image={p.image}
+              imageAlt={p.imageAlt}
               index={i}
             />
           ))}
@@ -101,11 +103,15 @@ function ProblemaCard({
   n,
   title,
   body,
+  image,
+  imageAlt,
   index,
 }: {
   n: string;
   title: string;
   body: string;
+  image: string;
+  imageAlt: string;
   index: number;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -117,18 +123,38 @@ function ProblemaCard({
       initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.9, delay: 0.15 * index, ease: [0.22, 1, 0.36, 1] }}
-      className={`group relative border border-[var(--color-cream-border)] bg-white/70 p-6 shadow-editorial backdrop-blur-[1px] md:p-7 transition-all duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-2xl hover:md:rotate-0 ${CARD_ROTATIONS[index]}`}
+      className={`group relative flex flex-col border border-[var(--color-cream-border)] bg-white/70 p-5 shadow-editorial backdrop-blur-[1px] md:p-6 transition-all duration-[700ms] ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-1 hover:shadow-2xl hover:md:rotate-0 ${CARD_ROTATIONS[index]}`}
     >
-      <div className="font-mono text-[11px] uppercase tracking-[0.24em] text-[color:oklch(0.55_0.12_75)]">
-        {n}
+      {/* Image */}
+      <div className="relative aspect-[4/3] w-full overflow-hidden">
+        <Image
+          src={image}
+          alt={imageAlt}
+          fill
+          sizes="(min-width: 768px) 33vw, 100vw"
+          className="object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"
+        />
+        <div className="absolute inset-0 ring-1 ring-black/5" />
+        {/* Number badge top-left */}
+        <div className="absolute left-3 top-3 bg-white/90 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-[color:oklch(0.55_0.12_75)] backdrop-blur-sm">
+          Fig. {n}
+        </div>
       </div>
-      <div className="mt-4 h-px w-10 bg-[color:oklch(0.55_0.12_75)]/60" />
-      <h3 className="mt-4 font-serif text-xl leading-[1.15] tracking-[-0.01em] text-balance md:text-2xl">
-        {title}
-      </h3>
-      <p className="mt-3 text-sm leading-relaxed text-[var(--color-cream-muted)]">
-        {body}
-      </p>
+
+      {/* Content */}
+      <div className="mt-5">
+        <div className="font-mono text-[11px] uppercase tracking-[0.24em] text-[color:oklch(0.55_0.12_75)]">
+          {n}
+        </div>
+        <div className="mt-3 h-px w-10 bg-[color:oklch(0.55_0.12_75)]/60" />
+        <h3 className="mt-4 font-serif text-xl leading-[1.15] tracking-[-0.01em] text-balance md:text-[1.4rem]">
+          {title}
+        </h3>
+        <p className="mt-3 text-sm leading-relaxed text-[var(--color-cream-muted)]">
+          {body}
+        </p>
+      </div>
+
       <div
         aria-hidden
         className="absolute -bottom-2 -right-2 h-10 w-10 border-b border-r border-[color:oklch(0.55_0.12_75)]/60"

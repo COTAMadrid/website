@@ -17,13 +17,30 @@ export const COPY = {
     title: 'El problema no es reformar… es no saber en qué te estás metiendo',
     body: 'La mayoría de personas empieza una reforma sin tener claro el coste real, los tiempos ni los riesgos. Y eso es exactamente lo que provoca retrasos, sobrecostes y decisiones mal tomadas.',
     closing: 'Nosotros lo hacemos al revés.',
-    image:
-      'https://images.unsplash.com/photo-1600566753376-12c8ab7fb75b?w=1600&q=80',
-    imageAlt: 'Cocina reformada con acabados premium y luz cálida',
+    image: '/images/cota/autoridad-01-diagnostico.jpg',
+    imageAlt: 'Manos de arquitecto analizando un plano con regla y lápiz',
     problemas: [
-      { n: '01', title: 'Coste real desconocido', body: 'Empezar sin saber cuánto cuesta la reforma → presupuesto inicial irreal, sobrecostes a mitad de obra.' },
-      { n: '02', title: 'Tiempos imprecisos', body: 'Plazos optimistas sin margen para imprevistos → meses extra viviendo en obra.' },
-      { n: '03', title: 'Riesgos invisibles', body: 'Estructura, instalaciones, comunidad. Problemas que aparecen tarde y cuestan caro.' },
+      {
+        n: '01',
+        title: 'Coste real desconocido',
+        body: 'Empezar sin saber cuánto cuesta la reforma → presupuesto inicial irreal, sobrecostes a mitad de obra.',
+        image: '/images/cota/autoridad-01-diagnostico.jpg',
+        imageAlt: 'Manos de arquitecto sobre un plano con lápiz y regla',
+      },
+      {
+        n: '02',
+        title: 'Tiempos imprecisos',
+        body: 'Plazos optimistas sin margen para imprevistos → meses extra viviendo en obra.',
+        image: '/images/cota/autoridad-02-tiempos.png',
+        imageAlt: 'Comparativa antes y después de una reforma de salón en Madrid',
+      },
+      {
+        n: '03',
+        title: 'Riesgos invisibles',
+        body: 'Estructura, instalaciones, comunidad. Problemas que aparecen tarde y cuestan caro.',
+        image: '/images/cota/autoridad-03-riesgos.png',
+        imageAlt: 'Antes y después dramático de un piso reformado',
+      },
     ],
   },
   propuesta: {
@@ -55,17 +72,17 @@ export const COPY = {
         title: 'Reforma sin planificación técnica',
         body: 'Empiezan obra sin proyecto claro. Resultado: cambios constantes y sobrecostes.',
         closing: 'Por eso primero analizamos.',
-        image:
-          'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1200&q=80',
-        imageAlt: 'Baño reformado con azulejos de gran formato',
+        image: '/images/cota/escenario-2-planificacion.png',
+        imageAlt:
+          'Manos de arquitecto trazando un plano técnico antes de empezar la obra',
       },
       {
         title: 'Presupuesto barato que acaba siendo caro',
         body: 'Oferta inicial atractiva. Pero aparecen extras en obra.',
         closing: 'Te mostramos el coste real desde el inicio.',
-        image:
-          'https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?w=1200&q=80',
-        imageAlt: 'Salón reformado con luz natural y mobiliario sobrio',
+        image: '/images/cota/escenario-3-cocina.png',
+        imageAlt:
+          'Cocina reformada con acabados premium en mármol blanco y latón',
       },
     ],
   },
