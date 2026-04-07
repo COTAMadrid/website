@@ -19,6 +19,7 @@ export function Escenarios() {
   return (
     <section
       ref={ref}
+      id="escenarios"
       className="relative bg-[var(--color-cream)]/85 text-[var(--color-cream-foreground)] overflow-hidden"
     >
       {/* Section header */}

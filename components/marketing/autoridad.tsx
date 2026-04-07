@@ -12,6 +12,7 @@ export function Autoridad() {
   return (
     <section
       ref={ref}
+      id="autoridad"
       className="relative py-20 md:py-32 px-6 bg-[var(--color-cream)]/85 text-[var(--color-cream-foreground)] overflow-hidden"
     >
       <div className="relative mx-auto grid max-w-6xl grid-cols-12 items-center gap-y-12 md:gap-x-12">

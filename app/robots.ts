@@ -2,11 +2,14 @@ import type { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: {
-      userAgent: '*',
-      allow: '/',
-      disallow: ['/api/', '/informe'],
-    },
+    rules: [
+      {
+        userAgent: '*',
+        allow: '/',
+        disallow: ['/admin/', '/api/', '/informe'],
+      },
+    ],
     sitemap: 'https://cotamadrid.com/sitemap.xml',
+    host: 'https://cotamadrid.com',
   };
 }

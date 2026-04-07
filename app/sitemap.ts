@@ -18,19 +18,31 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      url: `${SITE_URL}/politica-privacidad`,
-      lastModified,
-      changeFrequency: 'yearly',
-      priority: 0.3,
-    },
-    {
       url: `${SITE_URL}/aviso-legal`,
       lastModified,
       changeFrequency: 'yearly',
       priority: 0.3,
     },
     {
+      url: `${SITE_URL}/politica-privacidad`,
+      lastModified,
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
       url: `${SITE_URL}/cookies`,
+      lastModified,
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
+      url: `${SITE_URL}/terminos`,
+      lastModified,
+      changeFrequency: 'yearly',
+      priority: 0.3,
+    },
+    {
+      url: `${SITE_URL}/reclamaciones`,
       lastModified,
       changeFrequency: 'yearly',
       priority: 0.3,

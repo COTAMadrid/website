@@ -16,6 +16,7 @@ export function ComoFunciona() {
   return (
     <section
       ref={ref}
+      id="como-funciona"
       className="relative isolate overflow-hidden bg-background px-6 py-16 md:py-20"
     >
       {/* Solid opaque cover blocks the global blueprint background */}

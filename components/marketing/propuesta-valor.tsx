@@ -14,6 +14,7 @@ export function PropuestaValor() {
   return (
     <section
       ref={ref}
+      id="propuesta"
       className="relative isolate overflow-hidden bg-background px-6 py-20 md:py-32"
     >
       {/* Solid opaque cover blocks the global blueprint background */}

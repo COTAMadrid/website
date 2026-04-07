@@ -25,6 +25,7 @@ export function Filtrado() {
   return (
     <section
       ref={ref}
+      id="filtrado"
       className="relative py-20 md:py-32 px-6 bg-[var(--color-cream)]/85 text-[var(--color-cream-foreground)] overflow-hidden"
     >
       <div className="mx-auto grid max-w-6xl grid-cols-12 gap-y-12 md:gap-x-12">
