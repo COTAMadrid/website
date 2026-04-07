@@ -78,20 +78,25 @@ export function HeroAnnotations() {
         strokeWidth="1.5"
         strokeLinecap="round"
       >
-        {/* All cotas in the RIGHT-BOTTOM quadrant (x: 1000-1520, y: 580-850)
-            so they sit outside the text column (which lives top-left).
-            They cluster around the visible plano in the photo. */}
+        {/* Pen tip in the photo lands roughly at viewBox (900, 540).
+            - 80 m² horizontal cota: extends LEFT of the pen tip, just BELOW it
+            - 3.20 m vertical cota: drops DOWN from the pen tip
+            - DETALLE circle: relocated to TOP-LEFT corner area */}
 
-        {/* ANNOTATION 1 — Horizontal cota right-bottom (starts at 2.5s) */}
+        {/* ANNOTATION 1 — Horizontal "80 m²" left of pen tip, just below
+            (starts at 2.5s) */}
         <motion.g>
-          <motion.line x1="1080" y1="660" x2="1080" y2="690" {...drawLoop(2.5, 0.3)} />
-          <motion.line x1="1500" y1="660" x2="1500" y2="690" {...drawLoop(2.5, 0.3)} />
-          <motion.line x1="1080" y1="675" x2="1240" y2="675" {...drawLoop(2.7, 0.7)} />
-          <motion.line x1="1340" y1="675" x2="1500" y2="675" {...drawLoop(2.7, 0.7)} />
+          {/* Right tick anchored under pen tip */}
+          <motion.line x1="900" y1="555" x2="900" y2="585" {...drawLoop(2.5, 0.3)} />
+          {/* Left tick */}
+          <motion.line x1="450" y1="555" x2="450" y2="585" {...drawLoop(2.5, 0.3)} />
+          {/* Horizontal rule with gap for label */}
+          <motion.line x1="450" y1="570" x2="620" y2="570" {...drawLoop(2.7, 0.7)} />
+          <motion.line x1="730" y1="570" x2="900" y2="570" {...drawLoop(2.7, 0.7)} />
         </motion.g>
         <motion.text
-          x="1290"
-          y="683"
+          x="675"
+          y="578"
           textAnchor="middle"
           fill={stroke}
           stroke="none"
@@ -103,15 +108,19 @@ export function HeroAnnotations() {
           80 m²
         </motion.text>
 
-        {/* ANNOTATION 2 — Vertical cota right edge (starts at 4.0s) */}
+        {/* ANNOTATION 2 — Vertical "3.20 m" dropping straight down from
+            the pen tip (starts at 4.0s) */}
         <motion.g>
-          <motion.line x1="1525" y1="580" x2="1555" y2="580" {...drawLoop(4.0, 0.3)} />
-          <motion.line x1="1525" y1="800" x2="1555" y2="800" {...drawLoop(4.0, 0.3)} />
-          <motion.line x1="1540" y1="580" x2="1540" y2="675" {...drawLoop(4.2, 0.6)} />
-          <motion.line x1="1540" y1="710" x2="1540" y2="800" {...drawLoop(4.2, 0.6)} />
+          {/* Top tick at pen tip (x ~900, y ~540) */}
+          <motion.line x1="885" y1="540" x2="915" y2="540" {...drawLoop(4.0, 0.3)} />
+          {/* Bottom tick */}
+          <motion.line x1="885" y1="820" x2="915" y2="820" {...drawLoop(4.0, 0.3)} />
+          {/* Vertical rule with gap for label */}
+          <motion.line x1="900" y1="540" x2="900" y2="665" {...drawLoop(4.2, 0.6)} />
+          <motion.line x1="900" y1="715" x2="900" y2="820" {...drawLoop(4.2, 0.6)} />
         </motion.g>
         <motion.text
-          x="1540"
+          x="900"
           y="697"
           textAnchor="middle"
           fill={stroke}
@@ -124,19 +133,19 @@ export function HeroAnnotations() {
           3.20 m
         </motion.text>
 
-        {/* ANNOTATION 3 — Detail circle right-center, leader going up-left
+        {/* ANNOTATION 3 — Detail circle relocated to TOP-LEFT area
             (starts at 5.5s) */}
         <motion.circle
-          cx="1180"
-          cy="780"
+          cx="220"
+          cy="200"
           r="50"
           strokeDasharray="4 6"
           {...drawLoop(5.5, 1.1)}
         />
-        <motion.line x1="1145" y1="745" x2="1060" y2="660" {...drawLoop(6.4, 0.6)} />
+        <motion.line x1="265" y1="240" x2="350" y2="310" {...drawLoop(6.4, 0.6)} />
         <motion.text
-          x="1180"
-          y="868"
+          x="220"
+          y="290"
           textAnchor="middle"
           fill={muted}
           stroke="none"
