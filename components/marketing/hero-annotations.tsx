@@ -78,28 +78,24 @@ export function HeroAnnotations() {
         strokeWidth="1.5"
         strokeLinecap="round"
       >
-        {/* Cotas now ORIGINATE near the pen tip (right endpoint ≈ x: 940, y: 540
-            in the photo) and extend to the LEFT, like the hand is drawing
-            them outward. Each cota's right edge clusters around the pen tip. */}
+        {/* All cotas in the RIGHT-BOTTOM quadrant (x: 1000-1520, y: 580-850)
+            so they sit outside the text column (which lives top-left).
+            They cluster around the visible plano in the photo. */}
 
-        {/* ANNOTATION 1 — Horizontal cota extending LEFT from pen tip
-            (starts at 2.5s) */}
+        {/* ANNOTATION 1 — Horizontal cota right-bottom (starts at 2.5s) */}
         <motion.g>
-          {/* Right tick (near pen tip) */}
-          <motion.line x1="940" y1="525" x2="940" y2="555" {...drawLoop(2.5, 0.3)} />
-          {/* Left tick */}
-          <motion.line x1="220" y1="525" x2="220" y2="555" {...drawLoop(2.5, 0.3)} />
-          {/* Horizontal rule with gap for label */}
-          <motion.line x1="220" y1="540" x2="520" y2="540" {...drawLoop(2.7, 0.7)} />
-          <motion.line x1="640" y1="540" x2="940" y2="540" {...drawLoop(2.7, 0.7)} />
+          <motion.line x1="1080" y1="660" x2="1080" y2="690" {...drawLoop(2.5, 0.3)} />
+          <motion.line x1="1500" y1="660" x2="1500" y2="690" {...drawLoop(2.5, 0.3)} />
+          <motion.line x1="1080" y1="675" x2="1240" y2="675" {...drawLoop(2.7, 0.7)} />
+          <motion.line x1="1340" y1="675" x2="1500" y2="675" {...drawLoop(2.7, 0.7)} />
         </motion.g>
         <motion.text
-          x="580"
-          y="548"
+          x="1290"
+          y="683"
           textAnchor="middle"
           fill={stroke}
           stroke="none"
-          fontSize="26"
+          fontSize="24"
           fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
           letterSpacing="0.08em"
           {...fadeLoop(3.2)}
@@ -107,21 +103,20 @@ export function HeroAnnotations() {
           80 m²
         </motion.text>
 
-        {/* ANNOTATION 2 — Vertical cota anchored to pen tip area
-            (starts at 4.0s) */}
+        {/* ANNOTATION 2 — Vertical cota right edge (starts at 4.0s) */}
         <motion.g>
-          <motion.line x1="905" y1="220" x2="935" y2="220" {...drawLoop(4.0, 0.3)} />
-          <motion.line x1="905" y1="500" x2="935" y2="500" {...drawLoop(4.0, 0.3)} />
-          <motion.line x1="920" y1="220" x2="920" y2="335" {...drawLoop(4.2, 0.6)} />
-          <motion.line x1="920" y1="395" x2="920" y2="500" {...drawLoop(4.2, 0.6)} />
+          <motion.line x1="1525" y1="580" x2="1555" y2="580" {...drawLoop(4.0, 0.3)} />
+          <motion.line x1="1525" y1="800" x2="1555" y2="800" {...drawLoop(4.0, 0.3)} />
+          <motion.line x1="1540" y1="580" x2="1540" y2="675" {...drawLoop(4.2, 0.6)} />
+          <motion.line x1="1540" y1="710" x2="1540" y2="800" {...drawLoop(4.2, 0.6)} />
         </motion.g>
         <motion.text
-          x="920"
-          y="370"
+          x="1540"
+          y="697"
           textAnchor="middle"
           fill={stroke}
           stroke="none"
-          fontSize="20"
+          fontSize="18"
           fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
           letterSpacing="0.08em"
           {...fadeLoop(4.7)}
@@ -129,24 +124,23 @@ export function HeroAnnotations() {
           3.20 m
         </motion.text>
 
-        {/* ANNOTATION 3 — Detail circle (zoom marker) on the LEFT
-            with a leader line back to the pen tip (starts at 5.5s) */}
+        {/* ANNOTATION 3 — Detail circle right-center, leader going up-left
+            (starts at 5.5s) */}
         <motion.circle
-          cx="380"
-          cy="380"
-          r="55"
+          cx="1180"
+          cy="780"
+          r="50"
           strokeDasharray="4 6"
           {...drawLoop(5.5, 1.1)}
         />
-        {/* Leader line going FROM pen tip area TO the detail circle */}
-        <motion.line x1="900" y1="500" x2="430" y2="420" {...drawLoop(6.4, 0.6)} />
+        <motion.line x1="1145" y1="745" x2="1060" y2="660" {...drawLoop(6.4, 0.6)} />
         <motion.text
-          x="380"
-          y="475"
+          x="1180"
+          y="868"
           textAnchor="middle"
           fill={muted}
           stroke="none"
-          fontSize="14"
+          fontSize="13"
           fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
           letterSpacing="0.18em"
           {...fadeLoop(6.8)}
@@ -154,14 +148,15 @@ export function HeroAnnotations() {
           DETALLE · 01
         </motion.text>
 
-        {/* ANNOTATION 4 — Bottom-left location stamp (starts at 7.5s) */}
-        <motion.line x1="100" y1="780" x2="380" y2="780" {...drawLoop(7.5, 0.5)} />
+        {/* ANNOTATION 4 — Bottom-right location stamp (starts at 7.5s) */}
+        <motion.line x1="1280" y1="850" x2="1500" y2="850" {...drawLoop(7.5, 0.5)} />
         <motion.text
-          x="100"
-          y="808"
+          x="1500"
+          y="878"
+          textAnchor="end"
           fill={muted}
           stroke="none"
-          fontSize="14"
+          fontSize="13"
           fontFamily="ui-monospace, SFMono-Regular, Menlo, monospace"
           letterSpacing="0.22em"
           {...fadeLoop(7.9)}

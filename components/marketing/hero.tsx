@@ -1,18 +1,13 @@
 'use client';
 
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
 import Image from 'next/image';
-import { ArrowRight } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
 import { COPY } from '@/content/copy';
 import { HeroAnnotations } from './hero-annotations';
+import { HeroLeadCard } from '@/components/lead-capture/hero-lead-card';
 
 export function Hero() {
-  const router = useRouter();
-  const [value, setValue] = useState('');
   const ref = useRef<HTMLElement>(null);
   const reduce = useReducedMotion();
   const { scrollYProgress } = useScroll({
@@ -21,11 +16,6 @@ export function Hero() {
   });
   const yImg = useTransform(scrollYProgress, [0, 1], ['0%', reduce ? '0%' : '18%']);
   const scaleImg = useTransform(scrollYProgress, [0, 1], [1, reduce ? 1 : 1.08]);
-
-  const submit = () => {
-    if (value.trim()) sessionStorage.setItem('cota-hero-input', value.trim());
-    router.push('/diagnostico');
-  };
 
   const titleWords = COPY.hero.title.split(COPY.hero.highlight);
 
@@ -108,40 +98,7 @@ export function Hero() {
             {COPY.hero.subtitle}
           </motion.p>
 
-          <motion.form
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.48, ease: 'easeOut' }}
-            onSubmit={(e) => {
-              e.preventDefault();
-              submit();
-            }}
-            className="mt-12 group flex flex-col sm:flex-row gap-3 max-w-2xl lg:mx-0 mx-auto p-2 sm:rounded-2xl sm:border sm:border-white/15 sm:bg-white/[0.06] sm:backdrop-blur-xl sm:shadow-[0_40px_100px_-30px_oklch(0_0_0/0.8)] sm:focus-within:border-accent/50 sm:focus-within:shadow-[0_40px_100px_-20px_oklch(0.78_0.12_80/0.28)] transition-all duration-500"
-          >
-            <Input
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
-              placeholder={COPY.hero.inputPlaceholder}
-              className="h-14 text-base border-border sm:border-transparent sm:bg-transparent sm:shadow-none sm:focus-visible:ring-0 sm:text-white sm:placeholder:text-white/50"
-            />
-            <Button
-              type="submit"
-              size="lg"
-              className="h-14 px-7 text-base gap-2 group/cta transition-transform duration-300 hover:scale-[1.02]"
-            >
-              {COPY.hero.inputCta}
-              <ArrowRight className="size-4 transition-transform duration-300 group-hover/cta:translate-x-1" />
-            </Button>
-          </motion.form>
-
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.7, delay: 0.7 }}
-            className="mt-5 text-sm text-white/60"
-          >
-            {COPY.hero.microcopy}
-          </motion.p>
+          <HeroLeadCard />
         </div>
       </div>
 

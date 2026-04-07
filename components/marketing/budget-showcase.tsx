@@ -147,6 +147,18 @@ export function BudgetShowcase() {
               </div>
 
               <div className="mt-8 h-px w-full bg-border" />
+
+              {/* Disclaimer block */}
+              <div className="mt-4 rounded-md border border-amber-500/25 bg-amber-500/5 p-3 text-[0.7rem] leading-relaxed text-amber-200/90">
+                <span className="font-mono uppercase tracking-[0.14em] text-amber-300/90">
+                  ⚠ Precio indicativo
+                </span>
+                <p className="mt-1 text-amber-100/80">
+                  Rango orientativo basado en datos del mercado. El precio
+                  cerrado se entrega tras una visita técnica al inmueble.
+                </p>
+              </div>
+
               <div className="mt-4 font-mono text-[0.6rem] uppercase tracking-[0.18em] text-muted-foreground">
                 Cálculo en tiempo real · Cota
               </div>
