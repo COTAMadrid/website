@@ -16,7 +16,8 @@ export const COPY = {
     eyebrow: '01 · Diagnóstico',
     title: 'El problema no es reformar… es no saber en qué te estás metiendo',
     body: 'La mayoría de personas empieza una reforma sin tener claro el coste real, los tiempos ni los riesgos. Y eso es exactamente lo que provoca retrasos, sobrecostes y decisiones mal tomadas.',
-    closing: 'Nosotros lo hacemos al revés.',
+    problemasEyebrow: 'Los 3 errores que vemos cada semana',
+    closing: 'Nosotros lo hacemos al revés: primero entendemos, luego decidimos.',
     image: '/images/cota/autoridad-top.png',
     imageAlt:
       'Mesa de arquitecto con plano, portátil con CAD y muestrarios de materiales',

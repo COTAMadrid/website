@@ -72,14 +72,17 @@ export function Autoridad() {
           <p className="relative mt-8 max-w-[55ch] text-base leading-relaxed text-[var(--color-cream-muted)] md:text-lg">
             {COPY.autoridad.body}
           </p>
-          <p className="relative mt-8 font-serif text-xl italic text-[var(--color-cream-foreground)] md:text-2xl">
-            {COPY.autoridad.closing}
-          </p>
         </motion.div>
       </div>
 
       {/* Problemas — 3-card grid with images */}
-      <div className="relative mx-auto mt-16 max-w-6xl md:mt-24">
+      <div className="relative mx-auto mt-20 max-w-6xl md:mt-28">
+        <div className="mb-10 flex items-center gap-4 md:mb-14">
+          <span className="h-px w-10 bg-[color:oklch(0.55_0.12_75)]/60" />
+          <span className="font-mono text-[11px] uppercase tracking-[0.28em] text-[color:oklch(0.55_0.12_75)]">
+            {COPY.autoridad.problemasEyebrow}
+          </span>
+        </div>
         <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-8">
           {COPY.autoridad.problemas.map((p, i) => (
             <ProblemaCard
@@ -92,6 +95,15 @@ export function Autoridad() {
               index={i}
             />
           ))}
+        </div>
+
+        {/* Closing — separated from cards so it reads as the brand promise,
+            not as a label for the problems above */}
+        <div className="mt-16 flex flex-col items-center text-center md:mt-20">
+          <span className="h-px w-16 bg-accent" />
+          <p className="mt-6 max-w-[28ch] font-serif text-2xl italic leading-[1.2] text-[var(--color-cream-foreground)] md:text-3xl">
+            {COPY.autoridad.closing}
+          </p>
         </div>
       </div>
     </section>
