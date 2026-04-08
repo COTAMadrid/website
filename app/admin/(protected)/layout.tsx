@@ -9,6 +9,7 @@ import {
   Users,
   MessageSquare,
   Database,
+  KeyRound,
 } from 'lucide-react';
 
 const NAV = [
@@ -18,6 +19,7 @@ const NAV = [
   { href: '/admin/agenda', label: 'Agenda', Icon: Calendar },
   { href: '/admin/leads', label: 'Leads', Icon: Users },
   { href: '/admin/chatbot', label: 'Chatbot', Icon: MessageSquare },
+  { href: '/admin/api-keys', label: 'API Keys', Icon: KeyRound },
   { href: '/admin/db', label: 'Base de datos', Icon: Database },
 ];
 

@@ -1,6 +1,20 @@
 import type { ChatMessage, ChatbotConfig } from './types';
 import { PROVIDER_ADAPTERS } from './providers';
 import { buildSystemPrompt } from './build-prompt';
+import { getKeyPlaintext } from '@/lib/db/repositories/api-keys';
+
+async function resolveApiKey(
+  providerId: string,
+  envVarName: string
+): Promise<string | null> {
+  try {
+    const dbKey = await getKeyPlaintext(providerId);
+    if (dbKey) return dbKey;
+  } catch {
+    // fall through to env var
+  }
+  return process.env[envVarName] ?? null;
+}
 
 const TIMEOUT_MS = 12_000;
 
@@ -18,9 +32,9 @@ export async function runChain(
 
   for (const provider of config.providers) {
     if (!provider.enabled) continue;
-    const apiKey = process.env[provider.apiKeyEnv];
+    const apiKey = await resolveApiKey(provider.id, provider.apiKeyEnv);
     if (!apiKey) {
-      errors.push(`${provider.id}: missing ${provider.apiKeyEnv}`);
+      errors.push(`${provider.id}: missing key (DB and ${provider.apiKeyEnv})`);
       continue;
     }
     const adapter = PROVIDER_ADAPTERS[provider.id];

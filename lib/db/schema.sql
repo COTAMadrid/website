@@ -37,3 +37,12 @@ CREATE TABLE IF NOT EXISTS agenda_availability (
   updated_at TIMESTAMPTZ DEFAULT NOW(),
   CONSTRAINT single_row_agenda CHECK (id = 1)
 );
+
+CREATE TABLE IF NOT EXISTS api_keys (
+  provider TEXT PRIMARY KEY,
+  ciphertext TEXT NOT NULL,
+  iv TEXT NOT NULL,
+  tag TEXT NOT NULL,
+  last_4 TEXT NOT NULL,
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
