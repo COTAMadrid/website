@@ -33,10 +33,10 @@ export default async function Home() {
           __html: JSON.stringify({
             '@context': 'https://schema.org',
             '@type': 'LocalBusiness',
-            '@id': 'https://cotamadrid.com/#business',
+            '@id': 'https://cotamadrid.es/#business',
             name: 'Cota',
             legalName: 'PCH Obras',
-            url: 'https://cotamadrid.com',
+            url: 'https://cotamadrid.es',
             areaServed: { '@type': 'City', name: 'Madrid' },
             description:
               'Consultoría y ejecución de reformas integrales de pisos en Madrid. Análisis previo de viabilidad, precio y riesgos.',

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 
-const SITE_URL = 'https://cotamadrid.com';
+const SITE_URL = 'https://cotamadrid.es';
 
 export function pageMeta({
   title,

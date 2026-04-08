@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     'Política de privacidad RGPD de Cota Madrid (PCH Obras): responsable del tratamiento, finalidades, legitimación, conservación, destinatarios y derechos del interesado.',
   robots: { index: true, follow: true },
-  alternates: { canonical: 'https://cotamadrid.com/politica-privacidad' },
+  alternates: { canonical: 'https://cotamadrid.es/politica-privacidad' },
 };
 
 export default async function Page() {
@@ -32,7 +32,7 @@ export default async function Page() {
           <p>
             La presente Política de Privacidad regula el tratamiento de los
             datos personales facilitados por los usuarios del sitio web{' '}
-            <strong>cotamadrid.com</strong>, en cumplimiento del Reglamento
+            <strong>cotamadrid.es</strong>, en cumplimiento del Reglamento
             (UE) 2016/679 del Parlamento Europeo y del Consejo, de 27 de
             abril de 2016 (RGPD) y de la Ley Orgánica 3/2018, de 5 de
             diciembre, de Protección de Datos Personales y garantía de los

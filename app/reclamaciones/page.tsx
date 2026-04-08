@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     'Información sobre las hojas de reclamaciones oficiales, arbitraje de consumo, mediación y plataforma europea ODR para clientes de Cota Madrid.',
   robots: { index: true, follow: true },
-  alternates: { canonical: 'https://cotamadrid.com/reclamaciones' },
+  alternates: { canonical: 'https://cotamadrid.es/reclamaciones' },
 };
 
 export default async function Page() {

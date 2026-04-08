@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     'Aviso legal de Cota Madrid (PCH Obras): identificación del titular, condiciones de uso, propiedad intelectual, responsabilidad y jurisdicción aplicable.',
   robots: { index: true, follow: true },
-  alternates: { canonical: 'https://cotamadrid.com/aviso-legal' },
+  alternates: { canonical: 'https://cotamadrid.es/aviso-legal' },
 };
 
 export default async function Page() {
@@ -35,7 +35,7 @@ export default async function Page() {
             de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de
             la Información y de Comercio Electrónico (LSSI-CE), se facilitan
             los siguientes datos del titular del sitio web{' '}
-            <strong>cotamadrid.com</strong>:
+            <strong>cotamadrid.es</strong>:
           </p>
           <ul>
             <li>
@@ -65,7 +65,7 @@ export default async function Page() {
           <h2>2. Objeto</h2>
           <p>
             El presente aviso legal regula el uso del sitio web{' '}
-            <strong>cotamadrid.com</strong>, titularidad del Titular, que
+            <strong>cotamadrid.es</strong>, titularidad del Titular, que
             ofrece información sobre los servicios de consultoría y ejecución
             de reformas integrales de viviendas en Madrid, así como un
             diagnóstico orientativo online y formularios de contacto con

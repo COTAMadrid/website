@@ -19,7 +19,7 @@ const inter = Inter({
   display: 'swap',
 });
 
-const SITE_URL = 'https://cotamadrid.com';
+const SITE_URL = 'https://cotamadrid.es';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

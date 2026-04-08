@@ -9,7 +9,7 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/admin/', '/api/', '/informe'],
       },
     ],
-    sitemap: 'https://cotamadrid.com/sitemap.xml',
-    host: 'https://cotamadrid.com',
+    sitemap: 'https://cotamadrid.es/sitemap.xml',
+    host: 'https://cotamadrid.es',
   };
 }

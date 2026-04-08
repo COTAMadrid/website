@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     'Términos y condiciones del servicio de Cota Madrid: diagnóstico online, asesoría, ejecución de reformas, precios, plazos, garantías y derecho de desistimiento.',
   robots: { index: true, follow: true },
-  alternates: { canonical: 'https://cotamadrid.com/terminos' },
+  alternates: { canonical: 'https://cotamadrid.es/terminos' },
 };
 
 export default async function Page() {
@@ -35,7 +35,7 @@ export default async function Page() {
             servicios ofrecidos por PCH Obras, operando bajo la marca
             comercial <strong>Cota</strong> (en adelante, &laquo;el
             Prestador&raquo;), a través del sitio web{' '}
-            <strong>cotamadrid.com</strong>, así como la relación
+            <strong>cotamadrid.es</strong>, así como la relación
             contractual entre el Prestador y sus clientes.
           </p>
 

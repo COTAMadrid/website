@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description:
     'Política de cookies de Cota Madrid: tipos de cookies utilizadas, finalidad, duración y gestión desde el navegador.',
   robots: { index: true, follow: true },
-  alternates: { canonical: 'https://cotamadrid.com/cookies' },
+  alternates: { canonical: 'https://cotamadrid.es/cookies' },
 };
 
 export default async function Page() {
@@ -48,7 +48,7 @@ export default async function Page() {
 
           <h2>2. Tipos de cookies utilizadas</h2>
           <p>
-            El sitio web <strong>cotamadrid.com</strong> utiliza las
+            El sitio web <strong>cotamadrid.es</strong> utiliza las
             siguientes categorías de cookies y tecnologías asimiladas:
           </p>
           <ul>
