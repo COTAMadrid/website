@@ -20,12 +20,21 @@ const NAV_LINKS = [
 export function Navbar() {
   const { scrollY } = useScroll();
   const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [lastY, setLastY] = useState(0);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [telefono, setTelefono] = useState<string | null>(null);
   const [callbackOpen, setCallbackOpen] = useState(false);
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     setScrolled(latest > 80);
+    // Auto-hide on scroll down past 200px (mobile + desktop), reveal on scroll up
+    if (latest > 200 && latest > lastY + 8) {
+      setHidden(true);
+    } else if (latest < lastY - 8) {
+      setHidden(false);
+    }
+    setLastY(latest);
   });
 
   useEffect(() => {
@@ -41,8 +50,11 @@ export function Navbar() {
     <>
       <motion.nav
         initial={{ y: -20, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        animate={{
+          y: hidden && !mobileOpen ? -160 : 0,
+          opacity: 1,
+        }}
+        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
             ? 'bg-[oklch(0.14_0.018_168/0.85)] backdrop-blur-2xl border-b border-white/[0.06] shadow-[0_4px_30px_-8px_oklch(0_0_0/0.4)]'

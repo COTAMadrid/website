@@ -112,6 +112,9 @@ CREATE INDEX IF NOT EXISTS leads_created_at_idx ON leads (created_at DESC);
 CREATE INDEX IF NOT EXISTS leads_status_idx ON leads (status_id);
 CREATE INDEX IF NOT EXISTS leads_quality_idx ON leads (score_quality);
 
+-- Track when we sent the auto follow-up to the client (for cron idempotency)
+ALTER TABLE leads ADD COLUMN IF NOT EXISTS followup_sent_at TIMESTAMPTZ;
+
 CREATE TABLE IF NOT EXISTS lead_notes (
   id BIGSERIAL PRIMARY KEY,
   lead_id TEXT NOT NULL REFERENCES leads(id) ON DELETE CASCADE,

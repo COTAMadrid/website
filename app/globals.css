@@ -2,6 +2,31 @@
 @plugin "@tailwindcss/typography";
 @import "tw-animate-css";
 
+/* Global scroll-margin so anchor jumps clear the fixed navbar */
+section[id],
+[id^="section-"] {
+  scroll-margin-top: 6rem;
+}
+
+/* Respect prefers-reduced-motion for our heavy framer-motion animations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Stronger focus state for keyboard navigation across all inputs/buttons */
+:focus-visible {
+  outline: 2px solid oklch(0.78 0.12 80);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
 @theme {
   --font-serif: var(--font-serif), Georgia, serif;
   --font-sans: var(--font-sans), system-ui, sans-serif;

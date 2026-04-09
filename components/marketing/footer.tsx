@@ -5,10 +5,10 @@ import { getCompany } from '@/lib/db/repositories/company';
 const SERVICIOS: Array<{ label: string; href: string }> = [
   { label: 'Reforma integral', href: '/#propuesta' },
   { label: 'Diagnóstico online', href: '/diagnostico' },
-  { label: 'Autoridad técnica', href: '/#autoridad' },
-  { label: 'Escenarios reales', href: '/#escenarios' },
-  { label: 'Cómo funciona', href: '/#como-funciona' },
-  { label: 'Filtro de proyectos', href: '/#filtrado' },
+  { label: 'Calculadora rápida', href: '/calculadora-reforma-madrid' },
+  { label: 'Reformas en Salamanca', href: '/reforma-piso-salamanca' },
+  { label: 'Reformas en Chamberí', href: '/reforma-piso-chamberi' },
+  { label: 'Reformas en Retiro', href: '/reforma-piso-retiro' },
   { label: 'Agendar visita', href: '/#agenda' },
 ];
 
@@ -16,7 +16,7 @@ const EMPRESA: Array<{ label: string; href: string }> = [
   { label: 'Sobre Cota', href: '/sobre-cota' },
   { label: 'Proceso', href: '/#como-funciona' },
   { label: 'Proyectos', href: '/#escenarios' },
-  { label: 'Blog', href: '#' },
+  { label: 'Calculadora', href: '/calculadora-reforma-madrid' },
 ];
 
 const LEGAL: Array<{ label: string; href: string }> = [
