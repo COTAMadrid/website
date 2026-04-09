@@ -167,20 +167,25 @@ export function ChatWindow({ onClose }: Props) {
             <p className="text-sm font-semibold leading-tight text-foreground">
               Lucia
             </p>
-            <span
-              aria-label="Cota Madrid"
-              className="block h-4 w-20 bg-foreground/85"
-              style={{
-                WebkitMaskImage: 'url(/images/cota/logo-cota.svg)',
-                maskImage: 'url(/images/cota/logo-cota.svg)',
-                WebkitMaskRepeat: 'no-repeat',
-                maskRepeat: 'no-repeat',
-                WebkitMaskPosition: 'left center',
-                maskPosition: 'left center',
-                WebkitMaskSize: 'contain',
-                maskSize: 'contain',
-              }}
-            />
+            <div className="flex items-center gap-2">
+              <span className="text-[10px] uppercase tracking-[0.16em] text-foreground/60 font-mono">
+                Asesora ·
+              </span>
+              <span
+                aria-label="Cota Madrid"
+                className="block h-7 w-24 bg-foreground"
+                style={{
+                  WebkitMaskImage: 'url(/images/cota/logo-cota.svg)',
+                  maskImage: 'url(/images/cota/logo-cota.svg)',
+                  WebkitMaskRepeat: 'no-repeat',
+                  maskRepeat: 'no-repeat',
+                  WebkitMaskPosition: 'left center',
+                  maskPosition: 'left center',
+                  WebkitMaskSize: 'contain',
+                  maskSize: 'contain',
+                }}
+              />
+            </div>
           </div>
         </div>
         <button
