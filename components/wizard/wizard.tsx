@@ -357,7 +357,7 @@ function InlineContactGate({
           type="submit"
           className="mt-3 w-full inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 font-mono text-[11px] uppercase tracking-[0.22em] text-accent-foreground transition-transform hover:-translate-y-0.5"
         >
-          {hasPrefill ? 'Continuar al diagnóstico' : 'Empezar diagnóstico'}
+          {hasPrefill ? 'Continuar' : 'Empezar'}
         </button>
         <p className="text-center text-[11px] text-foreground/50">
           Sin compromiso · solo guardamos tus datos para enviarte el informe

@@ -22,9 +22,11 @@ function extractAction(reply: string): {
   reply: string;
   action: 'callback' | 'diagnostico' | null;
 } {
-  const m = reply.match(/\[ACCION:(CALLBACK|DIAGNOSTICO)\]/i);
+  const m = reply.match(/\[ACCION:(CALLBACK|DIAGNOSTICO|PRESUPUESTO)\]/i);
   if (!m) return { reply, action: null };
-  const action = m[1].toLowerCase() as 'callback' | 'diagnostico';
+  const tag = m[1].toUpperCase();
+  const action: 'callback' | 'diagnostico' =
+    tag === 'CALLBACK' ? 'callback' : 'diagnostico';
   const cleaned = reply.replace(m[0], '').trim();
   return { reply: cleaned, action };
 }

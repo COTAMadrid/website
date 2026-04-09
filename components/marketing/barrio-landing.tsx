@@ -165,7 +165,7 @@ export function BarrioLanding({ data }: { data: BarrioLandingData }) {
                 href="/diagnostico"
                 className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 font-mono text-[11px] uppercase tracking-[0.22em] text-accent-foreground transition-transform hover:-translate-y-0.5"
               >
-                Empezar mi diagnóstico
+                Pedir mi presupuesto
                 <ArrowRight className="size-3.5" />
               </Link>
               <Link

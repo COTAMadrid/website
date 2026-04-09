@@ -104,9 +104,9 @@ export function ChatBubble() {
         aria-expanded={open}
         className="group fixed bottom-24 right-6 z-35 flex items-center gap-3 rounded-full bg-[oklch(0.18_0.022_168/0.55)] backdrop-blur-xl border border-accent/40 pl-1.5 pr-4 py-1.5 shadow-[0_20px_60px_-10px_oklch(0.06_0.02_168/0.5),0_0_0_4px_oklch(0.76_0.11_78/0.06)] hover:-translate-y-0.5 hover:bg-[oklch(0.18_0.022_168/0.75)] hover:border-accent/70 transition-all duration-300"
       >
-        {/* Avatar with online dot — hidden when nudge is showing so we never
-            have two Lucia avatars on screen at once */}
-        {!nudge && (
+        {/* Avatar with online dot — hidden when the nudge OR the chat window
+            is showing so we never have two Lucia avatars on screen at once */}
+        {!nudge && !open && (
           <span className="relative shrink-0">
             <span className="block h-11 w-11 rounded-full overflow-hidden border-2 border-accent/60 relative">
               <Image
@@ -130,7 +130,7 @@ export function ChatBubble() {
         <span
           className={
             'hidden sm:flex flex-col text-left leading-tight ' +
-            (nudge ? 'px-1' : 'pr-1')
+            (nudge || open ? 'px-1' : 'pr-1')
           }
         >
           <span className="font-serif text-sm text-foreground">

@@ -33,7 +33,7 @@ function getOrCreateId(key: string): string {
 const WELCOME: UiMessage = {
   role: 'assistant',
   content:
-    '¡Hola! Soy Lucia, asesora de Cota. Puedo ayudarte con dudas sobre tu reforma en Madrid: viabilidad, precios orientativos, plazos o riesgos. ¿En qué te ayudo?',
+    '¡Hola! Soy Lucia, del equipo de Cota Madrid. Te puedo ayudar con tu reforma: estimaciones de precio, plazos, viabilidad o cualquier duda. Cuéntame, ¿qué tienes en mente?',
 };
 
 interface Props {
@@ -120,8 +120,8 @@ export function ChatWindow({ onClose }: Props) {
           {
             role: 'assistant',
             content:
-              data.error ||
-              'Lo siento, ahora mismo no puedo responder. Prueba por WhatsApp o haz el diagnóstico en /diagnostico.',
+              'Disculpa, ahora mismo no puedo responderte. Si quieres avanzar, puedes pedir tu estimación de presupuesto online o escribirnos por WhatsApp.',
+            action: 'diagnostico',
           },
         ]);
       } else {
@@ -252,7 +252,7 @@ export function ChatWindow({ onClose }: Props) {
                     className="self-start inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-xs font-mono uppercase tracking-[0.16em] text-accent-foreground hover:-translate-y-0.5 transition-transform"
                   >
                     <Calculator className="size-3.5" />
-                    Empezar diagnóstico
+                    Pedir mi presupuesto online
                   </a>
                 )}
               </div>
