@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { MessageCircle, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { ChatWindow } from './chat-window';
 
 const NUDGE_KEY = 'cota-chat-nudge-shown';
@@ -102,9 +102,43 @@ export function ChatBubble() {
         }}
         aria-label={open ? 'Cerrar chat' : 'Abrir chat con Lucia, asesora de Cota'}
         aria-expanded={open}
-        className="fixed bottom-24 right-6 z-35 h-12 w-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-xl hover:scale-105 transition-transform"
+        className="group fixed bottom-24 right-6 z-35 flex items-center gap-3 rounded-full bg-[oklch(0.18_0.022_168)] border border-accent/50 pl-1.5 pr-4 py-1.5 shadow-[0_20px_60px_-10px_oklch(0.06_0.02_168/0.7),0_0_0_4px_oklch(0.76_0.11_78/0.1)] hover:-translate-y-0.5 hover:border-accent/80 transition-all duration-300"
       >
-        <MessageCircle className="h-6 w-6" />
+        {/* Avatar with online dot */}
+        <span className="relative shrink-0">
+          <span className="block h-11 w-11 rounded-full overflow-hidden border-2 border-accent/60 relative">
+            <Image
+              src="/images/cota/avatar-lucia.png"
+              alt=""
+              fill
+              sizes="44px"
+              className="object-cover"
+            />
+          </span>
+          <span
+            aria-hidden
+            className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-emerald-500 ring-2 ring-[oklch(0.18_0.022_168)]"
+          />
+        </span>
+
+        {/* Name + role — hidden on tiny screens, visible from xs up */}
+        <span className="hidden sm:flex flex-col text-left leading-tight pr-1">
+          <span className="font-serif text-sm text-foreground">
+            {open ? 'Cerrar chat' : 'Habla con Lucia'}
+          </span>
+          <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-foreground/55">
+            Asesora · online
+          </span>
+        </span>
+
+        {/* Pulse ring for first-time attention */}
+        {!open && !nudge && (
+          <span
+            aria-hidden
+            className="absolute inset-0 rounded-full border border-accent/40 animate-ping opacity-30 pointer-events-none"
+            style={{ animationDuration: '3s' }}
+          />
+        )}
       </button>
     </>
   );
