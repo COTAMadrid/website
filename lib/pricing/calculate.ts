@@ -1,8 +1,10 @@
 import {
   ANTIGUEDAD_FACTOR,
   BARRIO_FACTOR,
+  COST_STRUCTURE,
   ESTADO_FACTOR,
   EXTRA_FACTOR,
+  ICIO_RATE,
   PLAZO_FACTOR,
   PRICE_PER_M2,
   RANGE_SPREAD,
@@ -25,22 +27,45 @@ export function calculate(
   const estadoFactor = overrides?.estado_factor ?? ESTADO_FACTOR;
   const extraFactor = overrides?.extra_factor ?? EXTRA_FACTOR;
   const rangeSpread = overrides?.range_spread ?? RANGE_SPREAD;
+  const icioRate = overrides?.icio_rate ?? ICIO_RATE;
+  const costStructure = overrides?.cost_structure ?? COST_STRUCTURE;
 
   const range = pricePerM2[answers.calidad];
   const meanPerM2 = (range.min + range.max) / 2;
 
-  let central = answers.metros * meanPerM2;
-  central *= barrioFactor[answers.barrio];
-  central *= antiguedadFactor[answers.antiguedad];
-  central *= plazoFactor[answers.plazo];
-  central *= estadoFactor[answers.estado];
+  // 1) Subtotal PEM (presupuesto de ejecución material)
+  let pem = answers.metros * meanPerM2;
+  pem *= barrioFactor[answers.barrio];
+  pem *= antiguedadFactor[answers.antiguedad];
+  pem *= plazoFactor[answers.plazo];
+  pem *= estadoFactor[answers.estado];
 
-  if (answers.extras.sinAscensor) central *= extraFactor.sinAscensor;
-  if (answers.extras.edificioProtegido) central *= extraFactor.edificioProtegido;
-  if (answers.extras.zonaBajasEmisiones) central *= extraFactor.zonaBajasEmisiones;
+  if (answers.extras.sinAscensor) pem *= extraFactor.sinAscensor;
+  if (answers.extras.edificioProtegido) pem *= extraFactor.edificioProtegido;
+  if (answers.extras.zonaBajasEmisiones) pem *= extraFactor.zonaBajasEmisiones;
 
+  // 2) ICIO sobre el PEM
+  const icio = pem * icioRate;
+  const central = pem + icio;
+
+  // 3) Range
   const min = roundTo(central * rangeSpread.lower, 1000);
   const max = roundTo(central * rangeSpread.upper, 1000);
 
-  return { min, max, central: Math.round(central) };
+  // 4) Cost structure breakdown over the central estimate (PEM only)
+  const breakdown = {
+    manoObra: Math.round(pem * costStructure.manoObra),
+    materiales: Math.round(pem * costStructure.materiales),
+    mediosAuxiliares: Math.round(pem * costStructure.mediosAuxiliares),
+    estructuraMargen: Math.round(pem * costStructure.estructuraMargen),
+  };
+
+  return {
+    min,
+    max,
+    central: Math.round(central),
+    subtotalPem: Math.round(pem),
+    icio: Math.round(icio),
+    costStructure: breakdown,
+  };
 }

@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { diagnose } from '@/lib/pricing/diagnose';
 import type { Diagnosis, WizardAnswers } from '@/lib/pricing/types';
 import { RangoPrecio } from './rango-precio';
+import { EstructuraCoste } from './estructura-coste';
 import { Duracion } from './duracion';
 import { Semaforo } from './semaforo';
 import { Riesgos } from './riesgos';
@@ -75,6 +76,10 @@ export function Informe() {
 
       <div className="mb-12">
         <Semaforo viability={d.viability} />
+      </div>
+
+      <div className="mb-12">
+        <EstructuraCoste estimate={d.estimate} />
       </div>
 
       <Riesgos risks={d.risks} />

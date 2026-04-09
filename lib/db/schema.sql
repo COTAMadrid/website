@@ -29,6 +29,10 @@ CREATE TABLE IF NOT EXISTS pricing_config (
   CONSTRAINT single_row_pricing CHECK (id = 1)
 );
 
+-- Comité comercial 2026: ICIO Madrid + estructura de coste editables
+ALTER TABLE pricing_config ADD COLUMN IF NOT EXISTS icio_rate NUMERIC NOT NULL DEFAULT 0.0375;
+ALTER TABLE pricing_config ADD COLUMN IF NOT EXISTS cost_structure JSONB NOT NULL DEFAULT '{"manoObra":0.5,"materiales":0.35,"mediosAuxiliares":0.075,"estructuraMargen":0.075}'::jsonb;
+
 CREATE TABLE IF NOT EXISTS agenda_availability (
   id INT PRIMARY KEY DEFAULT 1,
   time_slots JSONB NOT NULL DEFAULT '["10:00","12:00","16:00","18:00"]'::jsonb,

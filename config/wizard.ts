@@ -35,19 +35,32 @@ export const TIPO_OPTIONS: WizardOption<ReformType>[] = [
 ];
 
 export const BARRIO_OPTIONS: WizardOption<Barrio>[] = [
-  { value: 'salamanca', label: 'Salamanca' },
-  { value: 'chamberi', label: 'Chamberí' },
-  { value: 'justicia', label: 'Justicia / Chueca' },
-  { value: 'centro', label: 'Centro / Sol' },
-  { value: 'chamartin', label: 'Chamartín' },
-  { value: 'retiro', label: 'Retiro' },
-  { value: 'moncloa', label: 'Moncloa / Argüelles' },
-  { value: 'tetuan', label: 'Tetuán' },
-  { value: 'arganzuela', label: 'Arganzuela' },
+  // Prime capital
+  { value: 'salamanca', label: 'Salamanca', description: 'Prime capital' },
+  { value: 'chamberi', label: 'Chamberí', description: 'Prime capital' },
+  { value: 'chamartin', label: 'Chamartín', description: 'Prime capital' },
+  { value: 'retiro', label: 'Retiro', description: 'Prime capital' },
+  // Centro histórico
+  { value: 'centro', label: 'Centro / Sol', description: 'Centro histórico' },
+  { value: 'justicia', label: 'Justicia / Chueca', description: 'Centro histórico' },
+  // Residencial media-alta
+  { value: 'arganzuela', label: 'Arganzuela', description: 'Residencial media-alta' },
+  { value: 'moncloa', label: 'Moncloa / Argüelles', description: 'Residencial media-alta' },
+  { value: 'tetuan', label: 'Tetuán', description: 'Capital media' },
+  // Capital ajustada
   { value: 'latina', label: 'Latina' },
   { value: 'carabanchel', label: 'Carabanchel' },
-  { value: 'otros', label: 'Otro distrito de Madrid' },
-  { value: 'fuera-m30', label: 'Fuera de la M-30' },
+  { value: 'villaverde', label: 'Villaverde' },
+  // Otros distritos
+  { value: 'otros', label: 'Otro distrito de Madrid capital' },
+  // Municipios prime
+  { value: 'pozuelo', label: 'Pozuelo de Alarcón', description: 'Municipio prime' },
+  { value: 'majadahonda', label: 'Majadahonda', description: 'Municipio prime' },
+  // Municipios medios y ajustados
+  { value: 'getafe', label: 'Getafe' },
+  { value: 'alcala', label: 'Alcalá de Henares' },
+  // Resto del área metropolitana
+  { value: 'fuera-m30', label: 'Otro municipio de la Comunidad de Madrid' },
 ];
 
 export const ANTIGUEDAD_OPTIONS: WizardOption<Antiguedad>[] = [
@@ -60,23 +73,23 @@ export const ANTIGUEDAD_OPTIONS: WizardOption<Antiguedad>[] = [
 export const CALIDAD_OPTIONS: WizardOption<Calidad>[] = [
   {
     value: 'basico',
-    label: 'Básico-funcional',
-    description: 'Habitable y digno, sin lujos',
+    label: 'Lavado de cara / Reforma parcial seria',
+    description: 'Pintura, suelos, cocina o baño aislados — sin instalaciones nuevas',
   },
   {
     value: 'medio',
-    label: 'Medio-bueno',
-    description: 'Marcas conocidas, buenos acabados',
+    label: 'Integral funcional / estándar',
+    description: 'Vivienda habitual con instalaciones nuevas y buen equilibrio precio-calidad',
   },
   {
     value: 'alto',
-    label: 'Alto',
-    description: 'Carpintería a medida, climatización seria',
+    label: 'Integral premium',
+    description: 'Materiales altos, diseño cuidado, carpintería a medida',
   },
   {
     value: 'premium',
-    label: 'Premium',
-    description: 'Materiales nobles, todo a medida',
+    label: 'Lujo alto o singular',
+    description: 'Prime, interiorismo fuerte, producto exclusivo',
   },
 ];
 

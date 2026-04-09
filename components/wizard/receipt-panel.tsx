@@ -7,6 +7,7 @@ import {
   BARRIO_FACTOR,
   ESTADO_FACTOR,
   EXTRA_FACTOR,
+  ICIO_RATE,
   PLAZO_FACTOR,
   PRICE_PER_M2,
   RANGE_SPREAD,
@@ -170,6 +171,18 @@ export function buildReceipt(answers: PartialAnswers): {
       cumulative,
     });
   }
+
+  // ICIO Madrid (3.75% sobre PEM) — visible como línea propia
+  const pem = cumulative;
+  const icioAmount = pem * ICIO_RATE;
+  cumulative += icioAmount;
+  lines.push({
+    id: 'icio',
+    label: 'ICIO Madrid · 3,75% sobre PEM',
+    factor: 'Impuesto municipal',
+    delta: icioAmount,
+    cumulative,
+  });
 
   return {
     lines,

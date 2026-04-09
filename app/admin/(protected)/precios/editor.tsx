@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import type { PricingConfig } from '@/lib/db/repositories/pricing';
+import { PRICING_DEFAULTS } from '@/lib/db/repositories/pricing';
 
 export function PreciosEditor({ initial }: { initial: PricingConfig }) {
   const [config, setConfig] = useState<PricingConfig>(initial);
@@ -121,6 +122,75 @@ export function PreciosEditor({ initial }: { initial: PricingConfig }) {
       </section>
 
       <section>
+        <h2 className="text-lg font-semibold mb-1">ICIO Madrid</h2>
+        <p className="text-xs text-muted-foreground mb-3">
+          Impuesto sobre Construcciones, Instalaciones y Obras del Ayuntamiento
+          de Madrid. Se aplica sobre el PEM y aparece como línea visible al
+          cliente. Tipo oficial actual: 3,75 % (= 0.0375).
+        </p>
+        <div className="flex items-center gap-3">
+          <input
+            type="number"
+            step="0.0001"
+            value={config.icio_rate}
+            onChange={(e) =>
+              setConfig((c) => ({ ...c, icio_rate: num(e.target.value) }))
+            }
+            className="h-9 px-2 w-32 rounded-md border border-border bg-background text-sm"
+          />
+          <span className="text-xs text-muted-foreground">
+            ({(config.icio_rate * 100).toFixed(2)} %)
+          </span>
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-lg font-semibold mb-1">Estructura de coste</h2>
+        <p className="text-xs text-muted-foreground mb-3">
+          Reparto orientativo que se muestra al cliente en el informe (no
+          afecta al cálculo del rango). La suma debería estar cerca de 1.0.
+        </p>
+        <div className="space-y-2">
+          {(['manoObra', 'materiales', 'mediosAuxiliares', 'estructuraMargen'] as const).map(
+            (k) => (
+              <div key={k} className="flex items-center gap-3">
+                <span className="w-44 text-sm font-mono">{k}</span>
+                <input
+                  type="number"
+                  step="0.01"
+                  value={config.cost_structure[k]}
+                  onChange={(e) =>
+                    setConfig((c) => ({
+                      ...c,
+                      cost_structure: {
+                        ...c.cost_structure,
+                        [k]: num(e.target.value),
+                      },
+                    }))
+                  }
+                  className="h-9 px-2 w-28 rounded-md border border-border bg-background text-sm"
+                />
+                <span className="text-xs text-muted-foreground">
+                  ({(config.cost_structure[k] * 100).toFixed(0)} %)
+                </span>
+              </div>
+            )
+          )}
+          <p className="text-xs text-muted-foreground pt-1">
+            Suma actual:{' '}
+            <span className="font-mono">
+              {(
+                config.cost_structure.manoObra +
+                config.cost_structure.materiales +
+                config.cost_structure.mediosAuxiliares +
+                config.cost_structure.estructuraMargen
+              ).toFixed(2)}
+            </span>
+          </p>
+        </div>
+      </section>
+
+      <section>
         <h2 className="text-lg font-semibold mb-3">Range spread (±)</h2>
         <div className="flex items-center gap-3">
           <label className="text-sm flex items-center gap-2">
@@ -164,6 +234,21 @@ export function PreciosEditor({ initial }: { initial: PricingConfig }) {
           className="h-10 px-4 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/80 disabled:opacity-50"
         >
           {saving ? 'Guardando...' : 'Guardar cambios'}
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            if (
+              confirm(
+                'Restaurar todos los valores a los del comité comercial 2026? (Tendrás que pulsar Guardar después.)'
+              )
+            ) {
+              setConfig(PRICING_DEFAULTS);
+            }
+          }}
+          className="h-10 px-4 rounded-md border border-border text-sm hover:bg-muted"
+        >
+          Restaurar valores comité 2026
         </button>
         {message && (
           <p

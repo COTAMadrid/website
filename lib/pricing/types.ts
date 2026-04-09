@@ -5,18 +5,32 @@
 export type ReformType = 'integral' | 'parcial' | 'zona-humeda' | 'cocina';
 
 export type Barrio =
+  // Madrid capital — Prime
   | 'salamanca'
   | 'chamberi'
-  | 'justicia'
-  | 'centro'
   | 'chamartin'
   | 'retiro'
+  // Madrid capital — Centro histórico
+  | 'centro'
+  | 'justicia'
+  // Madrid capital — Residencial media-alta
+  | 'arganzuela'
   | 'moncloa'
   | 'tetuan'
-  | 'arganzuela'
+  // Madrid capital — Ajustada
   | 'latina'
   | 'carabanchel'
+  | 'villaverde'
+  // Madrid capital — Otros
   | 'otros'
+  // Municipios prime
+  | 'pozuelo'
+  | 'majadahonda'
+  // Municipios medios
+  | 'getafe'
+  // Municipios ajustados
+  | 'alcala'
+  // Resto del área metropolitana
   | 'fuera-m30';
 
 export type Antiguedad = 'pre-1950' | '1950-1980' | '1980-2000' | 'post-2000';
@@ -70,6 +84,17 @@ export interface PriceEstimate {
   min: number;
   max: number;
   central: number;
+  /** Subtotal antes de aplicar ICIO. Útil para mostrar el desglose */
+  subtotalPem?: number;
+  /** Importe de ICIO calculado (3.75% del PEM) */
+  icio?: number;
+  /** Desglose 50/35/7.5/7.5 sobre el central, para credibilidad técnica */
+  costStructure?: {
+    manoObra: number;
+    materiales: number;
+    mediosAuxiliares: number;
+    estructuraMargen: number;
+  };
 }
 
 export interface DurationEstimate {

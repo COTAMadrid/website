@@ -8,32 +8,64 @@ import type {
 
 /**
  * €/m² ranges by quality level — Madrid 2026.
- * Validated by PCH Obras (10 years of operation).
- * Edit these values to recalibrate the engine.
+ *
+ * Calibrado por el comité comercial (abril 2026), aliñado con la Tabla 3
+ * "Rango por tipo de obra":
+ *   - basico   → "Lavado de cara / Reforma parcial seria"   200-450
+ *   - medio    → "Integral funcional / estándar buena"      500-900
+ *   - alto     → "Integral premium"                          950-1200
+ *   - premium  → "Lujo alto o singular"                      1200-2000
+ *
+ * El wizard mantiene los mismos keys (basico/medio/alto/premium) por
+ * compatibilidad con leads históricos, pero las etiquetas en la UI se
+ * actualizan al lenguaje comercial nuevo.
  */
 export const PRICE_PER_M2: Record<Calidad, { min: number; max: number }> = {
-  basico: { min: 600, max: 850 },
-  medio: { min: 850, max: 1200 },
-  alto: { min: 1200, max: 1700 },
-  premium: { min: 1700, max: 2500 },
+  basico: { min: 250, max: 450 },
+  medio: { min: 500, max: 900 },
+  alto: { min: 950, max: 1200 },
+  premium: { min: 1200, max: 2000 },
 };
 
+/**
+ * Multiplicadores de zona — calibrados con anclajes reales de precio de
+ * vivienda (marzo 2026). Cuanto más caro el m² del barrio, más caro suele
+ * salir reformar (acabados, exigencias de comunidad, logística).
+ */
 export const BARRIO_FACTOR: Record<Barrio, number> = {
-  salamanca: 1.15,
-  chamberi: 1.15,
-  justicia: 1.15,
+  // Prime capital
+  salamanca: 1.2,
+  chamberi: 1.18,
+  chamartin: 1.15,
+  retiro: 1.15,
+  // Centro histórico
   centro: 1.15,
-  chamartin: 1.08,
-  retiro: 1.08,
-  moncloa: 1.08,
+  justicia: 1.15,
+  // Residencial media-alta capital
+  arganzuela: 1.05,
+  moncloa: 1.05,
   tetuan: 1.0,
-  arganzuela: 1.0,
-  latina: 1.0,
-  carabanchel: 1.0,
+  // Capital ajustada
+  latina: 0.95,
+  carabanchel: 0.9,
+  villaverde: 0.85,
+  // Otros distritos capital
   otros: 1.0,
+  // Municipios prime
+  pozuelo: 1.1,
+  majadahonda: 1.1,
+  // Municipios medios
+  getafe: 0.95,
+  // Municipios ajustados
+  alcala: 0.9,
+  // Resto del área metropolitana
   'fuera-m30': 0.95,
 };
 
+/**
+ * Antigüedad. Pre-1960 con instalaciones nuevas implica un sobrecoste real
+ * del 10–20% según el comité; lo simplificamos en factores fijos.
+ */
 export const ANTIGUEDAD_FACTOR: Record<Antiguedad, number> = {
   'pre-1950': 1.2,
   '1950-1980': 1.1,
@@ -53,10 +85,32 @@ export const ESTADO_FACTOR: Record<EstadoActual, number> = {
   'parcial-reformado': 0.9,
 };
 
+/**
+ * Extras de Tabla 2 (ajustes recomendados por el comité).
+ */
 export const EXTRA_FACTOR = {
-  sinAscensor: 1.1,
-  edificioProtegido: 1.1,
-  zonaBajasEmisiones: 1.05,
+  sinAscensor: 1.1, // 3ª-5ª planta sin ascensor → +10%
+  edificioProtegido: 1.12, // Patrimonio → +12%
+  zonaBajasEmisiones: 1.05, // ZBE / restricciones de circulación → +5%
+} as const;
+
+/**
+ * ICIO Madrid (Impuesto sobre Construcciones, Instalaciones y Obras).
+ * Tipo único del 3,75% sobre el coste real y efectivo de la obra (PEM).
+ * Lo aplicamos como línea visible al subtotal del cálculo.
+ */
+export const ICIO_RATE = 0.0375;
+
+/**
+ * Estructura de coste interna (referencia para el desglose del informe).
+ * No afecta al cálculo del rango, solo se muestra al cliente para dar
+ * credibilidad técnica. Total debe sumar 1.0.
+ */
+export const COST_STRUCTURE = {
+  manoObra: 0.5, // 45-55%
+  materiales: 0.35, // 35-45%
+  mediosAuxiliares: 0.075, // 5-10%
+  estructuraMargen: 0.075, // 5-15%
 } as const;
 
 /**

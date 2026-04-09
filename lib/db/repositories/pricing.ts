@@ -7,6 +7,8 @@ import {
   ESTADO_FACTOR,
   EXTRA_FACTOR,
   RANGE_SPREAD,
+  ICIO_RATE,
+  COST_STRUCTURE,
 } from '@/config/pricing';
 import type {
   Antiguedad,
@@ -28,6 +30,13 @@ export interface PricingConfig {
     zonaBajasEmisiones: number;
   };
   range_spread: { lower: number; upper: number };
+  icio_rate: number;
+  cost_structure: {
+    manoObra: number;
+    materiales: number;
+    mediosAuxiliares: number;
+    estructuraMargen: number;
+  };
 }
 
 export const PRICING_DEFAULTS: PricingConfig = {
@@ -38,6 +47,8 @@ export const PRICING_DEFAULTS: PricingConfig = {
   estado_factor: { ...ESTADO_FACTOR },
   extra_factor: { ...EXTRA_FACTOR },
   range_spread: { ...RANGE_SPREAD },
+  icio_rate: ICIO_RATE,
+  cost_structure: { ...COST_STRUCTURE },
 };
 
 export async function getPricingConfig(): Promise<PricingConfig> {
@@ -46,14 +57,19 @@ export async function getPricingConfig(): Promise<PricingConfig> {
     const { rows } = await sql`SELECT * FROM pricing_config WHERE id = 1 LIMIT 1`;
     if (rows.length === 0) return PRICING_DEFAULTS;
     const r = rows[0];
+    // Merge so that any new key (icio_rate, cost_structure, new barrios)
+    // falls back to defaults — vital after the comité 2026 update.
     return {
-      price_per_m2: r.price_per_m2 ?? PRICING_DEFAULTS.price_per_m2,
-      barrio_factor: r.barrio_factor ?? PRICING_DEFAULTS.barrio_factor,
-      antiguedad_factor: r.antiguedad_factor ?? PRICING_DEFAULTS.antiguedad_factor,
-      plazo_factor: r.plazo_factor ?? PRICING_DEFAULTS.plazo_factor,
-      estado_factor: r.estado_factor ?? PRICING_DEFAULTS.estado_factor,
-      extra_factor: r.extra_factor ?? PRICING_DEFAULTS.extra_factor,
-      range_spread: r.range_spread ?? PRICING_DEFAULTS.range_spread,
+      price_per_m2: { ...PRICING_DEFAULTS.price_per_m2, ...(r.price_per_m2 ?? {}) },
+      barrio_factor: { ...PRICING_DEFAULTS.barrio_factor, ...(r.barrio_factor ?? {}) },
+      antiguedad_factor: { ...PRICING_DEFAULTS.antiguedad_factor, ...(r.antiguedad_factor ?? {}) },
+      plazo_factor: { ...PRICING_DEFAULTS.plazo_factor, ...(r.plazo_factor ?? {}) },
+      estado_factor: { ...PRICING_DEFAULTS.estado_factor, ...(r.estado_factor ?? {}) },
+      extra_factor: { ...PRICING_DEFAULTS.extra_factor, ...(r.extra_factor ?? {}) },
+      range_spread: { ...PRICING_DEFAULTS.range_spread, ...(r.range_spread ?? {}) },
+      icio_rate:
+        typeof r.icio_rate === 'number' ? r.icio_rate : PRICING_DEFAULTS.icio_rate,
+      cost_structure: { ...PRICING_DEFAULTS.cost_structure, ...(r.cost_structure ?? {}) },
     };
   } catch (err) {
     console.error('[db] getPricingConfig failed, falling back to defaults', err);
@@ -66,7 +82,8 @@ export async function setPricingConfig(c: PricingConfig): Promise<void> {
   await sql`
     INSERT INTO pricing_config (
       id, price_per_m2, barrio_factor, antiguedad_factor, plazo_factor,
-      estado_factor, extra_factor, range_spread, updated_at
+      estado_factor, extra_factor, range_spread, icio_rate, cost_structure,
+      updated_at
     ) VALUES (
       1,
       ${JSON.stringify(c.price_per_m2)}::jsonb,
@@ -76,6 +93,8 @@ export async function setPricingConfig(c: PricingConfig): Promise<void> {
       ${JSON.stringify(c.estado_factor)}::jsonb,
       ${JSON.stringify(c.extra_factor)}::jsonb,
       ${JSON.stringify(c.range_spread)}::jsonb,
+      ${c.icio_rate},
+      ${JSON.stringify(c.cost_structure)}::jsonb,
       NOW()
     )
     ON CONFLICT (id) DO UPDATE SET
@@ -86,6 +105,8 @@ export async function setPricingConfig(c: PricingConfig): Promise<void> {
       estado_factor = EXCLUDED.estado_factor,
       extra_factor = EXCLUDED.extra_factor,
       range_spread = EXCLUDED.range_spread,
+      icio_rate = EXCLUDED.icio_rate,
+      cost_structure = EXCLUDED.cost_structure,
       updated_at = NOW()
   `;
 }
