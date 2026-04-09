@@ -1,0 +1,70 @@
+import type { BarrioLandingData } from '@/components/marketing/barrio-landing';
+
+export const BARRIOS: Record<string, BarrioLandingData> = {
+  salamanca: {
+    slug: 'salamanca',
+    nombre: 'Salamanca',
+    caracter: 'El barrio más representativo del Madrid burgués',
+    tipologia: 'fincas señoriales de finales del XIX y principios del XX',
+    precioRango: { min: 1100, max: 1900 },
+    particularidades: [
+      'Fincas catalogadas o protegidas que limitan qué se puede tocar en fachadas, patios y elementos comunes. Antes de cualquier reforma hace falta consultar el grado de protección.',
+      'Distribuciones originales con techos altos, molduras y carpinterías nobles. Reformar bien suele significar conservar lo bueno y modernizar instalaciones.',
+      'Patios interiores estrechos que condicionan la apertura de huecos, ventilaciones de cocina y bajantes.',
+      'Comunidades de vecinos exigentes con horarios, accesos y trasiego de materiales — la buena planificación evita conflictos y multas.',
+      'Instalaciones eléctricas y de fontanería frecuentemente obsoletas. Casi siempre conviene rehacerlas de cero.',
+    ],
+    objetivos: [
+      'Conservar molduras, suelos hidráulicos y carpinterías originales mientras se moderniza el resto.',
+      'Abrir cocina al salón sin tocar elementos estructurales protegidos.',
+      'Mejorar aislamiento acústico entre vecinos sin perder altura libre.',
+      'Modernizar baños con acabados premium y soluciones de almacenaje a medida.',
+      'Sustituir instalaciones eléctricas y de fontanería por completo.',
+      'Climatización por conductos integrada en falso techo donde se permite.',
+    ],
+  },
+  chamberi: {
+    slug: 'chamberi',
+    nombre: 'Chamberí',
+    caracter: 'Uno de los barrios más equilibrados y vividos del centro',
+    tipologia: 'edificios de los años 1900–1950 con mucha personalidad',
+    precioRango: { min: 1000, max: 1700 },
+    particularidades: [
+      'Mucho edificio histórico sin ascensor o con ascensor de pequeño tamaño. La logística de obra puede encarecer y alargar plazos si no se anticipa.',
+      'Tabiquería original a menudo de ladrillo macizo o entramado, no de pladur. Tirar paredes requiere estudio estructural previo.',
+      'Suelos hidráulicos originales en buen estado bajo capas de moqueta o tarima — vale la pena descubrirlos antes de tirarlos.',
+      'Puntos de humedades recurrentes en cubiertas y patios interiores. Reformar sin diagnosticar primero suele dar problemas a los pocos meses.',
+      'Comunidades de vecinos relativamente abiertas pero exigentes con permisos y seguros.',
+    ],
+    objetivos: [
+      'Restaurar suelos hidráulicos y combinarlos con elementos contemporáneos.',
+      'Optimizar metros cuadrados con distribuciones más actuales sin perder carácter.',
+      'Crear baños y cocinas funcionales donde antes había trasteros o tendederos.',
+      'Mejorar luz natural reorganizando huecos donde la normativa lo permita.',
+      'Renovar instalaciones eléctricas, fontanería y calefacción.',
+      'Insonorización entre forjados antiguos con poca masa.',
+    ],
+  },
+  retiro: {
+    slug: 'retiro',
+    nombre: 'Retiro',
+    caracter: 'Un barrio residencial con una mezcla equilibrada de fincas',
+    tipologia: 'edificios de los años 1940–1980 mayoritariamente',
+    precioRango: { min: 950, max: 1600 },
+    particularidades: [
+      'Mucha vivienda construida entre los 50 y los 70, con materiales y soluciones constructivas muy concretas que conviene conocer.',
+      'Distribuciones tradicionales con cocinas pequeñas y baños interiores que casi siempre acaban reorganizándose en una reforma integral.',
+      'Bajantes generales antiguos que pueden condicionar la posición de cocinas y baños en la nueva distribución.',
+      'Calefacciones centrales en algunas fincas que limitan o complican la sustitución por sistemas individuales.',
+      'Algunas fincas están sometidas a protección parcial si forman parte de conjuntos urbanos catalogados.',
+    ],
+    objetivos: [
+      'Abrir cocina al salón y conseguir distribuciones más sociables.',
+      'Crear o ampliar baños donde antes había despensas o lavaderos.',
+      'Sustituir instalaciones obsoletas (electricidad, fontanería, calefacción).',
+      'Mejorar aislamiento térmico de cubiertas y carpinterías exteriores.',
+      'Renovar suelos, eliminando moquetas, terrazos antiguos y desniveles.',
+      'Modernizar acabados sin que el resultado pierda calidez residencial.',
+    ],
+  },
+};
