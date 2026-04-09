@@ -2,7 +2,6 @@
 
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useState } from 'react';
 import { ArrowRight, Menu, X } from 'lucide-react';
 
@@ -40,13 +39,19 @@ export function Navbar() {
         <div className="mx-auto max-w-7xl flex items-center justify-between px-6 py-3">
           {/* Logo */}
           <Link href="/" aria-label="Cota Madrid" className="group inline-flex items-center">
-            <Image
-              src="/images/cota/logo-cota.svg"
-              alt="Cota Madrid"
-              width={160}
-              height={44}
-              priority
-              className="h-10 w-auto opacity-95 group-hover:opacity-100 transition-opacity"
+            <span
+              aria-hidden
+              className="block h-10 w-32 bg-foreground transition-colors group-hover:bg-accent"
+              style={{
+                WebkitMaskImage: 'url(/images/cota/logo-cota.svg)',
+                maskImage: 'url(/images/cota/logo-cota.svg)',
+                WebkitMaskRepeat: 'no-repeat',
+                maskRepeat: 'no-repeat',
+                WebkitMaskPosition: 'center',
+                maskPosition: 'center',
+                WebkitMaskSize: 'contain',
+                maskSize: 'contain',
+              }}
             />
           </Link>
 

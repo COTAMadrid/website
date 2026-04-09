@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { MapPin, Phone, Mail, MessageCircle } from 'lucide-react';
 import { getCompany } from '@/lib/db/repositories/company';
 
@@ -50,14 +49,20 @@ export async function Footer() {
             {/* Logo — inverted via CSS so the dark serif "Cota" reads
                 white on the dark green footer without needing a
                 transparent PNG. */}
-            <Link href="/" aria-label="Cota Madrid" className="inline-block">
-              <Image
-                src="/images/cota/logo-cota.svg"
-                alt="Cota Madrid"
-                width={220}
-                height={64}
-                className="h-16 w-auto"
-                priority={false}
+            <Link href="/" aria-label="Cota Madrid" className="inline-block group">
+              <span
+                aria-hidden
+                className="block h-16 w-44 bg-foreground transition-colors group-hover:bg-accent"
+                style={{
+                  WebkitMaskImage: 'url(/images/cota/logo-cota.svg)',
+                  maskImage: 'url(/images/cota/logo-cota.svg)',
+                  WebkitMaskRepeat: 'no-repeat',
+                  maskRepeat: 'no-repeat',
+                  WebkitMaskPosition: 'left center',
+                  maskPosition: 'left center',
+                  WebkitMaskSize: 'contain',
+                  maskSize: 'contain',
+                }}
               />
             </Link>
             <p className="mt-5 text-sm leading-relaxed text-foreground/70">
