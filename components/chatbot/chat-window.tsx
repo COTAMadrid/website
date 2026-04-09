@@ -167,8 +167,8 @@ export function ChatWindow({ onClose }: Props) {
             <p className="text-sm font-semibold leading-none text-foreground shrink-0 mr-5">
               Lucia
             </p>
-            <span className="text-[10px] uppercase tracking-[0.16em] text-foreground/60 font-mono shrink-0 leading-none ml-1">
-              Asesora
+            <span className="text-[10px] tracking-[0.08em] text-foreground/55 font-mono shrink-0 leading-none ml-3">
+              asesora
             </span>
             <span
               aria-label="Cota Madrid"
