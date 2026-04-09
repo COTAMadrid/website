@@ -24,7 +24,8 @@ export function Hero() {
   return (
     <section
       ref={ref}
-      className="relative isolate min-h-[82dvh] flex items-center px-6 overflow-hidden bg-background"
+      id="diagnostico"
+      className="relative isolate min-h-[82dvh] flex items-center px-6 overflow-hidden bg-background scroll-mt-24"
     >
       {/* LAYER 0: Background image with parallax */}
       <motion.div
