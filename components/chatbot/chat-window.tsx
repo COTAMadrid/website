@@ -163,29 +163,27 @@ export function ChatWindow({ onClose }: Props) {
               className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-emerald-500 ring-2 ring-[oklch(0.18_0.022_168)]"
             />
           </div>
-          <div className="flex flex-col gap-1">
-            <p className="text-sm font-semibold leading-tight text-foreground">
+          <div className="flex items-center gap-2 min-w-0">
+            <p className="text-sm font-semibold leading-none text-foreground shrink-0">
               Lucia
             </p>
-            <div className="flex items-center gap-2">
-              <span className="text-[10px] uppercase tracking-[0.16em] text-foreground/60 font-mono">
-                Asesora ·
-              </span>
-              <span
-                aria-label="Cota Madrid"
-                className="block h-12 w-40 bg-foreground"
-                style={{
-                  WebkitMaskImage: 'url(/images/cota/logo-cota.svg)',
-                  maskImage: 'url(/images/cota/logo-cota.svg)',
-                  WebkitMaskRepeat: 'no-repeat',
-                  maskRepeat: 'no-repeat',
-                  WebkitMaskPosition: 'left center',
-                  maskPosition: 'left center',
-                  WebkitMaskSize: 'contain',
-                  maskSize: 'contain',
-                }}
-              />
-            </div>
+            <span className="text-[10px] uppercase tracking-[0.16em] text-foreground/60 font-mono shrink-0 leading-none">
+              Asesora
+            </span>
+            <span
+              aria-label="Cota Madrid"
+              className="block h-9 w-24 shrink-0 bg-foreground"
+              style={{
+                WebkitMaskImage: 'url(/images/cota/logo-cota.svg)',
+                maskImage: 'url(/images/cota/logo-cota.svg)',
+                WebkitMaskRepeat: 'no-repeat',
+                maskRepeat: 'no-repeat',
+                WebkitMaskPosition: 'left center',
+                maskPosition: 'left center',
+                WebkitMaskSize: 'contain',
+                maskSize: 'contain',
+              }}
+            />
           </div>
         </div>
         <button
