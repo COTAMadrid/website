@@ -2,8 +2,9 @@
 
 import { motion, useScroll, useMotionValueEvent } from 'framer-motion';
 import Link from 'next/link';
-import { useState } from 'react';
-import { ArrowRight, Menu, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { ArrowRight, Menu, X, Phone } from 'lucide-react';
+import { CallbackModal } from './callback-modal';
 
 const NAV_LINKS = [
   { label: 'Sobre Cota', href: '/sobre-cota' },
@@ -20,10 +21,21 @@ export function Navbar() {
   const { scrollY } = useScroll();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [telefono, setTelefono] = useState<string | null>(null);
+  const [callbackOpen, setCallbackOpen] = useState(false);
 
   useMotionValueEvent(scrollY, 'change', (latest) => {
     setScrolled(latest > 80);
   });
+
+  useEffect(() => {
+    fetch('/api/company')
+      .then((r) => r.json())
+      .then((d) => setTelefono(d.telefono ?? null))
+      .catch(() => {});
+  }, []);
+
+  const telHref = telefono ? `tel:${telefono.replace(/\s+/g, '')}` : null;
 
   return (
     <>
@@ -72,6 +84,22 @@ export function Navbar() {
                 {link.label}
               </a>
             ))}
+            {telHref && (
+              <a
+                href={telHref}
+                className="inline-flex items-center gap-2 font-mono text-[0.65rem] uppercase tracking-[0.16em] text-foreground/70 hover:text-accent transition-colors duration-300"
+              >
+                <Phone className="size-3" strokeWidth={1.75} />
+                {telefono}
+              </a>
+            )}
+            <button
+              type="button"
+              onClick={() => setCallbackOpen(true)}
+              className="inline-flex items-center gap-2 rounded-full border border-accent/25 px-4 py-2 font-mono text-[0.65rem] uppercase tracking-[0.16em] text-accent/90 hover:border-accent/50 hover:text-accent transition-all duration-300"
+            >
+              Llamadme
+            </button>
             <Link
               href="/diagnostico"
               className="inline-flex items-center gap-2 rounded-full bg-accent/10 border border-accent/25 px-4 py-2 font-mono text-[0.65rem] uppercase tracking-[0.16em] text-accent hover:bg-accent/20 hover:border-accent/40 transition-all duration-300"
@@ -110,6 +138,26 @@ export function Navbar() {
                 {link.label}
               </a>
             ))}
+            {telHref && (
+              <a
+                href={telHref}
+                onClick={() => setMobileOpen(false)}
+                className="flex items-center justify-center gap-2 rounded-full border border-accent/30 px-5 py-3 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-accent"
+              >
+                <Phone className="size-3.5" />
+                {telefono}
+              </a>
+            )}
+            <button
+              type="button"
+              onClick={() => {
+                setMobileOpen(false);
+                setCallbackOpen(true);
+              }}
+              className="w-full flex items-center justify-center gap-2 rounded-full border border-accent/30 px-5 py-3 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-accent"
+            >
+              Llamadme
+            </button>
             <Link
               href="/diagnostico"
               onClick={() => setMobileOpen(false)}
@@ -121,6 +169,8 @@ export function Navbar() {
           </div>
         </motion.div>
       </motion.nav>
+
+      <CallbackModal open={callbackOpen} onClose={() => setCallbackOpen(false)} />
     </>
   );
 }
