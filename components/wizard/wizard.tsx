@@ -249,6 +249,7 @@ function InlineContactGate({
   const [email, setEmail] = useState('');
   const [telefono, setTelefono] = useState('');
   const [localidad, setLocalidad] = useState('');
+  const [resumen, setResumen] = useState('');
   const [error, setError] = useState<string | null>(null);
 
   function handleSubmit(e: React.FormEvent) {
@@ -257,11 +258,17 @@ function InlineContactGate({
     const m = email.trim();
     const t = telefono.replace(/\D/g, '');
     const l = localidad.trim();
+    const r = resumen.trim();
     if (n.length < 2) return setError('Indica tu nombre');
     if (!/\S+@\S+\.\S+/.test(m)) return setError('Email no válido');
     if (t.length < 9) return setError('Teléfono no válido');
     if (l.length < 2) return setError('Indica tu localidad');
     setError(null);
+    if (r.length > 0) {
+      try {
+        sessionStorage.setItem('cota-prefill-resumen', r);
+      } catch {}
+    }
     onSubmit({ nombre: n, email: m, telefono: telefono.trim(), localidad: l });
   }
 
@@ -288,6 +295,24 @@ function InlineContactGate({
           <Field label="Teléfono" type="tel" value={telefono} onChange={setTelefono} autoComplete="tel" />
           <Field label="Localidad" value={localidad} onChange={setLocalidad} autoComplete="address-level2" />
         </div>
+
+        <label className="block pt-2">
+          <span className="mb-1.5 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/60">
+            <span>Cuéntanos qué reforma tienes en mente</span>
+            <span className="text-foreground/40">Opcional</span>
+          </span>
+          <textarea
+            value={resumen}
+            onChange={(e) => setResumen(e.target.value)}
+            rows={4}
+            placeholder="Ej: piso de 80 m² en Chamberí, queremos tirar un tabique entre cocina y salón, cambiar el baño y poner suelo nuevo. Hay humedades en una pared exterior."
+            className="w-full rounded-md border border-border/60 bg-background/40 px-3 py-2 text-sm leading-relaxed text-foreground placeholder:text-foreground/35 outline-none transition-colors focus:border-accent/60 focus:bg-background/60"
+          />
+          <span className="mt-1.5 block text-[10px] text-foreground/45">
+            Cuanta más información nos des, mejor podremos prepararnos antes de hablar contigo.
+          </span>
+        </label>
+
         {error && (
           <p role="alert" className="text-xs text-destructive">
             {error}
