@@ -88,7 +88,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/images/cota/logo-cota.svg', type: 'image/svg+xml' },
+      { url: '/images/cota/logo-cota-favicon.svg', type: 'image/svg+xml' },
       { url: '/images/cota/logo-cota.png', type: 'image/png' },
     ],
     apple: '/images/cota/logo-cota.png',
