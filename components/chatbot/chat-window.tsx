@@ -2,15 +2,33 @@
 
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import Image from 'next/image';
-import { X, Send, Loader2 } from 'lucide-react';
+import { X, Send, Loader2, Phone, Calculator } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { CallbackModal } from '@/components/marketing/callback-modal';
 
 interface UiMessage {
   role: 'user' | 'assistant';
   content: string;
+  action?: 'callback' | 'diagnostico' | null;
 }
 
 const STORAGE_KEY = 'cota-chat-history';
+const CONV_KEY = 'cota-chat-conversation-id';
+const VISITOR_KEY = 'cota-visitor-id';
+
+function getOrCreateId(key: string): string {
+  if (typeof window === 'undefined') return '';
+  try {
+    let v = sessionStorage.getItem(key);
+    if (!v) {
+      v = crypto.randomUUID();
+      sessionStorage.setItem(key, v);
+    }
+    return v;
+  } catch {
+    return crypto.randomUUID();
+  }
+}
 
 const WELCOME: UiMessage = {
   role: 'assistant',
@@ -27,10 +45,15 @@ export function ChatWindow({ onClose }: Props) {
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [callbackOpen, setCallbackOpen] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const conversationIdRef = useRef<string>('');
+  const visitorIdRef = useRef<string>('');
 
   useEffect(() => {
+    conversationIdRef.current = getOrCreateId(CONV_KEY);
+    visitorIdRef.current = getOrCreateId(VISITOR_KEY);
     try {
       const raw = sessionStorage.getItem(STORAGE_KEY);
       if (raw) {
@@ -63,6 +86,12 @@ export function ChatWindow({ onClose }: Props) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           messages: next.map((m) => ({ role: m.role, content: m.content })),
+          conversationId: conversationIdRef.current,
+          visitorId: visitorIdRef.current,
+          pagePath:
+            typeof window !== 'undefined'
+              ? window.location.pathname
+              : undefined,
         }),
       });
       const data = await res.json();
@@ -78,7 +107,10 @@ export function ChatWindow({ onClose }: Props) {
           },
         ]);
       } else {
-        setMessages((prev) => [...prev, { role: 'assistant', content: data.reply }]);
+        setMessages((prev) => [
+          ...prev,
+          { role: 'assistant', content: data.reply, action: data.action },
+        ]);
       }
     } catch {
       setError('Error de red.');
@@ -175,15 +207,36 @@ export function ChatWindow({ onClose }: Props) {
                   ) : null}
                 </div>
               )}
-              <div
-                className={cn(
-                  'rounded-2xl px-3 py-2 text-sm max-w-[80%] whitespace-pre-wrap',
-                  isUser
-                    ? 'bg-accent text-accent-foreground rounded-br-sm'
-                    : 'bg-muted text-foreground rounded-bl-sm'
+              <div className="flex flex-col gap-2 max-w-[80%]">
+                <div
+                  className={cn(
+                    'rounded-2xl px-3 py-2 text-sm whitespace-pre-wrap',
+                    isUser
+                      ? 'bg-accent text-accent-foreground rounded-br-sm'
+                      : 'bg-muted text-foreground rounded-bl-sm'
+                  )}
+                >
+                  {m.content}
+                </div>
+                {!isUser && m.action === 'callback' && (
+                  <button
+                    type="button"
+                    onClick={() => setCallbackOpen(true)}
+                    className="self-start inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-xs font-mono uppercase tracking-[0.16em] text-accent-foreground hover:-translate-y-0.5 transition-transform"
+                  >
+                    <Phone className="size-3.5" />
+                    Sí, llamadme
+                  </button>
                 )}
-              >
-                {m.content}
+                {!isUser && m.action === 'diagnostico' && (
+                  <a
+                    href="/diagnostico"
+                    className="self-start inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-xs font-mono uppercase tracking-[0.16em] text-accent-foreground hover:-translate-y-0.5 transition-transform"
+                  >
+                    <Calculator className="size-3.5" />
+                    Empezar diagnóstico
+                  </a>
+                )}
               </div>
             </div>
           );
@@ -234,6 +287,8 @@ export function ChatWindow({ onClose }: Props) {
           {error}
         </p>
       )}
+
+      <CallbackModal open={callbackOpen} onClose={() => setCallbackOpen(false)} />
     </div>
   );
 }

@@ -18,6 +18,7 @@ const NAV = [
   { href: '/admin/precios', label: 'Precios', Icon: Calculator },
   { href: '/admin/agenda', label: 'Agenda', Icon: Calendar },
   { href: '/admin/leads', label: 'Leads', Icon: Users },
+  { href: '/admin/conversaciones', label: 'Conversaciones', Icon: MessageSquare },
   { href: '/admin/chatbot', label: 'Chatbot', Icon: MessageSquare },
   { href: '/admin/api-keys', label: 'API Keys', Icon: KeyRound },
   { href: '/admin/db', label: 'Base de datos', Icon: Database },

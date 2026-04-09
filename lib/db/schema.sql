@@ -124,3 +124,30 @@ CREATE TABLE IF NOT EXISTS lead_notes (
 );
 
 CREATE INDEX IF NOT EXISTS lead_notes_lead_idx ON lead_notes (lead_id, created_at DESC);
+
+-- Chatbot conversations (Lucia)
+CREATE TABLE IF NOT EXISTS conversations (
+  id TEXT PRIMARY KEY,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  visitor_id TEXT,            -- anonymous browser id (sessionStorage)
+  page_path TEXT,             -- where the conversation started
+  user_agent TEXT,
+  lead_id TEXT REFERENCES leads(id) ON DELETE SET NULL,
+  message_count INT NOT NULL DEFAULT 0,
+  last_message_preview TEXT
+);
+
+CREATE INDEX IF NOT EXISTS conversations_created_idx ON conversations (created_at DESC);
+CREATE INDEX IF NOT EXISTS conversations_lead_idx ON conversations (lead_id);
+
+CREATE TABLE IF NOT EXISTS conversation_messages (
+  id BIGSERIAL PRIMARY KEY,
+  conversation_id TEXT NOT NULL REFERENCES conversations(id) ON DELETE CASCADE,
+  role TEXT NOT NULL CHECK (role IN ('user', 'assistant')),
+  content TEXT NOT NULL,
+  provider_used TEXT,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+CREATE INDEX IF NOT EXISTS conversation_messages_conv_idx ON conversation_messages (conversation_id, created_at);
