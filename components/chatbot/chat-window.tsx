@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import Image from 'next/image';
-import { X, Send, Loader2, Phone, Calculator } from 'lucide-react';
+import { X, Send, Loader2, Phone, Calculator, MessageCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { CallbackModal } from '@/components/marketing/callback-modal';
 
@@ -50,6 +50,24 @@ export function ChatWindow({ onClose }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
   const conversationIdRef = useRef<string>('');
   const visitorIdRef = useRef<string>('');
+
+  const [whatsappHref, setWhatsappHref] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetch('/api/company')
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.whatsapp) {
+          const digits = String(d.whatsapp).replace(/\D/g, '');
+          if (digits.length >= 9) {
+            setWhatsappHref(
+              `https://wa.me/${digits}?text=${encodeURIComponent('Hola, vengo del chat de Cota Madrid y prefiero hablar por WhatsApp.')}`
+            );
+          }
+        }
+      })
+      .catch(() => {});
+  }, []);
 
   useEffect(() => {
     conversationIdRef.current = getOrCreateId(CONV_KEY);
@@ -282,6 +300,21 @@ export function ChatWindow({ onClose }: Props) {
           <Send className="h-4 w-4" />
         </button>
       </form>
+
+      {whatsappHref && (
+        <div className="border-t border-border bg-background px-3 py-2 text-center">
+          <a
+            href={whatsappHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 text-[11px] text-foreground/55 hover:text-accent transition-colors"
+          >
+            <MessageCircle className="size-3" />
+            ¿Prefieres hablar por WhatsApp?
+          </a>
+        </div>
+      )}
+
       {error && (
         <p role="alert" className="px-3 pb-2 text-xs text-destructive">
           {error}

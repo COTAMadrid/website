@@ -6,7 +6,6 @@ import './globals.css';
 import { Footer } from '@/components/marketing/footer';
 import { Navbar } from '@/components/marketing/navbar';
 import { CookieBanner } from '@/components/cookie-banner';
-import { WhatsAppFloating } from '@/components/whatsapp-floating';
 import { ChatBubble } from '@/components/chatbot/chat-bubble';
 import { ScrollToTop } from '@/components/scroll-to-top';
 import { getCompany } from '@/lib/db/repositories/company';
@@ -171,7 +170,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <div className="flex-1">{children}</div>
         <Footer />
         <CookieBanner />
-        <WhatsAppFloating />
         <ChatBubble />
         <ScrollToTop />
         <Analytics />
