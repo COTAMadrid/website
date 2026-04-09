@@ -41,7 +41,7 @@ export function Navbar() {
           <Link href="/" aria-label="Cota Madrid" className="group inline-flex items-center">
             <span
               aria-hidden
-              className="block h-16 w-52 md:h-20 md:w-64 bg-foreground transition-colors group-hover:bg-accent"
+              className="block h-20 w-64 md:h-28 md:w-80 bg-foreground transition-colors group-hover:bg-accent"
               style={{
                 WebkitMaskImage: 'url(/images/cota/logo-cota.svg)',
                 maskImage: 'url(/images/cota/logo-cota.svg)',
