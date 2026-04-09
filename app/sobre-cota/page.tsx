@@ -81,9 +81,51 @@ export default function Page() {
   return (
     <>
       <Navbar />
-      <main className="overflow-hidden bg-background text-foreground">
+      <main className="relative overflow-hidden bg-background text-foreground">
+        {/* Decorative background — technical grid + soft glows.
+            Fixed so it scrolls with the page subtly without being heavy. */}
+        <div aria-hidden className="pointer-events-none absolute inset-0 -z-0">
+          {/* Fine technical grid */}
+          <div
+            className="absolute inset-0 opacity-[0.07]"
+            style={{
+              backgroundImage:
+                'linear-gradient(to right, oklch(0.78 0.12 80) 1px, transparent 1px), linear-gradient(to bottom, oklch(0.78 0.12 80) 1px, transparent 1px)',
+              backgroundSize: '64px 64px',
+              maskImage:
+                'radial-gradient(ellipse at center, black 30%, transparent 85%)',
+              WebkitMaskImage:
+                'radial-gradient(ellipse at center, black 30%, transparent 85%)',
+            }}
+          />
+          {/* Coarser cross grid for depth */}
+          <div
+            className="absolute inset-0 opacity-[0.04]"
+            style={{
+              backgroundImage:
+                'linear-gradient(to right, oklch(0.95 0.02 80) 1px, transparent 1px), linear-gradient(to bottom, oklch(0.95 0.02 80) 1px, transparent 1px)',
+              backgroundSize: '256px 256px',
+            }}
+          />
+          {/* Warm gold glow top-right */}
+          <div
+            className="absolute -top-32 right-[-10%] size-[42rem] rounded-full opacity-[0.10] blur-3xl"
+            style={{ background: 'oklch(0.78 0.14 80)' }}
+          />
+          {/* Cream glow bottom-left */}
+          <div
+            className="absolute bottom-[-10%] left-[-10%] size-[36rem] rounded-full opacity-[0.08] blur-3xl"
+            style={{ background: 'oklch(0.92 0.04 75)' }}
+          />
+          {/* Subtle vertical accent line, like a measure ref */}
+          <div
+            className="absolute left-1/2 top-0 h-full w-px opacity-[0.06]"
+            style={{ background: 'oklch(0.78 0.12 80)' }}
+          />
+        </div>
+
         {/* HERO */}
-        <section className="relative px-6 pt-40 pb-20 md:pt-48 md:pb-28">
+        <section className="relative z-[1] px-6 pt-40 pb-20 md:pt-48 md:pb-28">
           <div className="mx-auto max-w-5xl">
             <div className="mb-6 flex items-center gap-4">
               <span className="h-px w-10 bg-accent" />
@@ -125,7 +167,7 @@ export default function Page() {
         <Divider variant="measure" label="Manifiesto · 01" />
 
         {/* MANIFIESTO */}
-        <section className="relative px-6 py-20 md:py-28">
+        <section className="relative z-[1] px-6 py-20 md:py-28">
           <div className="mx-auto grid max-w-6xl gap-12 md:grid-cols-12 md:gap-16">
             <div className="md:col-span-5">
               <div className="font-mono text-[11px] uppercase tracking-[0.28em] text-foreground/55">
@@ -158,7 +200,7 @@ export default function Page() {
         </section>
 
         {/* PULL QUOTE */}
-        <section className="relative px-6 py-24 md:py-32">
+        <section className="relative z-[1] px-6 py-24 md:py-32">
           <div
             aria-hidden
             className="pointer-events-none absolute inset-x-0 top-0 mx-auto h-px w-24 bg-accent/40"
@@ -188,7 +230,7 @@ export default function Page() {
         <Divider variant="crosses" />
 
         {/* VALORES */}
-        <section className="relative px-6 py-20 md:py-28 bg-[var(--color-cream)]/85 text-[var(--color-cream-foreground)]">
+        <section className="relative z-[1] px-6 py-20 md:py-28 bg-[var(--color-cream)]/85 text-[var(--color-cream-foreground)]">
           <div className="mx-auto max-w-6xl">
             <div className="mb-12 max-w-2xl">
               <div className="mb-6 flex items-center gap-4">
@@ -228,7 +270,7 @@ export default function Page() {
         </section>
 
         {/* CÓMO TRABAJAMOS */}
-        <section className="relative px-6 py-20 md:py-28">
+        <section className="relative z-[1] px-6 py-20 md:py-28">
           <div className="mx-auto max-w-6xl">
             <div className="mb-14 max-w-2xl">
               <div className="mb-6 flex items-center gap-4">
@@ -274,7 +316,7 @@ export default function Page() {
         </section>
 
         {/* CIERRE + CTA */}
-        <section className="relative px-6 py-24 md:py-32">
+        <section className="relative z-[1] px-6 py-24 md:py-32">
           <div
             aria-hidden
             className="absolute inset-0 -z-10 bg-gradient-to-b from-transparent via-accent/[0.04] to-transparent"
