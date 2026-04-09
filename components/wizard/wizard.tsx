@@ -83,31 +83,44 @@ export function Wizard() {
   const [gateChecked, setGateChecked] = useState(false);
   const [prefill, setPrefill] = useState<PrefillContact | null>(null);
 
-  // Gate: require valid PrefillContact in sessionStorage. Otherwise bounce
-  // back to home where the user must fill the lead form first.
+  // Gate: if there's no PrefillContact in sessionStorage, render an inline
+  // contact form below instead of bouncing the user back home. Once they
+  // submit it, we proceed into the wizard.
   useEffect(() => {
     const p = readPrefill();
-    if (!p) {
-      router.replace('/');
-      return;
-    }
-    setPrefill(p);
-    // Hydrate the wizard contacto state from prefill so the contact step
-    // already shows the user's data — they just confirm and submit.
-    if (hydrated && (!answers.contacto || !answers.contacto.email)) {
-      update({
-        contacto: {
-          nombre: p.nombre,
-          email: p.email,
-          telefono: p.telefono,
-        },
-      });
+    if (p) {
+      setPrefill(p);
+      if (hydrated && (!answers.contacto || !answers.contacto.email)) {
+        update({
+          contacto: {
+            nombre: p.nombre,
+            email: p.email,
+            telefono: p.telefono,
+          },
+        });
+      }
     }
     setGateChecked(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router, hydrated]);
+  }, [hydrated]);
 
   if (!hydrated || !gateChecked) return null;
+
+  if (!prefill) {
+    return (
+      <InlineContactGate
+        onSubmit={(p) => {
+          try {
+            sessionStorage.setItem(PREFILL_KEY, JSON.stringify(p));
+          } catch {}
+          setPrefill(p);
+          update({
+            contacto: { nombre: p.nombre, email: p.email, telefono: p.telefono },
+          });
+        }}
+      />
+    );
+  }
 
   const Current = STEPS[step];
   const isLast = step === STEPS.length - 1;
@@ -224,5 +237,101 @@ export function Wizard() {
       {/* spacer so content isn't hidden behind mobile bar */}
       <div className="md:hidden h-16" />
     </div>
+  );
+}
+
+function InlineContactGate({
+  onSubmit,
+}: {
+  onSubmit: (p: PrefillContact) => void;
+}) {
+  const [nombre, setNombre] = useState('');
+  const [email, setEmail] = useState('');
+  const [telefono, setTelefono] = useState('');
+  const [localidad, setLocalidad] = useState('');
+  const [error, setError] = useState<string | null>(null);
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    const n = nombre.trim();
+    const m = email.trim();
+    const t = telefono.replace(/\D/g, '');
+    const l = localidad.trim();
+    if (n.length < 2) return setError('Indica tu nombre');
+    if (!/\S+@\S+\.\S+/.test(m)) return setError('Email no válido');
+    if (t.length < 9) return setError('Teléfono no válido');
+    if (l.length < 2) return setError('Indica tu localidad');
+    setError(null);
+    onSubmit({ nombre: n, email: m, telefono: telefono.trim(), localidad: l });
+  }
+
+  return (
+    <div className="mx-auto max-w-2xl px-6 py-20 md:py-28">
+      <div className="mb-6 flex items-center gap-4">
+        <span className="h-px w-10 bg-accent" />
+        <span className="font-mono text-[11px] uppercase tracking-[0.28em] text-accent">
+          Diagnóstico · paso previo
+        </span>
+      </div>
+      <h1 className="font-serif text-[2rem] leading-[1.05] tracking-[-0.025em] md:text-[2.75rem] text-balance">
+        Antes de calcular, dinos quién eres.
+      </h1>
+      <p className="mt-4 text-base text-foreground/70 md:text-lg">
+        El diagnóstico es gratuito y dura menos de un minuto. Solo necesitamos
+        cuatro datos para enviarte el informe después.
+      </p>
+
+      <form onSubmit={handleSubmit} className="mt-10 space-y-3">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <Field label="Nombre" value={nombre} onChange={setNombre} autoComplete="given-name" />
+          <Field label="Email" type="email" value={email} onChange={setEmail} autoComplete="email" />
+          <Field label="Teléfono" type="tel" value={telefono} onChange={setTelefono} autoComplete="tel" />
+          <Field label="Localidad" value={localidad} onChange={setLocalidad} autoComplete="address-level2" />
+        </div>
+        {error && (
+          <p role="alert" className="text-xs text-destructive">
+            {error}
+          </p>
+        )}
+        <button
+          type="submit"
+          className="mt-3 w-full inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 font-mono text-[11px] uppercase tracking-[0.22em] text-accent-foreground transition-transform hover:-translate-y-0.5"
+        >
+          Empezar diagnóstico
+        </button>
+        <p className="text-center text-[11px] text-foreground/50">
+          Sin compromiso · solo guardamos tus datos para enviarte el informe
+        </p>
+      </form>
+    </div>
+  );
+}
+
+function Field({
+  label,
+  value,
+  onChange,
+  type = 'text',
+  autoComplete,
+}: {
+  label: string;
+  value: string;
+  onChange: (v: string) => void;
+  type?: string;
+  autoComplete?: string;
+}) {
+  return (
+    <label className="block">
+      <span className="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/60">
+        {label}
+      </span>
+      <input
+        type={type}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        autoComplete={autoComplete}
+        className="w-full rounded-md border border-border/60 bg-background/40 px-3 py-2 text-sm text-foreground placeholder:text-foreground/35 outline-none transition-colors focus:border-accent/60 focus:bg-background/60"
+      />
+    </label>
   );
 }

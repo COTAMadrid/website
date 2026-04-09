@@ -4,7 +4,7 @@ import { getCompany } from '@/lib/db/repositories/company';
 
 const SERVICIOS: Array<{ label: string; href: string }> = [
   { label: 'Reforma integral', href: '/#propuesta' },
-  { label: 'Diagnóstico online', href: '/#diagnostico' },
+  { label: 'Diagnóstico online', href: '/diagnostico' },
   { label: 'Autoridad técnica', href: '/#autoridad' },
   { label: 'Escenarios reales', href: '/#escenarios' },
   { label: 'Cómo funciona', href: '/#como-funciona' },

@@ -339,7 +339,7 @@ export default function Page() {
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <Link
-                href="/#diagnostico"
+                href="/diagnostico"
                 className="inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 font-mono text-[11px] uppercase tracking-[0.22em] text-accent-foreground transition-transform hover:-translate-y-0.5"
               >
                 Empezar mi diagnóstico

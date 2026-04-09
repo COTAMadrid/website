@@ -73,7 +73,7 @@ export function Navbar() {
               </a>
             ))}
             <Link
-              href="/#diagnostico"
+              href="/diagnostico"
               className="inline-flex items-center gap-2 rounded-full bg-accent/10 border border-accent/25 px-4 py-2 font-mono text-[0.65rem] uppercase tracking-[0.16em] text-accent hover:bg-accent/20 hover:border-accent/40 transition-all duration-300"
             >
               Diagnóstico gratis
@@ -111,7 +111,7 @@ export function Navbar() {
               </a>
             ))}
             <Link
-              href="/#diagnostico"
+              href="/diagnostico"
               onClick={() => setMobileOpen(false)}
               className="flex items-center justify-center gap-2 rounded-full bg-accent px-5 py-3 font-mono text-[0.72rem] uppercase tracking-[0.14em] text-accent-foreground mt-2"
             >
