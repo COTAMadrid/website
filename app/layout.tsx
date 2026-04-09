@@ -172,6 +172,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Footer />
         <CookieBanner />
         <WhatsAppFloating />
+        <ChatBubble />
         <ScrollToTop />
         <Analytics />
         <SpeedInsights />
