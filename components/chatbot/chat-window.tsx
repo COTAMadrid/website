@@ -173,7 +173,7 @@ export function ChatWindow({ onClose }: Props) {
               </span>
               <span
                 aria-label="Cota Madrid"
-                className="block h-7 w-24 bg-foreground"
+                className="block h-12 w-40 bg-foreground"
                 style={{
                   WebkitMaskImage: 'url(/images/cota/logo-cota.svg)',
                   maskImage: 'url(/images/cota/logo-cota.svg)',
