@@ -36,25 +36,30 @@ export function Navbar() {
             : 'bg-transparent'
         }`}
       >
-        <div className="mx-auto max-w-7xl flex items-center justify-between px-6 py-3">
-          {/* Logo */}
-          <Link href="/" aria-label="Cota Madrid" className="group inline-flex items-center">
-            <span
-              aria-hidden
-              className="block h-20 w-64 md:h-28 md:w-80 bg-foreground transition-colors group-hover:bg-accent"
-              style={{
-                WebkitMaskImage: 'url(/images/cota/logo-cota.svg)',
-                maskImage: 'url(/images/cota/logo-cota.svg)',
-                WebkitMaskRepeat: 'no-repeat',
-                maskRepeat: 'no-repeat',
-                WebkitMaskPosition: 'center',
-                maskPosition: 'center',
-                WebkitMaskSize: 'contain',
-                maskSize: 'contain',
-              }}
-            />
-          </Link>
+        {/* Logo overlay — absolute so it doesn't push the nav row height.
+            Free to grow much bigger than the menu line. */}
+        <Link
+          href="/"
+          aria-label="Cota Madrid"
+          className="group absolute left-4 md:left-6 top-1/2 -translate-y-1/2 z-10 pointer-events-auto"
+        >
+          <span
+            aria-hidden
+            className="block h-24 w-72 md:h-40 md:w-[28rem] bg-foreground transition-colors group-hover:bg-accent"
+            style={{
+              WebkitMaskImage: 'url(/images/cota/logo-cota.svg)',
+              maskImage: 'url(/images/cota/logo-cota.svg)',
+              WebkitMaskRepeat: 'no-repeat',
+              maskRepeat: 'no-repeat',
+              WebkitMaskPosition: 'left center',
+              maskPosition: 'left center',
+              WebkitMaskSize: 'contain',
+              maskSize: 'contain',
+            }}
+          />
+        </Link>
 
+        <div className="mx-auto max-w-7xl flex items-center justify-end px-6 py-3">
           {/* Desktop nav links */}
           <div className="hidden md:flex items-center gap-8">
             {NAV_LINKS.map((link) => (
