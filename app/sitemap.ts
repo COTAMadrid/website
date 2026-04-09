@@ -24,6 +24,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.7,
     },
     {
+      url: `${SITE_URL}/calculadora-reforma-madrid`,
+      lastModified,
+      changeFrequency: 'monthly',
+      priority: 0.85,
+    },
+    {
       url: `${SITE_URL}/reforma-piso-salamanca`,
       lastModified,
       changeFrequency: 'monthly',

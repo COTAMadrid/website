@@ -1,7 +1,5 @@
 import Link from 'next/link';
 import { ArrowRight, MapPin, Building2, Wrench } from 'lucide-react';
-import { Navbar } from './navbar';
-import { Footer } from './footer';
 import { Divider } from './divider';
 import { Testimonios } from './testimonios';
 
@@ -22,9 +20,7 @@ export interface BarrioLandingData {
 
 export function BarrioLanding({ data }: { data: BarrioLandingData }) {
   return (
-    <>
-      <Navbar />
-      <main className="relative overflow-hidden bg-background text-foreground">
+    <main className="relative overflow-hidden bg-background text-foreground">
         {/* Decorative grid background, same as /sobre-cota for consistency */}
         <div aria-hidden className="pointer-events-none absolute inset-0 -z-0">
           <div
@@ -182,7 +178,5 @@ export function BarrioLanding({ data }: { data: BarrioLandingData }) {
           </div>
         </section>
       </main>
-      <Footer />
-    </>
   );
 }

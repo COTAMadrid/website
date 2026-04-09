@@ -1,5 +1,7 @@
 import type { Metadata } from 'next';
 import { Fraunces, Inter } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 import { Footer } from '@/components/marketing/footer';
 import { Navbar } from '@/components/marketing/navbar';
@@ -171,6 +173,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <CookieBanner />
         <WhatsAppFloating />
         <ScrollToTop />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

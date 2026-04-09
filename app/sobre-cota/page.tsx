@@ -13,7 +13,6 @@ import {
   Wallet,
   FileSignature,
 } from 'lucide-react';
-import { Navbar } from '@/components/marketing/navbar';
 import { Divider } from '@/components/marketing/divider';
 
 export const metadata: Metadata = {
@@ -91,9 +90,7 @@ const PASOS = [
 
 export default function Page() {
   return (
-    <>
-      <Navbar />
-      <main className="relative overflow-hidden bg-background text-foreground">
+    <main className="relative overflow-hidden bg-background text-foreground">
         {/* Decorative background — technical grid + soft glows.
             Fixed so it scrolls with the page subtly without being heavy. */}
         <div aria-hidden className="pointer-events-none absolute inset-0 -z-0">
@@ -450,6 +447,5 @@ export default function Page() {
           </div>
         </section>
       </main>
-    </>
   );
 }
