@@ -70,6 +70,10 @@ export async function Footer() {
               <br />
               Consultoría premium de reformas integrales en Madrid.
             </p>
+            <p className="mt-5 inline-flex items-center gap-2 rounded-full border border-accent/30 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.2em] text-accent/85">
+              <span className="size-1.5 rounded-full bg-accent" />
+              Garantía LOE · 10 años
+            </p>
             <p className="mt-6 font-mono text-[10px] uppercase tracking-[0.24em] text-foreground/50">
               {company.legal_name} · {company.commercial_name} Madrid
             </p>

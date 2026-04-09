@@ -7,6 +7,7 @@ import { PropuestaValor } from '@/components/marketing/propuesta-valor';
 import { Escenarios } from '@/components/marketing/escenarios';
 import { ComoFunciona } from '@/components/marketing/como-funciona';
 import { Filtrado } from '@/components/marketing/filtrado';
+import { Testimonios } from '@/components/marketing/testimonios';
 import { AgendaBlock } from '@/components/marketing/agenda-block';
 import { Cierre } from '@/components/marketing/cierre';
 import { TrustStrip } from '@/components/marketing/trust-strip';
@@ -57,6 +58,7 @@ export default async function Home() {
       <InlineCTA label="Calcula tu reforma en 60 segundos" />
       <Divider variant="crosses" />
       <ComoFunciona />
+      <Testimonios />
       <Filtrado />
       <Divider variant="measure" label="Agenda · 06" />
       <AgendaBlock

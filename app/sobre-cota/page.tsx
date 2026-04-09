@@ -1,6 +1,18 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight, Ear, Search, FileText, HardHat, ClipboardCheck } from 'lucide-react';
+import {
+  ArrowRight,
+  Ear,
+  Search,
+  FileText,
+  HardHat,
+  ClipboardCheck,
+  Shield,
+  ScrollText,
+  AlertTriangle,
+  Wallet,
+  FileSignature,
+} from 'lucide-react';
 import { Navbar } from '@/components/marketing/navbar';
 import { Divider } from '@/components/marketing/divider';
 
@@ -311,6 +323,89 @@ export default function Page() {
 
             <p className="mt-12 mx-auto max-w-2xl text-center font-serif text-xl italic text-foreground/85 md:text-2xl">
               No trabajamos desde la improvisación. Trabajamos desde el criterio.
+            </p>
+          </div>
+        </section>
+
+        {/* GARANTÍAS Y COBERTURA */}
+        <section className="relative z-[1] px-6 py-20 md:py-28">
+          <div className="mx-auto max-w-6xl">
+            <div className="mb-14 max-w-2xl">
+              <div className="mb-6 flex items-center gap-4">
+                <span className="h-px w-10 bg-accent" />
+                <span className="font-mono text-[11px] uppercase tracking-[0.28em] text-accent">
+                  Garantías y cobertura
+                </span>
+              </div>
+              <h2 className="font-serif text-[2.2rem] leading-[1.05] tracking-[-0.025em] md:text-[3rem] text-balance">
+                Lo que cubrimos antes, durante y después de la obra.
+              </h2>
+              <p className="mt-5 text-base text-foreground/65 md:text-lg">
+                Una reforma seria no se vende solo en m². Se vende en
+                garantías por escrito, en seguros, en cómo gestionamos los
+                imprevistos y en quién responde si algo no encaja.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+              {[
+                {
+                  icon: Shield,
+                  title: 'Garantía LOE de 10 años en estructura',
+                  body: 'Conforme a la Ley de Ordenación de la Edificación. Respondemos durante una década por los elementos estructurales que toquemos.',
+                },
+                {
+                  icon: ScrollText,
+                  title: 'Seguro de responsabilidad civil',
+                  body: 'Contamos con póliza de RC profesional vigente para cubrir daños a la vivienda, a vecinos y a terceros durante la ejecución de la obra.',
+                },
+                {
+                  icon: AlertTriangle,
+                  title: 'Gestión transparente de imprevistos',
+                  body: 'Si aparece una sorpresa estructural u oculta, paramos, te explicamos las opciones por escrito y solo seguimos cuando lo apruebas.',
+                },
+                {
+                  icon: Wallet,
+                  title: 'Pagos por hitos verificables',
+                  body: 'No pedimos pagos a cuenta sin contraprestación. Cada hito de pago se ata a una fase entregada y revisable, no a una fecha del calendario.',
+                },
+                {
+                  icon: FileSignature,
+                  title: 'Tramitación de licencias urbanísticas',
+                  body: 'Nos encargamos de las licencias y comunicaciones previas que requiere el Ayuntamiento de Madrid según el alcance de cada obra.',
+                },
+                {
+                  icon: ClipboardCheck,
+                  title: 'Revisión post-obra a los 30 días',
+                  body: 'Volvemos a la vivienda una vez instalado para revisar acabados, comprobar funcionamiento y resolver cualquier ajuste pendiente.',
+                },
+              ].map((g) => {
+                const Icon = g.icon;
+                return (
+                  <article
+                    key={g.title}
+                    className="flex gap-4 rounded-lg border border-border/60 bg-card/30 p-5 md:p-6 transition-colors hover:border-accent/40"
+                  >
+                    <div className="shrink-0 flex size-11 items-center justify-center rounded-md bg-accent/10 text-accent ring-1 ring-accent/30">
+                      <Icon className="size-5" strokeWidth={1.75} />
+                    </div>
+                    <div>
+                      <h3 className="font-serif text-xl tracking-[-0.01em]">
+                        {g.title}
+                      </h3>
+                      <p className="mt-2 text-sm leading-relaxed text-foreground/70">
+                        {g.body}
+                      </p>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+
+            <p className="mt-10 max-w-3xl text-sm text-foreground/55 italic">
+              La cobertura concreta de cada proyecto se documenta en el
+              presupuesto firmado. Pídenos una copia del seguro de RC en
+              cualquier momento — lo enseñamos sin problema.
             </p>
           </div>
         </section>
