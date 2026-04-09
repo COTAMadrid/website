@@ -9,6 +9,8 @@ import { ComoFunciona } from '@/components/marketing/como-funciona';
 import { Filtrado } from '@/components/marketing/filtrado';
 import { AgendaBlock } from '@/components/marketing/agenda-block';
 import { Cierre } from '@/components/marketing/cierre';
+import { TrustStrip } from '@/components/marketing/trust-strip';
+import { InlineCTA } from '@/components/marketing/inline-cta';
 import { Divider } from '@/components/marketing/divider';
 // Background experiments removed — global cotas and floor plans
 // were unfixable in time. The page stays clean without them.
@@ -45,11 +47,14 @@ export default async function Home() {
         }}
       />
       <Hero />
+      <TrustStrip />
       <BudgetShowcase />
       <Autoridad />
+      <InlineCTA label="¿Cuánto cuesta tu reforma?" />
       <PropuestaValor />
       <Divider variant="measure" label="Casos · 03" />
       <Escenarios />
+      <InlineCTA label="Calcula tu reforma en 60 segundos" />
       <Divider variant="crosses" />
       <ComoFunciona />
       <Filtrado />

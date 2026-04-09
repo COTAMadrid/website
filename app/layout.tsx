@@ -2,9 +2,11 @@ import type { Metadata } from 'next';
 import { Fraunces, Inter } from 'next/font/google';
 import './globals.css';
 import { Footer } from '@/components/marketing/footer';
+import { Navbar } from '@/components/marketing/navbar';
 import { CookieBanner } from '@/components/cookie-banner';
 import { WhatsAppFloating } from '@/components/whatsapp-floating';
 import { ChatBubble } from '@/components/chatbot/chat-bubble';
+import { ScrollToTop } from '@/components/scroll-to-top';
 import { getCompany } from '@/lib/db/repositories/company';
 
 const fraunces = Fraunces({
@@ -83,7 +85,10 @@ export const metadata: Metadata = {
     yandex: '[PLACEHOLDER: yandex-verification]',
   },
   icons: {
-    icon: '/images/cota/logo-cota.png',
+    icon: [
+      { url: '/images/cota/logo-cota.svg', type: 'image/svg+xml' },
+      { url: '/images/cota/logo-cota.png', type: 'image/png' },
+    ],
     apple: '/images/cota/logo-cota.png',
   },
 };
@@ -160,11 +165,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }}
         />
+        <Navbar />
         <div className="flex-1">{children}</div>
         <Footer />
         <CookieBanner />
         <WhatsAppFloating />
-        <ChatBubble />
+        <ScrollToTop />
       </body>
     </html>
   );

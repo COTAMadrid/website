@@ -191,17 +191,17 @@ h1, h2, h3, h4 {
 .cota-row:hover { padding-left: 2.25rem; }
 .cota-row:hover::before { width: 1.75rem; }
 
-/* Stamped seal (filtrado) */
+/* Stamped seal (filtrado) — large and impactful */
 .cota-seal {
-  border: 1px solid currentColor;
+  border: 2px solid currentColor;
   border-radius: 999px;
-  padding: 1rem 1.4rem;
+  padding: 1.25rem 1.8rem;
   text-align: center;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
   text-transform: uppercase;
-  letter-spacing: 0.22em;
-  font-size: 0.62rem;
-  line-height: 1.4;
+  letter-spacing: 0.24em;
+  font-size: 0.72rem;
+  line-height: 1.5;
   transform: rotate(-6deg);
-  opacity: 0.85;
+  box-shadow: 0 0 0 4px oklch(0.96 0.01 85), 0 0 0 6px currentColor;
 }

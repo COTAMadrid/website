@@ -13,9 +13,9 @@ export function WhatsAppFloating() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Hablar por WhatsApp"
-      className="fixed bottom-6 right-6 z-40 h-14 w-14 rounded-full bg-[#25d366] text-white flex items-center justify-center shadow-2xl hover:scale-105 transition-transform"
+      className="fixed bottom-20 right-6 z-40 h-12 w-12 rounded-full bg-[#25d366] text-white flex items-center justify-center shadow-[0_4px_20px_-4px_rgba(37,211,102,0.5)] hover:scale-105 hover:shadow-[0_6px_28px_-4px_rgba(37,211,102,0.6)] transition-all duration-300"
     >
-      <MessageCircle className="h-7 w-7" />
+      <MessageCircle className="h-5 w-5" />
     </a>
   );
 }

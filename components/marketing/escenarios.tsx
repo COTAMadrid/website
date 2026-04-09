@@ -73,10 +73,10 @@ export function Escenarios() {
 }
 
 const POSITIONS = [
-  // each position is desktop-only; mobile is the natural flow
-  'md:absolute md:left-[2%] md:top-0 md:w-[42%] md:rotate-[-2.2deg] md:z-10',
-  'md:absolute md:left-[34%] md:top-[20%] md:w-[40%] md:rotate-[1.4deg] md:z-20',
-  'md:absolute md:right-[1%] md:top-[6%] md:w-[40%] md:rotate-[2.6deg] md:z-30',
+  // Less overlap, wider spread — still cascaded but readable
+  'md:absolute md:left-[0%] md:top-0 md:w-[38%] md:rotate-[-1.5deg] md:z-10',
+  'md:absolute md:left-[32%] md:top-[8%] md:w-[38%] md:rotate-[0.8deg] md:z-20',
+  'md:absolute md:right-[0%] md:top-[2%] md:w-[38%] md:rotate-[1.8deg] md:z-30',
 ];
 
 function CaseFile({

@@ -51,16 +51,14 @@ export async function Footer() {
                 white on the dark green footer without needing a
                 transparent PNG. */}
             <Link href="/" aria-label="Cota Madrid" className="inline-block">
-              <div className="relative h-16 w-40">
-                <Image
-                  src="/images/cota/logo-cota.png"
-                  alt="Cota Madrid"
-                  fill
-                  sizes="160px"
-                  className="object-contain object-left invert brightness-110 contrast-125"
-                  priority={false}
-                />
-              </div>
+              <Image
+                src="/images/cota/logo-cota.svg"
+                alt="Cota Madrid"
+                width={220}
+                height={64}
+                className="h-16 w-auto"
+                priority={false}
+              />
             </Link>
             <p className="mt-5 text-sm leading-relaxed text-foreground/70">
               Reforma con criterio.

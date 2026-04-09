@@ -49,7 +49,7 @@ export function BudgetShowcase() {
               id="budget-showcase-title"
               className="mt-6 font-serif text-[2.4rem] md:text-5xl leading-[1.02] tracking-[-0.025em] text-balance text-foreground max-w-[16ch]"
             >
-              Sabe cuánto puede costar tu reforma en 60 segundos
+              Descubre cuánto puede costar tu reforma en 60 segundos
             </h2>
 
             <p className="mt-6 text-base md:text-lg text-muted-foreground max-w-xl leading-relaxed">
