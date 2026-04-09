@@ -46,7 +46,7 @@ export function Navbar() {
         >
           <span
             aria-hidden
-            className="block h-24 w-72 md:h-40 md:w-[28rem] bg-foreground transition-colors group-hover:bg-accent"
+            className="block h-28 w-80 md:h-48 md:w-[34rem] bg-foreground transition-colors group-hover:bg-accent"
             style={{
               WebkitMaskImage: 'url(/images/cota/logo-cota.svg)',
               maskImage: 'url(/images/cota/logo-cota.svg)',
