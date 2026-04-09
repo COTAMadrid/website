@@ -48,6 +48,8 @@ export async function appendLeadRow(lead: Lead): Promise<void> {
     lead.contact.nombre,
     lead.contact.email,
     lead.contact.telefono,
+    lead.contact.localidad ?? '',
+    lead.resumen ?? '',
     d.viability.level,
     d.estimate.min,
     d.estimate.max,

@@ -34,11 +34,26 @@ export function Informe() {
     if (sentRef.current) return;
     sentRef.current = true;
 
+    let resumen: string | undefined;
+    try {
+      resumen = sessionStorage.getItem('cota-prefill-resumen') ?? undefined;
+    } catch {}
+
+    let localidad: string | undefined;
+    try {
+      const rawPrefill = sessionStorage.getItem('cota-prefill-contact');
+      if (rawPrefill) {
+        const p = JSON.parse(rawPrefill) as { localidad?: string };
+        if (p.localidad) localidad = p.localidad;
+      }
+    } catch {}
+
     fetch('/api/leads', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify({
-        contact: answers.contacto,
+        contact: { ...answers.contacto, localidad },
+        resumen,
         answers: { ...answers, contacto: undefined },
       }),
     }).catch((err) => console.error('[informe] lead submit failed', err));

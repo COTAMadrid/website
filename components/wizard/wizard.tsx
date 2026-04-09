@@ -82,6 +82,7 @@ export function Wizard() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [gateChecked, setGateChecked] = useState(false);
   const [prefill, setPrefill] = useState<PrefillContact | null>(null);
+  const [gatePassed, setGatePassed] = useState(false);
 
   // Gate: if there's no PrefillContact in sessionStorage, render an inline
   // contact form below instead of bouncing the user back home. Once they
@@ -100,15 +101,22 @@ export function Wizard() {
         });
       }
     }
+    // If user already passed the gate this session (resumen captured), skip it
+    try {
+      if (sessionStorage.getItem('cota-prefill-resumen')) {
+        setGatePassed(true);
+      }
+    } catch {}
     setGateChecked(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hydrated]);
 
   if (!hydrated || !gateChecked) return null;
 
-  if (!prefill) {
+  if (!gatePassed) {
     return (
       <InlineContactGate
+        initial={prefill}
         onSubmit={(p) => {
           try {
             sessionStorage.setItem(PREFILL_KEY, JSON.stringify(p));
@@ -117,6 +125,7 @@ export function Wizard() {
           update({
             contacto: { nombre: p.nombre, email: p.email, telefono: p.telefono },
           });
+          setGatePassed(true);
         }}
       />
     );
@@ -242,13 +251,16 @@ export function Wizard() {
 
 function InlineContactGate({
   onSubmit,
+  initial,
 }: {
   onSubmit: (p: PrefillContact) => void;
+  initial?: PrefillContact | null;
 }) {
-  const [nombre, setNombre] = useState('');
-  const [email, setEmail] = useState('');
-  const [telefono, setTelefono] = useState('');
-  const [localidad, setLocalidad] = useState('');
+  const hasPrefill = Boolean(initial);
+  const [nombre, setNombre] = useState(initial?.nombre ?? '');
+  const [email, setEmail] = useState(initial?.email ?? '');
+  const [telefono, setTelefono] = useState(initial?.telefono ?? '');
+  const [localidad, setLocalidad] = useState(initial?.localidad ?? '');
   const [resumen, setResumen] = useState('');
   const [error, setError] = useState<string | null>(null);
 
@@ -281,25 +293,43 @@ function InlineContactGate({
         </span>
       </div>
       <h1 className="font-serif text-[2rem] leading-[1.05] tracking-[-0.025em] md:text-[2.75rem] text-balance">
-        Antes de calcular, dinos quién eres.
+        {hasPrefill
+          ? '¡Hola ' + (nombre.split(' ')[0] || '') + '! Cuéntanos qué tienes en mente.'
+          : 'Antes de calcular, dinos quién eres.'}
       </h1>
       <p className="mt-4 text-base text-foreground/70 md:text-lg">
-        El diagnóstico es gratuito y dura menos de un minuto. Solo necesitamos
-        cuatro datos para enviarte el informe después.
+        {hasPrefill
+          ? 'Antes de pasar al diagnóstico, una breve descripción nos ayuda a entender tu reforma desde el primer momento.'
+          : 'El diagnóstico es gratuito y dura menos de un minuto. Solo necesitamos cuatro datos para enviarte el informe después.'}
       </p>
 
-      <form onSubmit={handleSubmit} className="mt-10 space-y-3">
-        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-          <Field label="Nombre" value={nombre} onChange={setNombre} autoComplete="given-name" />
-          <Field label="Email" type="email" value={email} onChange={setEmail} autoComplete="email" />
-          <Field label="Teléfono" type="tel" value={telefono} onChange={setTelefono} autoComplete="tel" />
-          <Field label="Localidad" value={localidad} onChange={setLocalidad} autoComplete="address-level2" />
-        </div>
+      <form onSubmit={handleSubmit} className="mt-10 space-y-4">
+        {hasPrefill ? (
+          <details className="rounded-md border border-border/40 bg-card/20 px-4 py-3">
+            <summary className="cursor-pointer font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/55 hover:text-accent">
+              Tus datos · {email} · {telefono}
+              <span className="ml-2 text-foreground/35">(editar)</span>
+            </summary>
+            <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+              <Field label="Nombre" value={nombre} onChange={setNombre} autoComplete="given-name" />
+              <Field label="Email" type="email" value={email} onChange={setEmail} autoComplete="email" />
+              <Field label="Teléfono" type="tel" value={telefono} onChange={setTelefono} autoComplete="tel" />
+              <Field label="Localidad" value={localidad} onChange={setLocalidad} autoComplete="address-level2" />
+            </div>
+          </details>
+        ) : (
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+            <Field label="Nombre" value={nombre} onChange={setNombre} autoComplete="given-name" />
+            <Field label="Email" type="email" value={email} onChange={setEmail} autoComplete="email" />
+            <Field label="Teléfono" type="tel" value={telefono} onChange={setTelefono} autoComplete="tel" />
+            <Field label="Localidad" value={localidad} onChange={setLocalidad} autoComplete="address-level2" />
+          </div>
+        )}
 
         <label className="block pt-2">
           <span className="mb-1.5 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.22em] text-foreground/60">
             <span>Cuéntanos qué reforma tienes en mente</span>
-            <span className="text-foreground/40">Opcional</span>
+            <span className="text-foreground/40">{hasPrefill ? 'Recomendado' : 'Opcional'}</span>
           </span>
           <textarea
             value={resumen}
@@ -322,7 +352,7 @@ function InlineContactGate({
           type="submit"
           className="mt-3 w-full inline-flex items-center justify-center gap-2 rounded-full bg-accent px-6 py-3 font-mono text-[11px] uppercase tracking-[0.22em] text-accent-foreground transition-transform hover:-translate-y-0.5"
         >
-          Empezar diagnóstico
+          {hasPrefill ? 'Continuar al diagnóstico' : 'Empezar diagnóstico'}
         </button>
         <p className="text-center text-[11px] text-foreground/50">
           Sin compromiso · solo guardamos tus datos para enviarte el informe

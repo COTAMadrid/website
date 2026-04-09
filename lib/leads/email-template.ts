@@ -1,5 +1,14 @@
 import type { Lead } from './types';
 
+function escapeHtml(s: string): string {
+  return s
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
 const VIABILITY_COLOR = {
   alta: '#22c55e',
   media: '#eab308',
@@ -40,7 +49,13 @@ export function renderLeadEmail(lead: Lead): { subject: string; html: string } {
     <h2 style="font-weight:300;border-bottom:1px solid #333;padding-bottom:8px">Contacto</h2>
     <p><strong>${contact.nombre}</strong><br>
        ${contact.email}<br>
-       <a href="tel:${contact.telefono}" style="color:#fafafa">${contact.telefono}</a></p>
+       <a href="tel:${contact.telefono}" style="color:#fafafa">${contact.telefono}</a>
+       ${contact.localidad ? `<br>${contact.localidad}` : ''}</p>
+
+    ${lead.resumen ? `
+    <h2 style="font-weight:300;border-bottom:1px solid #333;padding-bottom:8px">Lo que cuenta el cliente</h2>
+    <p style="background:#0f0f0f;border-left:3px solid #d4a017;padding:12px 16px;border-radius:4px;color:#e5e5e5;white-space:pre-wrap">${escapeHtml(lead.resumen)}</p>
+    ` : ''}
 
     <h2 style="font-weight:300;border-bottom:1px solid #333;padding-bottom:8px">Estimación</h2>
     <p style="font-size:24px;margin:8px 0">${fmt(estimate.min)} – ${fmt(estimate.max)}</p>

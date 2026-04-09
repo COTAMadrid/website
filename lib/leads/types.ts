@@ -7,7 +7,9 @@ export interface Lead {
     nombre: string;
     email: string;
     telefono: string;
+    localidad?: string;
   };
+  resumen?: string;
   diagnosis: Diagnosis;
   source?: {
     utm_source?: string;

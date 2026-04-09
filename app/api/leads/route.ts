@@ -11,7 +11,9 @@ const schema = z.object({
     nombre: z.string().min(2).max(100),
     email: z.string().email(),
     telefono: z.string().min(6).max(20),
+    localidad: z.string().min(2).max(100).optional(),
   }),
+  resumen: z.string().max(2000).optional(),
   answers: z.object({
     tipo: z.enum(['integral', 'parcial', 'zona-humeda', 'cocina']),
     metros: z.number().int().min(15).max(1000),
@@ -53,7 +55,7 @@ export async function POST(req: Request) {
     );
   }
 
-  const { contact, answers, source } = parsed.data;
+  const { contact, answers, source, resumen } = parsed.data;
   // The wizard already produced the diagnosis client-side, but we re-run server-side
   // so we never trust the client's calculated numbers.
   const diagnosis = diagnose({ ...answers, contacto: contact } as never);
@@ -62,6 +64,7 @@ export async function POST(req: Request) {
     id: crypto.randomUUID(),
     createdAt: new Date().toISOString(),
     contact,
+    resumen,
     diagnosis,
     source,
   };
