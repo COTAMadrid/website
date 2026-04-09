@@ -156,7 +156,7 @@ export function HeroAnnotations() {
           letterSpacing="0.22em"
           {...fadeLoop(6.2)}
         >
-          SALAMANCA · MADRID · 80 M²
+          MADRID · 80 M²
         </motion.text>
       </svg>
     </div>
