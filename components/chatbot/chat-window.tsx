@@ -163,7 +163,7 @@ export function ChatWindow({ onClose }: Props) {
               className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-emerald-500 ring-2 ring-[oklch(0.18_0.022_168)]"
             />
           </div>
-          <div className="flex items-center min-w-0">
+          <div className="relative flex items-center min-w-0">
             <p className="text-sm font-semibold leading-none text-foreground shrink-0 mr-5">
               Lucia
             </p>
@@ -172,7 +172,7 @@ export function ChatWindow({ onClose }: Props) {
             </span>
             <span
               aria-label="Cota Madrid"
-              className="block h-24 w-64 shrink-0 bg-foreground"
+              className="absolute left-[5.5rem] top-1/2 -translate-y-1/2 block h-24 w-64 shrink-0 bg-foreground pointer-events-none"
               style={{
                 WebkitMaskImage: 'url(/images/cota/logo-cota.svg)',
                 maskImage: 'url(/images/cota/logo-cota.svg)',
