@@ -163,16 +163,16 @@ export function ChatWindow({ onClose }: Props) {
               className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-emerald-500 ring-2 ring-[oklch(0.18_0.022_168)]"
             />
           </div>
-          <div className="flex items-center gap-4 min-w-0">
-            <p className="text-sm font-semibold leading-none text-foreground shrink-0">
+          <div className="flex items-center min-w-0">
+            <p className="text-sm font-semibold leading-none text-foreground shrink-0 mr-5">
               Lucia
             </p>
-            <span className="text-[10px] uppercase tracking-[0.16em] text-foreground/60 font-mono shrink-0 leading-none">
+            <span className="text-[10px] uppercase tracking-[0.16em] text-foreground/60 font-mono shrink-0 leading-none mr-1">
               Asesora
             </span>
             <span
               aria-label="Cota Madrid"
-              className="block h-16 w-44 shrink-0 bg-foreground"
+              className="block h-24 w-64 shrink-0 bg-foreground"
               style={{
                 WebkitMaskImage: 'url(/images/cota/logo-cota.svg)',
                 maskImage: 'url(/images/cota/logo-cota.svg)',
