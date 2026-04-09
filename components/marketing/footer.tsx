@@ -13,7 +13,7 @@ const SERVICIOS: Array<{ label: string; href: string }> = [
 ];
 
 const EMPRESA: Array<{ label: string; href: string }> = [
-  { label: 'Sobre Cota', href: '/#autoridad' },
+  { label: 'Sobre Cota', href: '/sobre-cota' },
   { label: 'Proceso', href: '/#como-funciona' },
   { label: 'Proyectos', href: '/#escenarios' },
   { label: 'Blog', href: '#' },

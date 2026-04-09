@@ -6,9 +6,10 @@ import { useState } from 'react';
 import { ArrowRight, Menu, X } from 'lucide-react';
 
 const NAV_LINKS = [
-  { label: 'Diagnóstico', href: '#como-funciona' },
-  { label: 'Casos', href: '#escenarios' },
-  { label: 'Criterio', href: '#filtrado' },
+  { label: 'Sobre Cota', href: '/sobre-cota' },
+  { label: 'Cómo trabajamos', href: '/#como-funciona' },
+  { label: 'Casos', href: '/#escenarios' },
+  { label: 'Agenda', href: '/#agenda' },
 ];
 
 /**
