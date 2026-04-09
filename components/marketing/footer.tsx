@@ -52,7 +52,7 @@ export async function Footer() {
             <Link href="/" aria-label="Cota Madrid" className="inline-block group">
               <span
                 aria-hidden
-                className="block h-16 w-44 bg-foreground transition-colors group-hover:bg-accent"
+                className="block h-28 w-72 bg-foreground transition-colors group-hover:bg-accent"
                 style={{
                   WebkitMaskImage: 'url(/images/cota/logo-cota.svg)',
                   maskImage: 'url(/images/cota/logo-cota.svg)',
