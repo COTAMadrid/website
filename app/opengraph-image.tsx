@@ -55,6 +55,8 @@ export default function OpengraphImage() {
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <div
             style={{
+              display: 'flex',
+              flexDirection: 'column',
               fontSize: 96,
               lineHeight: 1.0,
               fontWeight: 300,
@@ -62,16 +64,17 @@ export default function OpengraphImage() {
               maxWidth: 1000,
             }}
           >
-            Reformar con{' '}
-            <span style={{ color: '#d4a017', fontStyle: 'italic' }}>
-              criterio
-            </span>
-            ,
-            <br />
-            no con prisa.
+            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+              <span>Reformar con&nbsp;</span>
+              <span style={{ color: '#d4a017', fontStyle: 'italic' }}>
+                criterio,
+              </span>
+            </div>
+            <span>no con prisa.</span>
           </div>
           <div
             style={{
+              display: 'flex',
               fontSize: 30,
               color: '#a3b3ad',
               marginTop: 28,
