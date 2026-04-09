@@ -27,6 +27,18 @@ export type EstadoActual = 'estrenar' | 'vivido-obsoleto' | 'parcial-reformado';
 
 export type Plazo = 'sin-prisa' | '3-6-meses' | 'urgente';
 
+/** Rango de presupuesto declarado por el cliente. Más útil que un número exacto
+ *  para cualificar leads sin pedir compromiso. */
+export type PresupuestoRango =
+  | 'menos-40'
+  | '40-80'
+  | '80-150'
+  | '150-mas'
+  | 'no-se';
+
+/** Cuándo quiere empezar la obra el cliente. Crítico para priorizar leads. */
+export type Urgencia = 'este-mes' | '1-3-meses' | '3-6-meses' | 'sin-fecha';
+
 export interface WizardAnswers {
   tipo: ReformType;
   metros: number;
@@ -40,7 +52,9 @@ export interface WizardAnswers {
     edificioProtegido: boolean;
     zonaBajasEmisiones: boolean;
   };
-  presupuestoCliente?: number; // optional, used for viability
+  presupuestoCliente?: number; // optional, used for viability (legacy/numeric)
+  presupuestoRango?: PresupuestoRango; // new — coarse range for qualification
+  urgencia?: Urgencia; // new — when do they want to start
   contacto?: {
     nombre: string;
     email: string;

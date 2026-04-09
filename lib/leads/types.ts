@@ -11,6 +11,11 @@ export interface Lead {
   };
   resumen?: string;
   diagnosis: Diagnosis;
+  score?: {
+    score: number;
+    quality: 'alto' | 'medio' | 'bajo';
+    reasons: string[];
+  };
   source?: {
     utm_source?: string;
     utm_medium?: string;

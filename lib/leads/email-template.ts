@@ -21,8 +21,30 @@ const VIABILITY_LABEL = {
   baja: '🔴 BAJA — No es buena opción',
 } as const;
 
+const QUALITY_COLOR = { alto: '#22c55e', medio: '#eab308', bajo: '#ef4444' } as const;
+const QUALITY_LABEL = {
+  alto: '🔥 LEAD CALIENTE',
+  medio: '🟡 LEAD TEMPLADO',
+  bajo: '🔻 LEAD FRÍO',
+} as const;
+
+const URGENCIA_LABEL: Record<string, string> = {
+  'este-mes': 'Este mes',
+  '1-3-meses': '1 – 3 meses',
+  '3-6-meses': '3 – 6 meses',
+  'sin-fecha': 'Sin fecha cerrada',
+};
+
+const PRESUPUESTO_LABEL: Record<string, string> = {
+  'menos-40': '< 40.000 €',
+  '40-80': '40.000 € – 80.000 €',
+  '80-150': '80.000 € – 150.000 €',
+  '150-mas': '> 150.000 €',
+  'no-se': 'No lo sabe',
+};
+
 export function renderLeadEmail(lead: Lead): { subject: string; html: string } {
-  const { contact, diagnosis } = lead;
+  const { contact, diagnosis, score } = lead;
   const { estimate, duration, risks, viability, answers } = diagnosis;
   const color = VIABILITY_COLOR[viability.level];
   const label = VIABILITY_LABEL[viability.level];
@@ -32,7 +54,11 @@ export function renderLeadEmail(lead: Lead): { subject: string; html: string } {
 
   const wa = `https://wa.me/${(process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? '34600000000').replace(/\D/g, '')}?text=${encodeURIComponent(`Hola ${contact.nombre}, vengo del diagnóstico de Cota.`)}`;
 
-  const subject = `Nuevo lead Cota — ${label.split(' ')[0]} ${contact.nombre} (${answers.metros}m² ${answers.barrio})`;
+  const qualityTag = score
+    ? `${QUALITY_LABEL[score.quality]} · ${score.score}/100`
+    : '';
+
+  const subject = `${qualityTag ? qualityTag + ' — ' : ''}${contact.nombre} (${answers.metros}m² ${answers.barrio})`;
 
   const html = `
 <!DOCTYPE html>
@@ -42,9 +68,27 @@ export function renderLeadEmail(lead: Lead): { subject: string; html: string } {
     <h1 style="margin:0 0 8px;font-weight:300">Nuevo lead Cota</h1>
     <p style="margin:0 0 24px;color:#a3a3a3">${new Date(lead.createdAt).toLocaleString('es-ES')}</p>
 
+    ${score ? `
+    <div style="background:${QUALITY_COLOR[score.quality]}22;border-left:4px solid ${QUALITY_COLOR[score.quality]};padding:16px;border-radius:6px;margin-bottom:12px">
+      <strong style="color:${QUALITY_COLOR[score.quality]};font-size:18px">${QUALITY_LABEL[score.quality]}</strong>
+      <div style="color:#a3a3a3;font-size:13px;margin-top:4px">Score ${score.score}/100 · ${score.reasons.join(' · ')}</div>
+    </div>
+    ` : ''}
+
     <div style="background:${color}22;border-left:4px solid ${color};padding:16px;border-radius:6px;margin-bottom:24px">
       <strong style="color:${color}">${label}</strong>
     </div>
+
+    ${(answers.urgencia || answers.presupuestoRango) ? `
+    <table style="width:100%;margin-bottom:24px;border-collapse:collapse">
+      ${answers.urgencia ? `
+      <tr><td style="padding:8px 0;color:#a3a3a3;width:40%">Urgencia</td><td style="padding:8px 0;font-weight:600">${URGENCIA_LABEL[answers.urgencia] ?? answers.urgencia}</td></tr>
+      ` : ''}
+      ${answers.presupuestoRango ? `
+      <tr><td style="padding:8px 0;color:#a3a3a3">Presupuesto declarado</td><td style="padding:8px 0;font-weight:600">${PRESUPUESTO_LABEL[answers.presupuestoRango] ?? answers.presupuestoRango}</td></tr>
+      ` : ''}
+    </table>
+    ` : ''}
 
     <h2 style="font-weight:300;border-bottom:1px solid #333;padding-bottom:8px">Contacto</h2>
     <p><strong>${contact.nombre}</strong><br>

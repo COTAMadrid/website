@@ -19,10 +19,16 @@ import { StepEstado } from './step-estado';
 import { StepPlazo } from './step-plazo';
 import { StepExtras } from './step-extras';
 import { StepPresupuesto } from './step-presupuesto';
+import { StepUrgencia } from './step-urgencia';
 import { StepContacto } from './step-contacto';
 
+// Order matters. Presupuesto + urgencia early so we cualificate before
+// the user has invested too much time. Metros + barrio after so we have
+// the context to give a real estimate by the time they finish.
 const STEPS = [
   StepTipo,
+  StepPresupuesto,
+  StepUrgencia,
   StepMetros,
   StepBarrio,
   StepAntiguedad,
@@ -30,7 +36,6 @@ const STEPS = [
   StepEstado,
   StepPlazo,
   StepExtras,
-  StepPresupuesto,
   StepContacto,
 ];
 

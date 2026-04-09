@@ -1,27 +1,27 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { PRESUPUESTO_OPTIONS } from '@/config/wizard';
+import { URGENCIA_OPTIONS } from '@/config/wizard';
 import type { StepProps } from './wizard';
 
-export function StepPresupuesto({ answers, update, onNext, onBack, canBack }: StepProps) {
+export function StepUrgencia({ answers, update, onNext, onBack, canBack }: StepProps) {
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-3xl mb-2">¿Qué presupuesto tienes en mente?</h2>
+        <h2 className="text-3xl mb-2">¿Cuándo te gustaría empezar?</h2>
         <p className="text-muted-foreground">
-          Un rango orientativo nos ayuda a darte una respuesta realista desde el
-          principio. Si todavía no lo sabes, no pasa nada — para eso estamos.
+          Saber tu fecha nos ayuda a priorizar tu caso y a ser realistas con
+          los plazos desde el primer día.
         </p>
       </div>
       <div className="grid gap-3">
-        {PRESUPUESTO_OPTIONS.map((opt) => {
-          const selected = answers.presupuestoRango === opt.value;
+        {URGENCIA_OPTIONS.map((opt) => {
+          const selected = answers.urgencia === opt.value;
           return (
             <button
               key={opt.value}
               type="button"
-              onClick={() => update({ presupuestoRango: opt.value })}
+              onClick={() => update({ urgencia: opt.value })}
               className={`text-left p-5 rounded-lg border transition-colors min-h-[44px] ${
                 selected
                   ? 'border-accent bg-accent/10'
@@ -44,7 +44,7 @@ export function StepPresupuesto({ answers, update, onNext, onBack, canBack }: St
         ) : (
           <span />
         )}
-        <Button onClick={onNext} disabled={!answers.presupuestoRango} size="lg">
+        <Button onClick={onNext} disabled={!answers.urgencia} size="lg">
           Continuar
         </Button>
       </div>

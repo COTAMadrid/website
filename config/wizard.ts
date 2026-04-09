@@ -4,7 +4,9 @@ import type {
   Calidad,
   EstadoActual,
   Plazo,
+  PresupuestoRango,
   ReformType,
+  Urgencia,
 } from '@/lib/pricing/types';
 
 export interface WizardOption<T> {
@@ -90,8 +92,60 @@ export const PLAZO_OPTIONS: WizardOption<Plazo>[] = [
   { value: 'urgente', label: 'Urgente (menos de 3 meses)' },
 ];
 
+export const PRESUPUESTO_OPTIONS: WizardOption<PresupuestoRango>[] = [
+  {
+    value: 'menos-40',
+    label: 'Menos de 40.000 €',
+    description: 'Reformas puntuales o muy básicas',
+  },
+  {
+    value: '40-80',
+    label: 'Entre 40.000 € y 80.000 €',
+    description: 'Reformas parciales o pisos pequeños',
+  },
+  {
+    value: '80-150',
+    label: 'Entre 80.000 € y 150.000 €',
+    description: 'Reformas integrales con buenos acabados',
+  },
+  {
+    value: '150-mas',
+    label: 'Más de 150.000 €',
+    description: 'Reformas premium o pisos grandes',
+  },
+  {
+    value: 'no-se',
+    label: 'Aún no lo sé',
+    description: 'Quiero saber el rango realista primero',
+  },
+];
+
+export const URGENCIA_OPTIONS: WizardOption<Urgencia>[] = [
+  {
+    value: 'este-mes',
+    label: 'Este mes',
+    description: 'Tengo prisa, quiero empezar ya',
+  },
+  {
+    value: '1-3-meses',
+    label: 'En 1 – 3 meses',
+    description: 'Estoy organizando para empezar pronto',
+  },
+  {
+    value: '3-6-meses',
+    label: 'En 3 – 6 meses',
+    description: 'Hay margen para planificar bien',
+  },
+  {
+    value: 'sin-fecha',
+    label: 'Sin fecha cerrada',
+    description: 'Estoy explorando opciones',
+  },
+];
+
 /**
  * Total wizard step count, used for the progress bar.
- * tipo, metros, barrio, antiguedad, calidad, estado, plazo, extras, presupuesto, contacto = 10
+ * Order: tipo · presupuesto · urgencia · metros · barrio · antiguedad · calidad
+ *      · estado · plazo · extras · contacto = 11
  */
-export const WIZARD_STEP_COUNT = 10;
+export const WIZARD_STEP_COUNT = 11;

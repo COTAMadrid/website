@@ -3,6 +3,7 @@ import { z } from 'zod';
 import { diagnose } from '@/lib/pricing/diagnose';
 import { processLead } from '@/lib/leads/repository';
 import type { Lead } from '@/lib/leads/types';
+import { scoreLead } from '@/lib/pricing/viability-budget';
 
 export const runtime = 'nodejs';
 
@@ -28,6 +29,12 @@ const schema = z.object({
       zonaBajasEmisiones: z.boolean(),
     }),
     presupuestoCliente: z.number().optional(),
+    presupuestoRango: z
+      .enum(['menos-40', '40-80', '80-150', '150-mas', 'no-se'])
+      .optional(),
+    urgencia: z
+      .enum(['este-mes', '1-3-meses', '3-6-meses', 'sin-fecha'])
+      .optional(),
   }),
   source: z
     .object({
@@ -60,6 +67,12 @@ export async function POST(req: Request) {
   // so we never trust the client's calculated numbers.
   const diagnosis = diagnose({ ...answers, contacto: contact } as never);
 
+  const score = scoreLead(
+    diagnosis.answers,
+    diagnosis.estimate.min,
+    diagnosis.estimate.max
+  );
+
   const lead: Lead = {
     id: crypto.randomUUID(),
     createdAt: new Date().toISOString(),
@@ -67,6 +80,7 @@ export async function POST(req: Request) {
     resumen,
     diagnosis,
     source,
+    score,
   };
 
   try {

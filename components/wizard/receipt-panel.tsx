@@ -22,6 +22,7 @@ import type { PartialAnswers } from '@/lib/wizard-state';
 import { isComplete } from '@/lib/wizard-state';
 import { evaluateViability } from '@/config/viability';
 import { calculate } from '@/lib/pricing/calculate';
+import { isBudgetUnrealistic } from '@/lib/pricing/viability-budget';
 
 export interface ReceiptLine {
   id: string;
@@ -303,6 +304,20 @@ export function ReceiptPanel({ answers, onComplete, generating }: ReceiptPanelPr
               Central: {fmtEur(total)}
             </div>
           </div>
+
+          {/* Soft budget viability warning (Option C — non-blocking) */}
+          {isBudgetUnrealistic(answers.presupuestoRango, rangeMin) && (
+            <div className="mt-4 rounded-md border border-amber-500/40 bg-amber-500/10 p-3 text-[11px] leading-relaxed text-amber-900 dark:text-amber-100">
+              <div className="font-semibold mb-1">Una nota honesta</div>
+              <div className="opacity-90">
+                Para esta obra, el rango realista empieza alrededor de{' '}
+                <span className="tabular-nums">{fmtEur(rangeMin)}</span>. Tu
+                presupuesto está por debajo, así que conviene reajustar el
+                alcance o las calidades. Sigue el diagnóstico — al final te
+                explicamos las opciones, sin compromiso.
+              </div>
+            </div>
+          )}
         </div>
       )}
 
